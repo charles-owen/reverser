@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<layouts>
+    <layout name="box-2-13"/>
+    <layout name="box-2-18"/>
+    <layout name="box-2-20"/>
+    <layout name="box-2-31"/>
+    <layout name="box-2-32"/>
+    <layout name="box-b-2-35"/>
+    <layout name="box-p-3"/>
+    <layout name="connector-9pin"/>
+    <layout name="diode-13"/>
+    <layout name="pad-4"/>
+    <layout name="pot"/>
+    <layout name="to-39"/>
+    <layout name="to-66"/>
+    <layout name="to-92"/>
+    <layout name="to-204"/>
+</layouts>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<layout name="box-2-20">
+    <desc>Simple 2-pin box component with 20mm spacing.</desc>
+    <pins pad="2.5">
+        <pin n="1" x="0" y="0"/>
+        <pin n="2" x="20" y="0"/>
+    </pins>
+    <draw>
+        <line x1="1.5" y2="0" x2="4" y1="0"/>
+        <line x1="16" y2="0" x2="18.5" y1="0"/>
+        <rect x="4" y="-1.7" width="12" height="3.4"/>
+    </draw>
+
+</layout>

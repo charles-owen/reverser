@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
+	<object class="wxPanel" name="PCBPanel">
+		<style>wxTAB_TRAVERSAL</style>
+		<size>812,666</size>
+		<object class="wxBoxSizer">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxEXPAND</flag>
+				<border>5</border>
+				<object class="wxToolBar" name="m_toolBar1">
+					<style>wxTB_HORIZONTAL</style>
+					<bitmapsize>24,24</bitmapsize>
+					<margins></margins>
+					<packing>1</packing>
+					<separation>5</separation>
+					<object class="wxToggleButton" name="pcb_bot_toggle">
+						<size>32,32</size>
+						<label></label>
+						<checked>0</checked>
+					</object>
+					<object class="wxSlider" name="pcb_opacity_slider">
+						<style>wxSL_HORIZONTAL</style>
+						<value>0</value>
+						<min>0</min>
+						<max>100</max>
+					</object>
+					<object class="wxToggleButton" name="pcb_top_toggle">
+						<size>32,32</size>
+						<label></label>
+						<checked>1</checked>
+					</object>
+					<object class="separator" />
+					<object class="wxBitmapButton" name="pcb_zoom_out">
+						<bitmap>icons/zoom-out.png</bitmap>
+						<default>0</default>
+					</object>
+					<object class="wxTextCtrl" name="pcb_zoom">
+						<size>40,-1</size>
+						<value></value>
+						<maxlength>4</maxlength>
+					</object>
+					<object class="wxBitmapButton" name="pcb_zoom_in">
+						<bitmap>icons/zoom-in.png</bitmap>
+						<default>0</default>
+					</object>
+					<object class="separator" />
+					<object class="wxToggleButton" name="pcb_comp_edit">
+						<size>32,32</size>
+						<label></label>
+						<checked>1</checked>
+					</object>
+					<object class="wxToggleButton" name="pcb_net_edit">
+						<size>32,32</size>
+						<label></label>
+						<checked>0</checked>
+					</object>
+					<object class="separator" />
+					<object class="wxBitmapButton" name="pcb_rot_ccw">
+						<bitmap>icons/rot_ccw.png</bitmap>
+						<default>0</default>
+					</object>
+					<object class="wxBitmapButton" name="pcb_rot_cw">
+						<bitmap>icons/rot_cw.png</bitmap>
+						<default>0</default>
+					</object>
+					<object class="separator" />
+					<object class="wxBitmapButton" name="pcb_add_part">
+						<bitmap>icons/part.png</bitmap>
+						<default>0</default>
+					</object>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>1</option>
+				<flag>wxEXPAND</flag>
+				<border>5</border>
+				<object class="wxBoxSizer">
+					<orient>wxHORIZONTAL</orient>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+						<object class="wxBoxSizer">
+							<minsize>150,-1</minsize>
+							<orient>wxVERTICAL</orient>
+							<object class="sizeritem">
+								<option>1</option>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+								<object class="wxListBox" name="pcb_network_list">
+									<style>wxLB_EXTENDED|wxLB_SORT</style>
+									<content />
+								</object>
+							</object>
+							<object class="sizeritem">
+								<option>1</option>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+								<object class="wxListBox" name="pcb_components_list">
+									<content />
+								</object>
+							</object>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxEXPAND | wxALL</flag>
+						<border>5</border>
+						<object class="wxPanel" name="pcb_view">
+							<style>wxTAB_TRAVERSAL</style>
+						</object>
+					</object>
+				</object>
+			</object>
+		</object>
+	</object>
+</resource>

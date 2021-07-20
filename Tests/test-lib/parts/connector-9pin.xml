@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<part name="connector-9pin" prefix="J">
+    <comment>3x3 pin connector</comment>
+    <layout name="connector-9pin"/>
+</part>

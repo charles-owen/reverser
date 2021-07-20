@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
+	<object class="wxFrame" name="MainFrame">
+		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
+		<size>807,598</size>
+		<title>Reverser</title>
+		<centered>1</centered>
+		<aui_managed>0</aui_managed>
+		<object class="wxStatusBar" name="statusbar">
+			<style>wxSTB_SIZEGRIP</style>
+			<fields>1</fields>
+		</object>
+		<object class="wxMenuBar" name="menubar">
+			<label>MyMenuBar</label>
+			<object class="wxMenu" name="menu_file">
+				<label>_File</label>
+				<object class="wxMenuItem" name="file_open">
+					<label>_Open...</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="file_save">
+					<label>_Save...</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="file_save_as">
+					<label>S_ave As...</label>
+					<help></help>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="file_exit">
+					<label>E_xit</label>
+					<help></help>
+				</object>
+			</object>
+			<object class="wxMenu" name="menu_edit">
+				<label>_Edit</label>
+			</object>
+			<object class="wxMenu" name="menu_pcb">
+				<label>_PCB</label>
+				<object class="wxMenuItem" name="pcb_top">
+					<label>_Top...</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="pcb_bottom">
+					<label>_Bottom...</label>
+					<help></help>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="pcb_properties">
+					<label>_Properties</label>
+					<help></help>
+				</object>
+			</object>
+			<object class="wxMenu" name="menu_schematic">
+				<label>_Schematic</label>
+				<object class="wxMenuItem" name="schematic_properties">
+					<label>_Properties</label>
+					<help></help>
+				</object>
+			</object>
+			<object class="wxMenu" name="menu_components">
+				<label>Components</label>
+				<object class="wxMenuItem" name="components_delete">
+					<label>_Delete</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="components_edit">
+					<label>Edit...</label>
+					<help></help>
+				</object>
+			</object>
+			<object class="wxMenu" name="menu_networks">
+				<label>Networks</label>
+				<object class="wxMenuItem" name="networks_new">
+					<label>New Network...</label>
+					<help></help>
+				</object>
+			</object>
+		</object>
+		<object class="wxNotebook" name="notebook">
+			<style>wxNB_TOP</style>
+		</object>
+	</object>
+</resource>

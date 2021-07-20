@@ -1,0 +1,9 @@
+
+#ifndef REVERSER_REVERSERCONFIG_H_IN
+#define REVERSER_REVERSERCONFIG_H_IN
+
+// the configured options and settings for Reverser
+#define REVERSER_VERSION_MAJOR @ReverserLib_VERSION_MAJOR@
+#define REVERSER_VERSION_MINOR @ReverserLib_VERSION_MINOR@
+
+#endif //REVERSER_REVERSERCONFIG_H_IN

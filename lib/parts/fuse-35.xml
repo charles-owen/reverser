@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<part name="fuse-35" prefix="F">
+    <desc>Fuse with 35mm pin spacing</desc>
+    <layout name="box-b-2-35"/>
+</part>

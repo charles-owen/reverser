@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<part name="resistor-32" prefix="R">
+    <desc>Resistor with 32mm pin spacing</desc>
+    <layout name="box-2-32"/>
+</part>

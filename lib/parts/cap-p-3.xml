@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<part name="cap-p-3" prefix="C">
+    <desc>Capacitor polarized with 3mm pin spacing</desc>
+    <layout name="box-p-3"/>
+</part>

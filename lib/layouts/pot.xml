@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<layout name="pot">
+    <desc>Potentiometer</desc>
+    <pins pad="2.5">
+        <pin n="1" x="0" y="0"/>
+        <pin n="2" x="5" y="-2.5"/>
+        <pin n="3" x="12.5" y="0"/>
+    </pins>
+    <draw>
+        <rect x="-3.5" y="-3.5" width="19" height="5"/>
+    </draw>
+</layout>

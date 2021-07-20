@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<part name="cap-20" prefix="C">
+    <desc>Capacitor with 20mm pin spacing</desc>
+    <layout name="box-2-20"/>
+</part>

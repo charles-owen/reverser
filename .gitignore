@@ -1,6 +1,10 @@
 # Prerequisites
 *.d
 
+.idea
+cmake-build-*
+*.bak_*
+
 # Compiled Object files
 *.slo
 *.lo

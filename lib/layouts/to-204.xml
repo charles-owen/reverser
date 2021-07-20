@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<layout name="to-204">
+    <desc>TO-204 package</desc>
+    <pins pad="4.0">
+        <pin n="1" x="0" y="0"/>
+        <pin n="2" x="0" y="-11"/>
+        <pin n="3" x="13" y="-5.5"/>
+        <pin n="4" x="-17" y="-5.5"/>
+    </pins>
+</layout>

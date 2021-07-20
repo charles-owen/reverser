@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<layout name="box-2-13">
+    <desc>Simple 2-pin box component with 13mm spacing.</desc>
+    <pins pad="2.5">
+        <pin n="1" x="0" y="0"/>
+        <pin n="2" x="13" y="0"/>
+    </pins>
+    <draw x="1" y="-1.7">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 34">
+            <path d="M90,1V33H21V1H90m1-1H20V34H91V0Z"/>
+            <line x1="110" y1="17" x2="90" y2="17" fill="none" stroke="#000" stroke-miterlimit="10"/>
+            <line x1="20" y1="17" y2="17" fill="none" stroke="#000" stroke-miterlimit="10"/>
+        </svg>
+    </draw>
+
+</layout>

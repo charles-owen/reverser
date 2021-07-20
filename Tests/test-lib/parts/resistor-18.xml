@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<part name="resistor-18" prefix="R">
+    <comment>Resistor with 18mm pin spacing</comment>
+    <layout name="box-2-18"/>
+</part>
