@@ -1,6 +1,6 @@
 # Declare the minimum required CMake version
 cmake_minimum_required(VERSION 3.19)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 if(APPLE AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
     # If no deployment target has been set default to the minimum supported
@@ -30,8 +30,6 @@ include_directories(${APPLICATION_LIBRARY})
 
 # Define a variable containing a list of source files for the project
 set(SRC_FILES main.cpp pch.h)
-
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Define the build target for the executable
 add_executable(${PROJECT_NAME} WIN32 MACOSX_BUNDLE ${SRC_FILES})
