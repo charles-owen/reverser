@@ -22,7 +22,7 @@ bool ReverserApp::OnInit()
         return false;
     }
 
-    MainFrame* frame = new MainFrame();
+    auto frame = new MainFrame();
     frame->Show(true);
 
     return true;

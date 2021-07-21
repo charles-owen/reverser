@@ -45,8 +45,8 @@ private:
     MainFrame* mMainFrame;
     PCBView* mPCBView;
 
-    wxToggleButton *mCompEditSelect;
-    wxToggleButton *mNetEditSelect;
+    wxBitmapButton *mCompEditSelect;
+    wxBitmapButton *mNetEditSelect;
 
     void OnPCBProperties(wxCommandEvent &event);
     void OnPCBTop(wxCommandEvent& event);
@@ -56,12 +56,15 @@ private:
     void OnPCBAddPart(wxCommandEvent& event);
     void OnCompEditToggle(wxCommandEvent& event);
     void OnNetEditToggle(wxCommandEvent& event);
+    void UpdateUI();
 
     /// Editing context for the PCB
     PCBContext mContext;
 
     /// The networks list box
     NetworkListBox mNetworkListBox;
+
+
 };
 
 #endif //REVERSER_PCBPANEL_H

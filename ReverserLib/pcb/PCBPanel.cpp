@@ -43,11 +43,9 @@ PCBPanel::PCBPanel(MainFrame* mainFrame, Reverser* reverser, wxWindow* parent) :
     mPCBView= new PCBView(this, reverser, viewParent);
     viewSizer->Add(mPCBView, 1, wxEXPAND | wxALL, 0);
 
-    mCompEditSelect = XRCCTRL(*this, "pcb_comp_edit", wxToggleButton);
-    mCompEditSelect->SetBitmap(wxBitmap("rc/icons/move.png", wxBITMAP_TYPE_ANY));
-    mNetEditSelect = XRCCTRL(*this, "pcb_net_edit", wxToggleButton);
-    mNetEditSelect->SetBitmap(wxBitmap("rc/icons/net.png", wxBITMAP_TYPE_ANY));
-
+    mCompEditSelect = XRCCTRL(*this, "pcb_comp_edit", wxBitmapButton);
+    mCompEditSelect->SetBackgroundColour(*wxRED);
+    mNetEditSelect = XRCCTRL(*this, "pcb_net_edit", wxBitmapButton);
 
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &PCBPanel::OnPCBProperties, this, XRCID("pcb_properties"));
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &PCBPanel::OnPCBTop, this, XRCID("pcb_top"));
@@ -61,6 +59,8 @@ PCBPanel::PCBPanel(MainFrame* mainFrame, Reverser* reverser, wxWindow* parent) :
     Bind(wxEVT_TOGGLEBUTTON, &PCBPanel::OnNetEditToggle, this, XRCID("pcb_net_edit"));
 
     mNetworkListBox.Attach(this, L"pcb_network_list");
+
+    UpdateUI();
 }
 
 PCBPanel::~PCBPanel()
@@ -71,24 +71,33 @@ PCBPanel::~PCBPanel()
 
 void PCBPanel::OnCompEditToggle(wxCommandEvent& event)
 {
-    if(mCompEditSelect->GetValue())
-    {
-        mNetEditSelect->SetValue(false);
-        mContext.SetMode(PCBContext::EditMode::Components);
-    }
-
+    mContext.SetMode(PCBContext::EditMode::Components);
+    UpdateUI();
     Refresh();
 }
 
 void PCBPanel::OnNetEditToggle(wxCommandEvent& event)
 {
-    if(mNetEditSelect->GetValue())
-    {
-        mCompEditSelect->SetValue(false);
-        mContext.SetMode(PCBContext::EditMode::Networks);
-    }
-
+    mContext.SetMode(PCBContext::EditMode::Networks);
+    UpdateUI();
     Refresh();
+}
+
+
+void PCBPanel::UpdateUI()
+{
+    switch(mContext.GetMode())
+    {
+        case PCBContext::EditMode::Components:
+            mCompEditSelect->SetBackgroundColour(*wxRED);
+            mNetEditSelect->SetBackgroundColour(wxNullColour);
+            break;
+
+        case PCBContext::EditMode::Networks:
+            mCompEditSelect->SetBackgroundColour(wxNullColour);
+            mNetEditSelect->SetBackgroundColour(*wxRED);
+            break;
+    }
 }
 
 void PCBPanel::OnPCBTop(wxCommandEvent &event)
