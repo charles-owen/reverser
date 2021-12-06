@@ -45,8 +45,8 @@ private:
     MainFrame* mMainFrame;
     PCBView* mPCBView;
 
-    wxBitmapButton *mCompEditSelect;
-    wxBitmapButton *mNetEditSelect;
+    wxButton *mCompEditSelect;
+    wxButton *mNetEditSelect;
 
     void OnPCBProperties(wxCommandEvent &event);
     void OnPCBTop(wxCommandEvent& event);

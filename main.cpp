@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "ReverserApp.h"
+#include <ReverserApp.h>
 
 wxIMPLEMENT_APP(ReverserApp);
 

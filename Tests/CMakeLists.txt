@@ -5,15 +5,16 @@ set(TEST_FILES
     EmptyTest.cpp
     ReverserTest.cpp
     LayoutsTest.cpp
-        LayoutTest.cpp PartTest.cpp PartsTest.cpp ComponentsTest.cpp ComponentTest.cpp
-        NetworkTest.cpp
-        NetworksTest.cpp gtest_main.cpp)
+    LayoutTest.cpp PartTest.cpp PartsTest.cpp ComponentsTest.cpp ComponentTest.cpp
+    NetworkTest.cpp
+    NetworksTest.cpp gtest_main.cpp)
 
 # Get Google Tests
 include(FetchContent)
 FetchContent_Declare(
         googletest
         GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG release-1.11.0
 )
 
 # For Windows: Prevent overriding the parent project's compiler/linker settings
@@ -32,3 +33,4 @@ target_link_libraries(Tests_run ${APPLICATION_LIBRARY} ${wxWidgets_LIBRARIES} )
 # linking Tests_run with the Google Test libraries
 target_link_libraries(Tests_run gtest)
 
+target_precompile_headers(Tests_run PRIVATE ../${APPLICATION_LIBRARY}/pch.h)

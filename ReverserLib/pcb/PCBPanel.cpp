@@ -43,9 +43,8 @@ PCBPanel::PCBPanel(MainFrame* mainFrame, Reverser* reverser, wxWindow* parent) :
     mPCBView= new PCBView(this, reverser, viewParent);
     viewSizer->Add(mPCBView, 1, wxEXPAND | wxALL, 0);
 
-    mCompEditSelect = XRCCTRL(*this, "pcb_comp_edit", wxBitmapButton);
-    mCompEditSelect->SetBackgroundColour(*wxRED);
-    mNetEditSelect = XRCCTRL(*this, "pcb_net_edit", wxBitmapButton);
+    mCompEditSelect = XRCCTRL(*this, "pcb_comp_edit", wxButton);
+    mNetEditSelect = XRCCTRL(*this, "pcb_net_edit", wxButton);
 
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &PCBPanel::OnPCBProperties, this, XRCID("pcb_properties"));
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &PCBPanel::OnPCBTop, this, XRCID("pcb_top"));
@@ -55,8 +54,8 @@ PCBPanel::PCBPanel(MainFrame* mainFrame, Reverser* reverser, wxWindow* parent) :
 
     Bind(wxEVT_BUTTON, &PCBPanel::OnPCBAddPart, this, XRCID("pcb_add_part"));
 
-    Bind(wxEVT_TOGGLEBUTTON, &PCBPanel::OnCompEditToggle, this, XRCID("pcb_comp_edit"));
-    Bind(wxEVT_TOGGLEBUTTON, &PCBPanel::OnNetEditToggle, this, XRCID("pcb_net_edit"));
+    Bind(wxEVT_BUTTON, &PCBPanel::OnCompEditToggle, this, XRCID("pcb_comp_edit"));
+    Bind(wxEVT_BUTTON, &PCBPanel::OnNetEditToggle, this, XRCID("pcb_net_edit"));
 
     mNetworkListBox.Attach(this, L"pcb_network_list");
 
@@ -89,13 +88,13 @@ void PCBPanel::UpdateUI()
     switch(mContext.GetMode())
     {
         case PCBContext::EditMode::Components:
-            mCompEditSelect->SetBackgroundColour(*wxRED);
+            mCompEditSelect->SetBackgroundColour(*wxBLUE);
             mNetEditSelect->SetBackgroundColour(wxNullColour);
             break;
 
         case PCBContext::EditMode::Networks:
             mCompEditSelect->SetBackgroundColour(wxNullColour);
-            mNetEditSelect->SetBackgroundColour(*wxRED);
+            mNetEditSelect->SetBackgroundColour(*wxBLUE);
             break;
     }
 }

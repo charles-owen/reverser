@@ -4,6 +4,7 @@
 #include "MainFrame.h"
 
 #include "wx/xrc/xmlres.h"          // XRC XML resources
+#include <wx/stdpaths.h>
 
 bool ReverserApp::OnInit()
 {
@@ -16,8 +17,9 @@ bool ReverserApp::OnInit()
     // Initialize XRC handlers
     wxXmlResource::Get()->InitAllHandlers();
 
-    // Load all XRC resources
-    if (!wxXmlResource::Get()->LoadAllFiles("rc"))
+    // Load all XRC resources from the program resources
+    auto standardPaths = wxStandardPaths::Get();
+    if (!wxXmlResource::Get()->LoadAllFiles(standardPaths.GetResourcesDir() + "/xrc"))
     {
         return false;
     }

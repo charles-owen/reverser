@@ -1,4 +1,4 @@
-project(ReverserLib VERSION 0.01)
+project(ReverserLib VERSION 2.01)
 
 configure_file(ReverserConfig.h.in ReverserConfig.h)
 
