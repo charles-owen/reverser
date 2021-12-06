@@ -12,7 +12,7 @@
 class wxXmlNode;
 
 class Reverser;
-class Model;
+class Design;
 class PCB;
 class Components;
 class Component;
@@ -25,7 +25,7 @@ class Networks;
 class ModelInstance
 {
 public:
-    ModelInstance(Reverser *reverser, Model *model);
+    ModelInstance(Reverser *reverser, Design *model);
 
     std::shared_ptr<PCB> GetPCB() { return mPCB; }
     void XmlSave(wxXmlNode *node);
@@ -38,7 +38,7 @@ public:
 
 private:
     Reverser *mReverser;
-    Model *mModel;
+    Design *mModel;
 
     /// The printed circuit board
     std::shared_ptr<PCB> mPCB;

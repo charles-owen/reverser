@@ -2,37 +2,37 @@
 <resource xmlns="http://www.wxwidgets.org/wxxrc" version="2.5.3.0">
 	<object class="wxFrame" name="MainFrame">
 		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
-		<size>807,598</size>
+		<pos>100,100</pos>
+		<size>1200,1000</size>
 		<title>Reverser</title>
-		<centered>1</centered>
 		<aui_managed>0</aui_managed>
-		<object class="wxStatusBar" name="statusbar">
-			<style>wxSTB_SIZEGRIP</style>
-			<fields>1</fields>
-		</object>
 		<object class="wxMenuBar" name="menubar">
 			<object class="wxMenu" name="menu_file">
 				<label>_File</label>
-				<object class="wxMenuItem" name="file_open">
+				<object class="wxMenuItem" name="wxID_OPEN">
 					<label>_Open...</label>
 					<help></help>
 				</object>
-				<object class="wxMenuItem" name="file_save">
+				<object class="wxMenuItem" name="wxID_SAVE">
 					<label>_Save...</label>
 					<help></help>
 				</object>
-				<object class="wxMenuItem" name="file_save_as">
+				<object class="wxMenuItem" name="wxID_SAVEAS">
 					<label>S_ave As...</label>
 					<help></help>
 				</object>
 				<object class="separator" />
-				<object class="wxMenuItem" name="file_exit">
+				<object class="wxMenuItem" name="wxID_EXIT">
 					<label>E_xit</label>
 					<help></help>
 				</object>
 			</object>
-			<object class="wxMenu" name="menu_edit">
-				<label>_Edit</label>
+			<object class="wxMenu" name="menu_design">
+				<label>_Design</label>
+				<object class="wxMenuItem" name="design_properties">
+					<label>_Properties</label>
+					<help></help>
+				</object>
 			</object>
 			<object class="wxMenu" name="menu_pcb">
 				<label>_PCB</label>
@@ -75,9 +75,6 @@
 					<help></help>
 				</object>
 			</object>
-		</object>
-		<object class="wxNotebook" name="notebook">
-			<style>wxNB_TOP</style>
 		</object>
 		<object class="wxToolBar" name="m_toolBar1">
 			<style>wxTB_HORIZONTAL</style>
@@ -156,6 +153,10 @@
 				<default>0</default>
 				<auth_needed>0</auth_needed>
 			</object>
+		</object>
+		<object class="wxStatusBar" name="statusbar">
+			<style>wxSTB_SIZEGRIP</style>
+			<fields>1</fields>
 		</object>
 	</object>
 	<object class="wxPanel" name="PCBPanel">
@@ -562,6 +563,110 @@
 			<object class="sizeritem">
 				<option>0</option>
 				<flag>wxALL|wxEXPAND</flag>
+				<border>5</border>
+				<object class="wxStdDialogButtonSizer">
+					<object class="button">
+						<flag>wxALIGN_CENTER_HORIZONTAL|wxALL</flag>
+						<border>5</border>
+						<object class="wxButton" name="wxID_OK">
+							<label>&amp;OK</label>
+						</object>
+					</object>
+					<object class="button">
+						<flag>wxALIGN_CENTER_HORIZONTAL|wxALL</flag>
+						<border>5</border>
+						<object class="wxButton" name="wxID_CANCEL">
+							<label>&amp;Cancel</label>
+						</object>
+					</object>
+				</object>
+			</object>
+		</object>
+	</object>
+	<object class="wxDialog" name="DesignPropertiesDlg">
+		<style>wxDEFAULT_DIALOG_STYLE</style>
+		<size>500,-1</size>
+		<title>Design Properties</title>
+		<centered>1</centered>
+		<object class="wxBoxSizer">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<option>1</option>
+				<flag>wxALL|wxEXPAND</flag>
+				<border>10</border>
+				<object class="wxFlexGridSizer">
+					<rows>2</rows>
+					<cols>3</cols>
+					<vgap>0</vgap>
+					<hgap>0</hgap>
+					<growablecols>1</growablecols>
+					<growablerows></growablerows>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxStaticText" name="m_staticText15">
+							<label>Schematic File:</label>
+							<wrap>-1</wrap>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxStaticText" name="schematic_file_name">
+							<label>&lt;none&gt;</label>
+							<wrap>-1</wrap>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxButton" name="schematic_file_select">
+							<label>File...</label>
+							<default>0</default>
+							<auth_needed>0</auth_needed>
+							<markup>0</markup>
+							<bitmap />
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxStaticText" name="m_staticText17">
+							<label>Board File:</label>
+							<wrap>-1</wrap>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxStaticText" name="pcb_file_name">
+							<size>250,-1</size>
+							<label>&lt;none&gt;</label>
+							<wrap>-1</wrap>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxButton" name="pcb_file_select">
+							<label>File...</label>
+							<default>0</default>
+							<auth_needed>0</auth_needed>
+							<markup>0</markup>
+							<bitmap />
+						</object>
+					</object>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxEXPAND</flag>
 				<border>5</border>
 				<object class="wxStdDialogButtonSizer">
 					<object class="button">

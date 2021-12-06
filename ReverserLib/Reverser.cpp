@@ -5,7 +5,7 @@
 #include "pch.h"
 
 #include "Reverser.h"
-#include "Model.h"
+#include "Design.h"
 #include "ReverserConfig.h"
 
 
@@ -15,7 +15,7 @@
 Reverser::Reverser(MainFrame *mainFrame) :
     mMainFrame(mainFrame)
 {
-    mModel = std::make_shared<Model>(this);
+    mDesign = std::make_shared<Design>(this);
 }
 
 /**
@@ -27,10 +27,3 @@ wxString Reverser::Version()
    return wxString::Format(L"%d.%02d", REVERSER_VERSION_MAJOR, REVERSER_VERSION_MINOR);
 }
 
-
-bool Reverser::Load(wxString path)
-{
-    mLayouts.Load(path);
-    mParts.Load(path, &mLayouts, &mSymbols);
-    return true;
-}

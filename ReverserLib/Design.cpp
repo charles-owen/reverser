@@ -8,20 +8,22 @@
 
 #include <wx/xml/xml.h>
 
-#include "Model.h"
-#include "ModelInstance.h"
+#include "Design.h"
+#include "schematic/Schematic.h"
 
-Model::Model(Reverser *reverser) : mReverser(reverser)
+
+Design::Design(Reverser *reverser) : mReverser(reverser)
 {
-    mInstance = std::make_shared<ModelInstance>(reverser, this);
+    // Create an empty schematic object
+    mSchematic = std::make_shared<Schematic>();
 }
 
-void Model::AddObserver(IModelObserver *observer)
+void Design::AddObserver(IModelObserver *observer)
 {
     mObservers.push_back(observer);
 }
 
-void Model::UpdateObservers()
+void Design::UpdateObservers()
 {
     for(auto observer : mObservers)
     {
@@ -30,14 +32,14 @@ void Model::UpdateObservers()
 }
 
 
-void Model::Save(wxString path)
+void Design::Save(wxString path)
 {
     wxXmlDocument xmlDoc;
 
     auto root = new wxXmlNode(wxXML_ELEMENT_NODE, L"reverser-model");
     xmlDoc.SetRoot(root);
 
-    mInstance->XmlSave(root);
+ //   mInstance->XmlSave(root);
 
     if(!xmlDoc.Save(path, wxXML_NO_INDENTATION))
     {
@@ -49,7 +51,7 @@ void Model::Save(wxString path)
 }
 
 
-bool Model::Load(wxString path)
+bool Design::Load(wxString path)
 {
     wxXmlDocument xmlDoc;
     if(!xmlDoc.Load(path))
@@ -59,10 +61,10 @@ bool Model::Load(wxString path)
     }
 
     // Clear the instance
-    mInstance = std::make_shared<ModelInstance>(mReverser, this);
+//    mInstance = std::make_shared<ModelInstance>(mReverser, this);
     SetFilename(path);
 
-    mInstance->XmlLoad(xmlDoc.GetRoot());
+//    mInstance->XmlLoad(xmlDoc.GetRoot());
     UpdateObservers();
     return true;
 }
@@ -72,7 +74,7 @@ bool Model::Load(wxString path)
  * @param filename Filename (just the filename)
  * @param path Full file path
  */
-void Model::SetFilename(wxString path)
+void Design::SetFilename(wxString path)
 {
     mFilename = path;
 }
@@ -84,7 +86,7 @@ void Model::SetFilename(wxString path)
  * @param filePath Full file path to extra from
  * @return Relative part of path or empty string if none.
  */
-wxString Model::RelativeFilename(wxString filePath)
+wxString Design::RelativeFilename(wxString filePath)
 {
     auto modelPath = mFilename.GetPath();
 
@@ -97,7 +99,7 @@ wxString Model::RelativeFilename(wxString filePath)
     return rest.Mid(1);
 }
 
-void Model::Delete(std::shared_ptr<Component> component)
+void Design::Delete(std::shared_ptr<Component> component)
 {
-    mInstance->Delete(component);
+ //   mInstance->Delete(component);
 }

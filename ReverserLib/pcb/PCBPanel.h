@@ -15,7 +15,7 @@
 class wxToggleButton;
 
 class MainFrame;
-class Model;
+class Design;
 class Reverser;
 class PCBView;
 

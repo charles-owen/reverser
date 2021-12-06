@@ -17,7 +17,7 @@
  * Constructor
  * @param reverser The Reverser system class
  */
-ModelInstance::ModelInstance(Reverser* reverser, Model *model) : mReverser(reverser)
+ModelInstance::ModelInstance(Reverser* reverser, Design *model) : mReverser(reverser)
 {
     mPCB = std::make_shared<PCB>(reverser, model);
     mComponents = std::make_shared<Components>();

@@ -4,7 +4,7 @@
 
 #include "PCBView.h"
 #include "../Reverser.h"
-#include "../Model.h"
+#include "../Design.h"
 #include "PCB.h"
 
 #include "../MainFrame.h"
@@ -37,7 +37,7 @@ PCBView::PCBView(PCBPanel *pcbPanel, Reverser* reverser, wxWindow* parent) :
 
     SetBackgroundStyle(wxBG_STYLE_PAINT);
 
-    reverser->GetModel()->AddObserver(this);
+    reverser->GetDesign()->AddObserver(this);
 
     auto topToggle = XRCCTRL(*mPCBPanel, "pcb_top_toggle", wxToggleButton);
     topToggle->SetBitmap(wxBitmap("rc/icons/pcb-top.png", wxBITMAP_TYPE_ANY));
@@ -71,81 +71,81 @@ PCBView::~PCBView()
 
 void PCBView::PaintEvent(wxPaintEvent& evt)
 {
-    auto model = mReverser->GetModel();
-    auto pcb = model->GetPCB();
-    auto pcbSize = pcb->GetSize();
-
-    wxBufferedPaintDC dc(this);
-
-    // Clear background to black
-    auto clientSize = GetClientSize();
-
-    dc.SetBrush(*wxBLACK_BRUSH);
-    dc.SetPen(wxNullPen);
-    dc.DrawRectangle(0, 0, clientSize.GetWidth(), clientSize.GetHeight());
-
-    DoPrepareDC(dc);
-
-    // Set to 1/10 of millimeter units
-    dc.SetMapMode(wxMM_METRIC);
-
-    dc.GetLogicalScale(&mScaleX, &mScaleY);
-    mScaleX *= mZoom;
-    mScaleY *= mZoom;
-
-    SetVirtualSize(wxSize(
-            (int)(pcbSize.GetX() * mScaleX),
-            (int)(pcbSize.GetY() * mScaleY)
-            ));
-
-    wxGraphicsContext *graphics = wxGraphicsContext::Create(dc);
-    if(graphics)
-    {
-        graphics->Scale(mZoom, mZoom);
-
-        auto topToggle = XRCCTRL(*mPCBPanel, "pcb_top_toggle", wxToggleButton);
-        if(topToggle->GetValue())
-        {
-            pcb->GetTop()->Draw(graphics);
-        }
-
-        auto opacitySlider = XRCCTRL(*mPCBPanel, "pcb_opacity_slider", wxSlider);
-
-        pcb->GetBottom()->SetOpacity(opacitySlider->GetValue() * 0.01);
-        pcb->GetBottom()->Draw(graphics);
-
-
-        auto context = mPCBPanel->GetContext();
-        pcb->DrawComponents(context, graphics);
-
-        delete graphics;
-    }
-
-    // Reset mapping so double-buffering works correctly
-    dc.SetMapMode(wxMM_TEXT);
+//    auto model = mReverser->GetDesign();
+//    auto pcb = model->GetPCB();
+//    auto pcbSize = pcb->GetSize();
+//
+//    wxBufferedPaintDC dc(this);
+//
+//    // Clear background to black
+//    auto clientSize = GetClientSize();
+//
+//    dc.SetBrush(*wxBLACK_BRUSH);
+//    dc.SetPen(wxNullPen);
+//    dc.DrawRectangle(0, 0, clientSize.GetWidth(), clientSize.GetHeight());
+//
+//    DoPrepareDC(dc);
+//
+//    // Set to 1/10 of millimeter units
+//    dc.SetMapMode(wxMM_METRIC);
+//
+//    dc.GetLogicalScale(&mScaleX, &mScaleY);
+//    mScaleX *= mZoom;
+//    mScaleY *= mZoom;
+//
+//    SetVirtualSize(wxSize(
+//            (int)(pcbSize.GetX() * mScaleX),
+//            (int)(pcbSize.GetY() * mScaleY)
+//            ));
+//
+//    wxGraphicsContext *graphics = wxGraphicsContext::Create(dc);
+//    if(graphics)
+//    {
+//        graphics->Scale(mZoom, mZoom);
+//
+//        auto topToggle = XRCCTRL(*mPCBPanel, "pcb_top_toggle", wxToggleButton);
+//        if(topToggle->GetValue())
+//        {
+//            pcb->GetTop()->Draw(graphics);
+//        }
+//
+//        auto opacitySlider = XRCCTRL(*mPCBPanel, "pcb_opacity_slider", wxSlider);
+//
+//        pcb->GetBottom()->SetOpacity(opacitySlider->GetValue() * 0.01);
+//        pcb->GetBottom()->Draw(graphics);
+//
+//
+//        auto context = mPCBPanel->GetContext();
+//        pcb->DrawComponents(context, graphics);
+//
+//        delete graphics;
+//    }
+//
+//    // Reset mapping so double-buffering works correctly
+//    dc.SetMapMode(wxMM_TEXT);
 }
 
 void PCBView::OnLeftDown(wxMouseEvent& event)
 {
-    auto focus = FindFocus();
-
-    auto pcb = mReverser->GetModel()->GetPCB();
-
-    auto position = ToVirtualPosition(event.GetX(), event.GetY());
-    mLastMouse = position;
-
-    auto context = mPCBPanel->GetContext();
-    if(!pcb->Click(context, position))
-    {
-        // If we did not click on anything clear the selection
-        context->ClearSelection();
-    }
-
-   // mCrosshair = ToVirtualPosition(event.GetX(), event.GetY());
-   // SetViewCenter(mCrosshair);
-
-  //  mCrosshair = GetViewCenter();
-    Refresh();
+//    auto focus = FindFocus();
+//
+//    auto pcb = mReverser->GetDesign()->GetPCB();
+//
+//    auto position = ToVirtualPosition(event.GetX(), event.GetY());
+//    mLastMouse = position;
+//
+//    auto context = mPCBPanel->GetContext();
+//    if(!pcb->Click(context, position))
+//    {
+//        // If we did not click on anything clear the selection
+//        context->ClearSelection();
+//    }
+//
+//   // mCrosshair = ToVirtualPosition(event.GetX(), event.GetY());
+//   // SetViewCenter(mCrosshair);
+//
+//  //  mCrosshair = GetViewCenter();
+//    Refresh();
 }
 
 
@@ -242,24 +242,24 @@ void PCBView::OnZoomIn(wxCommandEvent& event)
 
 void PCBView::SetZoom(double newZoom)
 {
-    auto middle = GetViewCenter();
-
-    auto factor = newZoom / mZoom;
-    mZoom = newZoom;
-
-    mScaleX *= factor;
-    mScaleY *= factor;
-
-    auto pcb = mReverser->GetModel()->GetPCB();
-    auto pcbSize = pcb->GetSize();
-    SetVirtualSize(wxSize(
-            (int)(pcbSize.GetX() * mScaleX),
-            (int)(pcbSize.GetY() * mScaleY)
-    ));
-
-    SetViewCenter(middle);
-    SetZoomValue();
-    Refresh();
+//    auto middle = GetViewCenter();
+//
+//    auto factor = newZoom / mZoom;
+//    mZoom = newZoom;
+//
+//    mScaleX *= factor;
+//    mScaleY *= factor;
+//
+//    auto pcb = mReverser->GetDesign()->GetPCB();
+//    auto pcbSize = pcb->GetSize();
+//    SetVirtualSize(wxSize(
+//            (int)(pcbSize.GetX() * mScaleX),
+//            (int)(pcbSize.GetY() * mScaleY)
+//    ));
+//
+//    SetViewCenter(middle);
+//    SetZoomValue();
+//    Refresh();
 }
 
 /**
@@ -280,51 +280,51 @@ wxPoint2DDouble PCBView::GetViewCenter()
  */
 void PCBView::SetViewCenter(wxPoint2DDouble center)
 {
-    int vx, vy;
-    GetViewStart(&vx, &vy);
-
-    // Target to logical coordinates
-    int tx = (int)(center.m_x * mScaleX);
-    int ty = (int)(center.m_y * mScaleY);
-
-    // Window size in logical coordinates
-    int cx, cy;
-    GetClientSize(&cx, &cy);
-
-    // Get the computed virtual size based on the current scale
-    auto pcb = mReverser->GetModel()->GetPCB();
-    auto pcbSize = pcb->GetSize();
-    int sx = (int)(pcbSize.x * mScaleX);
-    int sy = (int)(pcbSize.y * mScaleY);
-
-    // Get pixels per scroll unit
-    int ppuX, ppuY;
-    GetScrollPixelsPerUnit(&ppuX, &ppuY);
-
-    // Make target and widow size be scroll coordinates
-    tx /= ppuX;
-    ty /= ppuY;
-    cx /= ppuX;
-    cy /= ppuY;
-    sx /= ppuX;
-    sy /= ppuY;
-
-    // The scroll position
-    auto scrollX = tx - cx/2;
-    auto scrollY = ty - cy/2;
-    if(scrollX > (sx - cx))
-    {
-        scrollX = sx - cx;
-    }
-    if(scrollY > (sy - cy))
-    {
-        scrollY = sy - cy;
-    }
-    scrollX = max(scrollX, 0);
-    scrollY = max(scrollY, 0);
-
-    Scroll(scrollX, scrollY);
-    Refresh();
+//    int vx, vy;
+//    GetViewStart(&vx, &vy);
+//
+//    // Target to logical coordinates
+//    int tx = (int)(center.m_x * mScaleX);
+//    int ty = (int)(center.m_y * mScaleY);
+//
+//    // Window size in logical coordinates
+//    int cx, cy;
+//    GetClientSize(&cx, &cy);
+//
+//    // Get the computed virtual size based on the current scale
+//    auto pcb = mReverser->GetDesign()->GetPCB();
+//    auto pcbSize = pcb->GetSize();
+//    int sx = (int)(pcbSize.x * mScaleX);
+//    int sy = (int)(pcbSize.y * mScaleY);
+//
+//    // Get pixels per scroll unit
+//    int ppuX, ppuY;
+//    GetScrollPixelsPerUnit(&ppuX, &ppuY);
+//
+//    // Make target and widow size be scroll coordinates
+//    tx /= ppuX;
+//    ty /= ppuY;
+//    cx /= ppuX;
+//    cy /= ppuY;
+//    sx /= ppuX;
+//    sy /= ppuY;
+//
+//    // The scroll position
+//    auto scrollX = tx - cx/2;
+//    auto scrollY = ty - cy/2;
+//    if(scrollX > (sx - cx))
+//    {
+//        scrollX = sx - cx;
+//    }
+//    if(scrollY > (sy - cy))
+//    {
+//        scrollY = sy - cy;
+//    }
+//    scrollX = max(scrollX, 0);
+//    scrollY = max(scrollY, 0);
+//
+//    Scroll(scrollX, scrollY);
+//    Refresh();
 }
 
 /**

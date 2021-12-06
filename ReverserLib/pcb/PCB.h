@@ -14,7 +14,7 @@
 class wxXmlNode;
 
 class Reverser;
-class Model;
+class Design;
 class Layer;
 class LayoutComponent;
 class wxGraphicsContext;
@@ -27,7 +27,7 @@ class Component;
 class PCB
 {
 public:
-    PCB(Reverser *reverser, Model *model);
+    PCB(Reverser *reverser, Design *model);
 
     double GetWidth() const;
     void SetWidth(double mWidth);
@@ -35,7 +35,7 @@ public:
     void SetHeight(double mHeight);
     wxSize GetSize() {return wxSize(mWidth, mHeight); }
 
-    Model *GetModel() { return mModel; }
+    Design *GetModel() { return mModel; }
 
     void XmlSave(wxXmlNode *node);
     void XmlLoad(wxXmlNode* node);
@@ -65,7 +65,7 @@ private:
     std::shared_ptr<Layer> mBottom;
 
     Reverser *mReverser;
-    Model *mModel;
+    Design *mModel;
 
     /// The layout components
     std::vector<std::shared_ptr<LayoutComponent>> mComponents;

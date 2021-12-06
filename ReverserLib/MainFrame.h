@@ -11,39 +11,33 @@
 #include <wx/filehistory.h>
 #include <wx/config.h>
 
-class wxNotebook;
-class wxBookCtrlEvent;
-class PCBView;
-class PCBPanel;
-class SchematicPanel;
+//class wxNotebook;
+//class wxBookCtrlEvent;
+//class PCBView;
+//class PCBPanel;
+//class SchematicPanel;
 
 /**
  * The top-level (main) frame of the application
  */
-class MainFrame : public wxFrame
+class MainFrame final : public wxFrame
 {
-public:
-    MainFrame();
-    ~MainFrame();
-
-    Reverser *GetReverser() {return &mReverser; }
 
 private:
     void OnExit(wxCommandEvent& event);
-    void OnNotebookPageChanged(wxBookCtrlEvent &event);
 
     /// Reverser system class
     Reverser mReverser;
 
-    wxMenu *mPCBMenu = nullptr;
-    wxMenu *mSchematicMenu = nullptr;
-    wxNotebook *mNotebook;
+//    wxMenu *mPCBMenu = nullptr;
+//    wxMenu *mSchematicMenu = nullptr;
+//    wxNotebook *mNotebook;
 
     wxConfig mConfig;
     wxFileHistory mHistory;
 
-    PCBPanel *mPCBPanel;
-    SchematicPanel *mSchematicPanel;
+//    PCBPanel *mPCBPanel;
+//    SchematicPanel *mSchematicPanel;
 
     // Any class wishing to process wxWidgets events must use this macro
     void OnFileSave(wxCommandEvent& event);
@@ -59,6 +53,11 @@ private:
     void OnNetworksNewNetwork(wxCommandEvent& event);
 
     void UpdateTitle();
+
+public:
+    MainFrame();
+
+    Reverser *GetReverser() {return &mReverser; }
 };
 
 #endif //_MAINFRAME_H_

@@ -8,7 +8,7 @@
 #include "PCBPanel.h"
 
 #include "../Reverser.h"
-#include "../Model.h"
+#include "../Design.h"
 #include "PCB.h"
 #include "Layer.h"
 
@@ -101,32 +101,32 @@ void PCBPanel::UpdateUI()
 
 void PCBPanel::OnPCBTop(wxCommandEvent &event)
 {
-    auto pcb = mReverser->GetModel()->GetPCB();
+    auto pcb = mReverser->GetDesign()->GetPCB();
     pcb->GetTop()->Properties();
 }
 
 void PCBPanel::OnPCBTopUpdate(wxUpdateUIEvent& event)
 {
-    auto path = mReverser->GetModel()->GetFilePath();
+    auto path = mReverser->GetDesign()->GetFilePath();
     event.Enable(path != L"");
 }
 
 
 void PCBPanel::OnPCBBot(wxCommandEvent &event)
 {
-    auto pcb = mReverser->GetModel()->GetPCB();
+    auto pcb = mReverser->GetDesign()->GetPCB();
     pcb->GetBottom()->Properties();
 }
 
 void PCBPanel::OnPCBBotUpdate(wxUpdateUIEvent& event)
 {
-    auto path = mReverser->GetModel()->GetFilePath();
+    auto path = mReverser->GetDesign()->GetFilePath();
     event.Enable(path != L"");
 }
 
 void PCBPanel::OnPCBProperties(wxCommandEvent &event)
 {
-    auto pcb = mReverser->GetModel()->GetPCB();
+    auto pcb = mReverser->GetDesign()->GetPCB();
     PCBPropertiesDlg dlg(pcb);
     dlg.ShowModal();
 }
@@ -137,7 +137,7 @@ void PCBPanel::OnPCBProperties(wxCommandEvent &event)
  */
 void PCBPanel::OnPCBAddPart(wxCommandEvent& event)
 {
-    auto model = mReverser->GetModel();
+    auto model = mReverser->GetDesign();
     auto components = model->GetComponents();
     auto pcb = model->GetPCB();
 
@@ -192,7 +192,7 @@ void PCBPanel::OnComponentsDelete(wxCommandEvent& event)
 
         if(dlg.ShowModal() == wxID_OK)
         {
-            mReverser->GetModel()->Delete(selected->GetComponent());
+            mReverser->GetDesign()->Delete(selected->GetComponent());
             Refresh();
         }
     }
@@ -206,7 +206,7 @@ void PCBPanel::OnComponentsDeleteUpdate(wxUpdateUIEvent& event)
 
 void PCBPanel::OnComponentsEdit(wxCommandEvent& event)
 {
-    auto model = mReverser->GetModel();
+    auto model = mReverser->GetDesign();
     auto components = model->GetComponents();
     auto selected = mContext.GetSelectedComponent();
 
@@ -230,7 +230,7 @@ void PCBPanel::OnComponentsEditUpdate(wxUpdateUIEvent& event)
 
 void PCBPanel::OnNetworksNewNetwork(wxCommandEvent& event)
 {
-    auto model = mReverser->GetModel();
+    auto model = mReverser->GetDesign();
     auto networks = model->GetNetworks();
 
     // Create a network

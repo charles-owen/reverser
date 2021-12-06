@@ -13,39 +13,26 @@
 #include "components/Symbols.h"
 
 class MainFrame;
-class Model;
+class Design;
 
 /**
  * Main Reverser system class.
  */
-class Reverser
+class Reverser final
 {
 public:
     Reverser(MainFrame *mainFrame);
 
-    std::shared_ptr<Model> GetModel() { return mModel; }
+    std::shared_ptr<Design> GetDesign() { return mDesign; }
 
     wxString Version();
-
-    bool Load(wxString path);
-
-    Parts *GetParts() {return &mParts;}
 
 private:
     /// The main program frame
     MainFrame *mMainFrame;
 
-    /// The currently loaded model
-    std::shared_ptr<Model> mModel;
-
-    /// The collection of parts
-    Parts mParts;
-
-    /// The collection of PCB layouts
-    Layouts mLayouts;
-
-    /// The schematic symbols
-    Symbols mSymbols;
+    /// The currently loaded design
+    std::shared_ptr<Design> mDesign;
 };
 
 #endif //REVERSER_REVERSER_H

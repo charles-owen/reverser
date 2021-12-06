@@ -9,7 +9,7 @@
 #include <algorithm>
 
 #include "../Reverser.h"
-#include "../Model.h"
+#include "../Design.h"
 #include "../network/Networks.h"
 #include "../network/Network.h"
 
@@ -18,7 +18,7 @@
 NetworkListBox::NetworkListBox(Reverser *reverser, PCBContext* context) :
     mReverser(reverser), mContext(context)
 {
-    reverser->GetModel()->AddObserver(this);
+    reverser->GetDesign()->AddObserver(this);
 }
 
 void NetworkListBox::Attach(wxPanel *panel, wxString listBoxName)
@@ -35,7 +35,7 @@ void NetworkListBox::Attach(wxPanel *panel, wxString listBoxName)
 
 void NetworkListBox::UpdateObserver()
 {
-    auto model = mReverser->GetModel();
+    auto model = mReverser->GetDesign();
     auto networks = model->GetNetworks();
 
     auto listBoxItems = mListBox->GetStrings();

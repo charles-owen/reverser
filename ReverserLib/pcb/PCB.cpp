@@ -5,7 +5,7 @@
 
 #include "PCB.h"
 #include "Layer.h"
-#include "../Model.h"
+#include "../Design.h"
 #include "../components/Components.h"
 #include "../components/LayoutComponent.h"
 
@@ -14,7 +14,7 @@
  * @param reverser
  * @param model
  */
-PCB::PCB(Reverser* reverser, Model* model) : mReverser(reverser), mModel(model)
+PCB::PCB(Reverser* reverser, Design* model) : mReverser(reverser), mModel(model)
 {
     mTop = std::make_shared<Layer>(this);
     mBottom = std::make_shared<Layer>(this);
@@ -97,17 +97,17 @@ void PCB::XmlLoad(wxXmlNode* node)
 
 void PCB::XmlLoadComponent(wxXmlNode *node)
 {
-    auto number = node->GetAttribute(L"number");
-    auto component = mModel->GetComponents()->Get(number.ToStdWstring());
-
-    if(component != nullptr)
-    {
-        auto layoutComponent = std::make_shared<LayoutComponent>();
-        layoutComponent->SetComponent(component);
-        layoutComponent->XmlLoad(node);
-
-        mComponents.push_back(layoutComponent);
-    }
+//    auto number = node->GetAttribute(L"number");
+//    auto component = mModel->GetComponents()->Get(number.ToStdWstring());
+//
+//    if(component != nullptr)
+//    {
+//        auto layoutComponent = std::make_shared<LayoutComponent>();
+//        layoutComponent->SetComponent(component);
+//        layoutComponent->XmlLoad(node);
+//
+//        mComponents.push_back(layoutComponent);
+//    }
 }
 
 /**
