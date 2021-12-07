@@ -3,19 +3,29 @@
  * @author Charles B. Owen
  */
 
-#include "pch.h"
+#include "../pch.h"
 
 
 #include <wx/xml/xml.h>
 
 #include "Design.h"
-#include "schematic/Schematic.h"
+#include "../schematic/Schematic.h"
+#include "../board/Board.h"
+#include "DesignPropertiesDlg.h"
+
 
 
 Design::Design(Reverser *reverser) : mReverser(reverser)
 {
-    // Create an empty schematic object
+    // Create empty schematic and board objects
     mSchematic = std::make_shared<Schematic>();
+    mBoard = std::make_shared<Board>();
+}
+
+void Design::PropertiesDlg(wxWindow *parent)
+{
+    DesignPropertiesDlg dialog(parent, this);
+    dialog.ShowModal();
 }
 
 void Design::AddObserver(IModelObserver *observer)

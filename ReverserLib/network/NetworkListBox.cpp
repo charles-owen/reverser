@@ -9,7 +9,7 @@
 #include <algorithm>
 
 #include "../Reverser.h"
-#include "../Design.h"
+#include "design/Design.h"
 #include "../network/Networks.h"
 #include "../network/Network.h"
 

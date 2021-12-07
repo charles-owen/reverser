@@ -45,6 +45,8 @@ private:
     void OnFileOpen(wxCommandEvent& event);
     void OnMRUFile(wxCommandEvent& event);
 
+    void OnDesignProperties(wxCommandEvent& event);
+
     void OnComponentsDelete(wxCommandEvent& event);
     void OnComponentsDeleteUpdate(wxUpdateUIEvent& event);
     void OnComponentsEdit(wxCommandEvent& event);
@@ -58,6 +60,8 @@ public:
     MainFrame();
 
     Reverser *GetReverser() {return &mReverser; }
+
+
 };
 
 #endif //_MAINFRAME_H_

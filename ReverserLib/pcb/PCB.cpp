@@ -5,7 +5,7 @@
 
 #include "PCB.h"
 #include "Layer.h"
-#include "../Design.h"
+#include "design/Design.h"
 #include "../components/Components.h"
 #include "../components/LayoutComponent.h"
 

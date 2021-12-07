@@ -12,10 +12,11 @@
 #include <memory>
 #include <vector>
 
-#include "IModelObserver.h"
+#include "../IModelObserver.h"
 
 class Reverser;
 class Schematic;
+class Board;
 
 class Component;
 class Networks;
@@ -31,8 +32,11 @@ private:
     /// System class
     Reverser *mReverser;
 
-    /// The loaded schematic
+    /// The loaded schematic (.sch file)
     std::shared_ptr<Schematic> mSchematic;
+
+    /// The loaded board file (.brd file)
+    std::shared_ptr<Board> mBoard;
 
     /// The model observers
     std::vector<IModelObserver*> mObservers;
@@ -64,7 +68,23 @@ public:
 
     void Delete(std::shared_ptr<Component> component);
 
+    /**
+     * Get the schematic object
+     * @return Schematic object
+     */
+    auto GetSchematic() {return mSchematic;}
 
+    /**
+     * Set the schematic
+     * @param schematic Schematic object
+     */
+    void SetSchematic(std::shared_ptr<Schematic> schematic) {mSchematic = schematic;}
+
+    auto GetBoard() {return mBoard;}
+
+    void SetBoard(std::shared_ptr<Board> board) {mBoard = board;}
+
+    void PropertiesDlg(wxWindow* parent);
 };
 
 #endif //REVERSER_DESIGN_H

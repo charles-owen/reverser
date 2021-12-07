@@ -5,12 +5,11 @@
 #include <wx/stdpaths.h>
 
 #include "MainFrame.h"
-#include "Design.h"
+#include "design/Design.h"
 #include "pcb/PCBPanel.h"
 #include "pcb/PCBView.h"
 #include "ReverserConst.h"
 
-#include "schematic/SchematicPanel.h"
 
 /// Directory within resources that contains the images.
 const std::wstring ImagesDirectory = L"/images";
@@ -61,6 +60,16 @@ MainFrame::MainFrame()
 //
 //    mPCBPanel->GetView()->SetFocus();
 
+    Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnDesignProperties, this, XRCID("design_properties"));
+}
+
+/**
+ *
+ * @param event
+ */
+void MainFrame::OnDesignProperties(wxCommandEvent& event)
+{
+    mReverser.GetDesign()->PropertiesDlg(this);
 }
 
 
@@ -72,6 +81,8 @@ void MainFrame::OnExit(wxCommandEvent& event)
 {
   Close(true);
 }
+
+
 
 
 void MainFrame::OnFileSave(wxCommandEvent &event)

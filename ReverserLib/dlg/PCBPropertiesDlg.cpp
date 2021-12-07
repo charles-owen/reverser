@@ -10,7 +10,7 @@
 
 #include "PCBPropertiesDlg.h"
 #include "../pcb/PCB.h"
-#include "../Design.h"
+#include "design/Design.h"
 
 
 PCBPropertiesDlg::PCBPropertiesDlg(std::shared_ptr<PCB> pcb) : mPCB(pcb)

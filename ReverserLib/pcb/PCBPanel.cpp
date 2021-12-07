@@ -8,7 +8,7 @@
 #include "PCBPanel.h"
 
 #include "../Reverser.h"
-#include "../Design.h"
+#include "design/Design.h"
 #include "PCB.h"
 #include "Layer.h"
 

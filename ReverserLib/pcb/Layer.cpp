@@ -11,7 +11,7 @@
 
 #include "Layer.h"
 #include "PCB.h"
-#include "../Design.h"
+#include "design/Design.h"
 #include "../dlg/PCBLayerDlg.h"
 
 

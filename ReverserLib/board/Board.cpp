@@ -1,13 +1,12 @@
 /**
- * @file Schematic.cpp
+ * @file Board.cpp
  * @author Charles Owen
  */
 
 #include "../pch.h"
-#include "Schematic.h"
+#include "Board.h"
 
-
-bool Schematic::Load(const std::wstring& path)
+bool Board::Load(const std::wstring& path)
 {
     if(!EagleDOM::Load(path))
     {

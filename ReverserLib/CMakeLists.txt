@@ -7,7 +7,7 @@ set(SOURCE_FILES
         ReverserApp.cpp ReverserApp.h
         MainFrame.cpp MainFrame.h
         Reverser.cpp Reverser.h
-        Design.cpp Design.h
+        design/Design.cpp design/Design.h
 #        pcb/PCBView.cpp pcb/PCBView.h
 #        schematic/SchematicPanel.cpp schematic/SchematicPanel.h
 #        pcb/PCB.cpp pcb/PCB.h
@@ -33,7 +33,7 @@ set(SOURCE_FILES
 #        network/Network.cpp network/Network.h
 #        dlg/NetworkPropertiesDlg.cpp dlg/NetworkPropertiesDlg.h
 #        network/NetworkListBox.cpp network/NetworkListBox.h
-        schematic/Schematic.cpp schematic/Schematic.h)
+        schematic/Schematic.cpp schematic/Schematic.h design/DesignPropertiesDlg.cpp design/DesignPropertiesDlg.h EagleDOM.cpp EagleDOM.h board/Board.cpp board/Board.h)
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
 

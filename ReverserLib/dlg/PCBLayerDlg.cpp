@@ -12,7 +12,7 @@
 #include "PCBLayerDlg.h"
 #include "../pcb/Layer.h"
 #include "../pcb/PCB.h"
-#include "../Design.h"
+#include "design/Design.h"
 
 
 PCBLayerDlg::PCBLayerDlg(Layer *layer) : mLayer(layer)
