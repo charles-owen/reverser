@@ -21,6 +21,9 @@ public:
 
 
     bool Load(const std::wstring& path);
+    bool SaveXml(const std::wstring& designPath, wxXmlNode* node);
+
+    bool LoadXml(wxWindow* parent, const std::wstring& designPath, wxXmlNode* node);
 };
 
 #endif //REVERSER_SCHEMATIC_H

@@ -44,9 +44,9 @@ MainFrame::MainFrame()
 //    mSchematicPanel = schematicPanel;
 //
 //    // Bind the menu options
-//    Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnFileSaveAs, this, XRCID("file_save_as"));
-//    Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnFileSave, this, XRCID("file_save"));
-//    Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnFileOpen, this, XRCID("file_open"));
+    Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnFileSaveAs, this, wxID_SAVEAS);
+    Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnFileSave, this, wxID_SAVE);
+    Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnFileOpen, this, wxID_OPEN);
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_MENU, &MainFrame::OnMRUFile, this, wxID_FILE1, wxID_FILE9);
 //    Bind(wxEVT_NOTEBOOK_PAGE_CHANGED, &MainFrame::OnNotebookPageChanged, this, XRCID("notebook"));
@@ -87,15 +87,16 @@ void MainFrame::OnExit(wxCommandEvent& event)
 
 void MainFrame::OnFileSave(wxCommandEvent &event)
 {
-    auto filename = mReverser.GetDesign()->GetFilename();
+    auto design = mReverser.GetDesign();
+    auto filename = design->GetFilename();
     if(filename.IsEmpty())
     {
         OnFileSaveAs(event);
         return;
     }
 
-    auto filePath = mReverser.GetDesign()->GetFilePath();
-    mReverser.GetDesign()->Save(filePath);
+    auto filePath = design->GetFilePath();
+    mReverser.FileSave(this, filePath);
     UpdateTitle();
 }
 
@@ -108,7 +109,7 @@ void MainFrame::OnFileSaveAs(wxCommandEvent& event)
         return;
     }
 
-    mReverser.GetDesign()->Save(saveFileDialog.GetPath());
+    mReverser.FileSave(this, saveFileDialog.GetPath());
     UpdateTitle();
 }
 
@@ -122,7 +123,7 @@ void MainFrame::OnFileOpen(wxCommandEvent& event)
         return;
     }
 
-    mReverser.GetDesign()->Load(openFileDialog.GetPath());
+    mReverser.FileOpen(this, openFileDialog.GetPath());
     UpdateTitle();
 }
 
@@ -140,7 +141,7 @@ void MainFrame::OnMRUFile(wxCommandEvent& event)
     wxString f(mHistory.GetHistoryFile(event.GetId() - wxID_FILE1));
     if (!f.empty())
     {
-        if(mReverser.GetDesign()->Load(f))
+        if(mReverser.GetDesign()->Load(this, f))
         {
             UpdateTitle();
         }

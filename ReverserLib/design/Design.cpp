@@ -42,14 +42,15 @@ void Design::UpdateObservers()
 }
 
 
-void Design::Save(wxString path)
+void Design::Save(wxWindow* mainFrame, wxString path)
 {
     wxXmlDocument xmlDoc;
 
-    auto root = new wxXmlNode(wxXML_ELEMENT_NODE, L"reverser-model");
+    auto root = new wxXmlNode(wxXML_ELEMENT_NODE, L"reverser");
     xmlDoc.SetRoot(root);
 
- //   mInstance->XmlSave(root);
+    mSchematic->SaveXml(path.ToStdWstring(), root);
+    mBoard->SaveXml(path.ToStdWstring(), root);
 
     if(!xmlDoc.Save(path, wxXML_NO_INDENTATION))
     {
@@ -61,7 +62,7 @@ void Design::Save(wxString path)
 }
 
 
-bool Design::Load(wxString path)
+bool Design::Load(wxWindow* mainFrame, wxString path)
 {
     wxXmlDocument xmlDoc;
     if(!xmlDoc.Load(path))
@@ -70,11 +71,13 @@ bool Design::Load(wxString path)
         return false;
     }
 
-    // Clear the instance
-//    mInstance = std::make_shared<ModelInstance>(mReverser, this);
-    SetFilename(path);
+    auto wpath = path.ToStdWstring();
+    auto root = xmlDoc.GetRoot();
 
-//    mInstance->XmlLoad(xmlDoc.GetRoot());
+    SetFilename(path);
+    mSchematic->LoadXml(mainFrame, wpath, root);
+    mBoard->LoadXml(mainFrame, wpath, root);
+
     UpdateObservers();
     return true;
 }

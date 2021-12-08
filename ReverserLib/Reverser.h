@@ -20,6 +20,13 @@ class Design;
  */
 class Reverser final
 {
+private:
+    /// The main program frame
+    MainFrame *mMainFrame;
+
+    /// The currently loaded design
+    std::shared_ptr<Design> mDesign;
+
 public:
     Reverser(MainFrame *mainFrame);
 
@@ -27,12 +34,9 @@ public:
 
     wxString Version();
 
-private:
-    /// The main program frame
-    MainFrame *mMainFrame;
+    void FileOpen(wxWindow* mainFrame, const wxString& path);
 
-    /// The currently loaded design
-    std::shared_ptr<Design> mDesign;
+    void FileSave(wxWindow* mainFrame, const wxString& path);
 };
 
 #endif //REVERSER_REVERSER_H

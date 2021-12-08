@@ -3,11 +3,12 @@ project(Tests)
 set(TEST_FILES
     gtest_main.cpp
     EmptyTest.cpp
-    ReverserTest.cpp
-    LayoutsTest.cpp
-    LayoutTest.cpp PartTest.cpp PartsTest.cpp ComponentsTest.cpp ComponentTest.cpp
-    NetworkTest.cpp
-    NetworksTest.cpp gtest_main.cpp)
+#    ReverserTest.cpp
+#    LayoutsTest.cpp
+#    LayoutTest.cpp PartTest.cpp PartsTest.cpp ComponentsTest.cpp ComponentTest.cpp
+#    NetworkTest.cpp
+#    NetworksTest.cpp
+    gtest_main.cpp)
 
 # Get Google Tests
 include(FetchContent)

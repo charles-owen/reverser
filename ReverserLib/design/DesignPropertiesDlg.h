@@ -20,6 +20,7 @@ private:
     void OnOK(wxCommandEvent& event);
     void OnSchematicFile(wxCommandEvent& event);
     void OnBoardFile(wxCommandEvent& event);
+    void UpdateUI();
 
     /// Design we are editing
     Design *mDesign;
@@ -32,7 +33,6 @@ private:
 
 public:
     DesignPropertiesDlg(wxWindow *parent, Design* design);
-
 
 };
 

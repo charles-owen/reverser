@@ -55,8 +55,8 @@ public:
 
     void UpdateObservers();
 
-    void Save(wxString path);
-    bool Load(wxString path);
+    void Save(wxWindow* mainFrame, wxString path);
+    bool Load(wxWindow* mainFrame, wxString path);
 
     wxString GetFilename() const {return mFilename.GetName();}
     wxString GetFilePath() const {return mFilename.GetFullPath();}

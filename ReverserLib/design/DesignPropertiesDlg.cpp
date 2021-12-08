@@ -18,18 +18,24 @@ DesignPropertiesDlg::DesignPropertiesDlg(wxWindow* parent, Design* design) : mDe
     wxXmlResource::Get()->LoadDialog(this, parent, L"DesignPropertiesDlg");
 
     mSchematic = mDesign->GetSchematic();
-    auto schematicFilenameCtrl = XRCCTRL(*this, "schematic_file_name", wxTextCtrl);
-    auto filename = mSchematic->GetPath();
-    schematicFilenameCtrl->SetValue(filename != L"" ? filename : L"<none>");
-
     mBoard = mDesign->GetBoard();
-    auto boardFilenameCtrl = XRCCTRL(*this, "board_file_name", wxTextCtrl);
-    filename = mBoard->GetPath();
-    boardFilenameCtrl->SetValue(filename != L"" ? filename : L"<none>");
+
+    UpdateUI();
 
     Bind(wxEVT_BUTTON, &DesignPropertiesDlg::OnOK, this, wxID_OK);
     Bind(wxEVT_BUTTON, &DesignPropertiesDlg::OnSchematicFile, this, XRCID("schematic_file_select"));
     Bind(wxEVT_BUTTON, &DesignPropertiesDlg::OnBoardFile, this, XRCID("board_file_select"));
+}
+
+void DesignPropertiesDlg::UpdateUI()
+{
+    auto schematicFilenameCtrl = XRCCTRL(*this, "schematic_file_name", wxTextCtrl);
+    auto filename = mSchematic->GetRelativePath(mDesign->GetFilePath().ToStdWstring());
+    schematicFilenameCtrl->SetValue(filename != L"" ? filename : L"<none>");
+
+    auto boardFilenameCtrl = XRCCTRL(*this, "board_file_name", wxTextCtrl);
+    filename = mBoard->GetRelativePath(mDesign->GetFilePath().ToStdWstring());
+    boardFilenameCtrl->SetValue(filename != L"" ? filename : L"<none>");
 }
 
 void DesignPropertiesDlg::OnOK(wxCommandEvent& event)
@@ -55,7 +61,7 @@ void DesignPropertiesDlg::OnSchematicFile(wxCommandEvent& event)
     {
         mSchematic = schematic;
         auto schematicFilenameCtrl = XRCCTRL(*this, "schematic_file_name", wxTextCtrl);
-        schematicFilenameCtrl->SetValue(mSchematic->GetPath());
+        UpdateUI();
     }
     else
     {
@@ -79,7 +85,7 @@ void DesignPropertiesDlg::OnBoardFile(wxCommandEvent& event)
     {
         mBoard = board;
         auto schematicFilenameCtrl = XRCCTRL(*this, "board_file_name", wxTextCtrl);
-        schematicFilenameCtrl->SetValue(mBoard->GetPath());
+        UpdateUI();
     }
     else
     {
