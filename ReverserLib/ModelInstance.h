@@ -27,7 +27,7 @@ class ModelInstance
 public:
     ModelInstance(Reverser *reverser, Design *model);
 
-    std::shared_ptr<PCB> GetPCB() { return mPCB; }
+
     void XmlSave(wxXmlNode *node);
     void XmlLoad(wxXmlNode *node);
 
@@ -40,8 +40,7 @@ private:
     Reverser *mReverser;
     Design *mModel;
 
-    /// The printed circuit board
-    std::shared_ptr<PCB> mPCB;
+
 
     std::shared_ptr<Components> mComponents;
 

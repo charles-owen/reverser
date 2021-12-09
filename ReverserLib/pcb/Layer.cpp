@@ -7,18 +7,18 @@
 
 #include <wx/xml/xml.h>
 #include <wx/filename.h>
-#include <wx/graphics.h>
+
 
 #include "Layer.h"
 #include "PCB.h"
-#include "design/Design.h"
-#include "../dlg/PCBLayerDlg.h"
+#include "../design/Design.h"
+//#include "../dlg/PCBLayerDlg.h"
 
 
 void Layer::Properties()
 {
-    PCBLayerDlg dlg(this);
-    dlg.ShowModal();
+//    PCBLayerDlg dlg(this);
+//    dlg.ShowModal();
 }
 
 void Layer::SetDimensions(double x, double y, double width, double height)

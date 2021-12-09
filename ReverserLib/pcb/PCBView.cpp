@@ -4,7 +4,7 @@
 
 #include "PCBView.h"
 #include "../Reverser.h"
-#include "design/Design.h"
+#include "../design/Design.h"
 #include "PCB.h"
 
 #include "../MainFrame.h"
@@ -27,11 +27,13 @@ constexpr double MinZoom = 1.0 / 8.0;
 
 /**
  * Constructor
- * @param mainFrame The MainFrame object
- * @param parent The parent window (notebook)
+ * @param pcbPanel The PCB Panel that contains this view
+ * @param mainFrame
+ * @param reverser
  */
-PCBView::PCBView(PCBPanel *pcbPanel, Reverser* reverser, wxWindow* parent) :
-    wxScrolled<wxPanel>(parent), mPCBPanel(pcbPanel), mReverser(reverser), mSize(1200, 1000)
+PCBView::PCBView(PCBPanel *pcbPanel, wxWindow* mainFrame, Reverser* reverser) :
+    wxScrolled<wxWindow>(pcbPanel), mReverser(reverser), mPCBPanel(pcbPanel),
+    mMainFrame(mainFrame), mSize(1200, 1000)
 {
     SetScrollRate(1, 1);
 
@@ -39,26 +41,26 @@ PCBView::PCBView(PCBPanel *pcbPanel, Reverser* reverser, wxWindow* parent) :
 
     reverser->GetDesign()->AddObserver(this);
 
-    auto topToggle = XRCCTRL(*mPCBPanel, "pcb_top_toggle", wxToggleButton);
-    topToggle->SetBitmap(wxBitmap("rc/icons/pcb-top.png", wxBITMAP_TYPE_ANY));
-    auto botToggle = XRCCTRL(*mPCBPanel, "pcb_bot_toggle", wxToggleButton);
-    botToggle->SetBitmap(wxBitmap("rc/icons/pcb-bot.png", wxBITMAP_TYPE_ANY));
-
-
+//    auto topToggle = XRCCTRL(*mPCBPanel, "pcb_top_toggle", wxToggleButton);
+//    topToggle->SetBitmap(wxBitmap("rc/icons/pcb-top-grn.png", wxBITMAP_TYPE_ANY));
+//    auto botToggle = XRCCTRL(*mPCBPanel, "pcb_bot_toggle", wxToggleButton);
+//    botToggle->SetBitmap(wxBitmap("rc/icons/pcb-bot-grn.png", wxBITMAP_TYPE_ANY));
+//
+//
     Bind(wxEVT_PAINT, &PCBView::PaintEvent, this);
-    Bind(wxEVT_LEFT_DOWN, &PCBView::OnLeftDown, this);
-    Bind(wxEVT_LEFT_UP, &PCBView::OnLeftUp, this);
-    Bind(wxEVT_MOTION, &PCBView::OnMouseMove, this);
+//    Bind(wxEVT_LEFT_DOWN, &PCBView::OnLeftDown, this);
+//    Bind(wxEVT_LEFT_UP, &PCBView::OnLeftUp, this);
+//    Bind(wxEVT_MOTION, &PCBView::OnMouseMove, this);
     Bind(wxEVT_ERASE_BACKGROUND, &PCBView::EraseBackground, this);
 
-    pcbPanel->Bind(wxEVT_BUTTON, &PCBView::OnZoomOut, this, XRCID("pcb_zoom_out"));
-    pcbPanel->Bind(wxEVT_BUTTON, &PCBView::OnZoomIn, this, XRCID("pcb_zoom_in"));
-    pcbPanel->Bind(wxEVT_BUTTON, &PCBView::OnRotCCW, this, XRCID("pcb_rot_ccw"));
-    pcbPanel->Bind(wxEVT_BUTTON, &PCBView::OnRotCW, this, XRCID("pcb_rot_cw"));
-
-    pcbPanel->Bind(wxEVT_TOGGLEBUTTON, &PCBView::OnTopToggle, this, XRCID("pcb_top_toggle"));
-    pcbPanel->Bind(wxEVT_TOGGLEBUTTON, &PCBView::OnBotToggle, this, XRCID("pcb_bot_toggle"));
-    pcbPanel->Bind(wxEVT_SLIDER, &PCBView::OnOpacityScroll, this, XRCID("pcb_opacity_slider"));
+    mainFrame->Bind(wxEVT_BUTTON, &PCBView::OnZoomOut, this, XRCID("pcb_zoom_out"));
+    mainFrame->Bind(wxEVT_BUTTON, &PCBView::OnZoomIn, this, XRCID("pcb_zoom_in"));
+//    pcbPanel->Bind(wxEVT_BUTTON, &PCBView::OnRotCCW, this, XRCID("pcb_rot_ccw"));
+//    pcbPanel->Bind(wxEVT_BUTTON, &PCBView::OnRotCW, this, XRCID("pcb_rot_cw"));
+//
+//    pcbPanel->Bind(wxEVT_TOGGLEBUTTON, &PCBView::OnTopToggle, this, XRCID("pcb_top_toggle"));
+//    pcbPanel->Bind(wxEVT_TOGGLEBUTTON, &PCBView::OnBotToggle, this, XRCID("pcb_bot_toggle"));
+//    pcbPanel->Bind(wxEVT_SLIDER, &PCBView::OnOpacityScroll, this, XRCID("pcb_opacity_slider"));
 
     SetZoomValue();
 }
@@ -71,58 +73,64 @@ PCBView::~PCBView()
 
 void PCBView::PaintEvent(wxPaintEvent& evt)
 {
-//    auto model = mReverser->GetDesign();
-//    auto pcb = model->GetPCB();
-//    auto pcbSize = pcb->GetSize();
-//
-//    wxBufferedPaintDC dc(this);
-//
-//    // Clear background to black
-//    auto clientSize = GetClientSize();
-//
-//    dc.SetBrush(*wxBLACK_BRUSH);
-//    dc.SetPen(wxNullPen);
-//    dc.DrawRectangle(0, 0, clientSize.GetWidth(), clientSize.GetHeight());
-//
-//    DoPrepareDC(dc);
-//
-//    // Set to 1/10 of millimeter units
-//    dc.SetMapMode(wxMM_METRIC);
-//
-//    dc.GetLogicalScale(&mScaleX, &mScaleY);
-//    mScaleX *= mZoom;
-//    mScaleY *= mZoom;
-//
-//    SetVirtualSize(wxSize(
-//            (int)(pcbSize.GetX() * mScaleX),
-//            (int)(pcbSize.GetY() * mScaleY)
-//            ));
-//
-//    wxGraphicsContext *graphics = wxGraphicsContext::Create(dc);
-//    if(graphics)
-//    {
-//        graphics->Scale(mZoom, mZoom);
-//
-//        auto topToggle = XRCCTRL(*mPCBPanel, "pcb_top_toggle", wxToggleButton);
-//        if(topToggle->GetValue())
-//        {
-//            pcb->GetTop()->Draw(graphics);
-//        }
-//
-//        auto opacitySlider = XRCCTRL(*mPCBPanel, "pcb_opacity_slider", wxSlider);
-//
-//        pcb->GetBottom()->SetOpacity(opacitySlider->GetValue() * 0.01);
-//        pcb->GetBottom()->Draw(graphics);
-//
-//
-//        auto context = mPCBPanel->GetContext();
-//        pcb->DrawComponents(context, graphics);
-//
-//        delete graphics;
-//    }
-//
-//    // Reset mapping so double-buffering works correctly
-//    dc.SetMapMode(wxMM_TEXT);
+    auto model = mReverser->GetDesign();
+    auto pcb = model->GetPCB();
+    auto pcbSize = pcb->GetSize();
+
+    wxBufferedPaintDC dc(this);
+
+    // Clear background to black
+    auto clientSize = GetClientSize();
+
+    dc.SetBrush(*wxBLACK_BRUSH);
+    dc.SetPen(wxNullPen);
+    dc.DrawRectangle(0, 0, clientSize.GetWidth(), clientSize.GetHeight());
+
+    DoPrepareDC(dc);
+
+    // Set to 1/10 of millimeter units
+    dc.SetMapMode(wxMM_METRIC);
+
+    dc.GetLogicalScale(&mScaleX, &mScaleY);
+    mScaleX *= mZoom;
+    mScaleY *= mZoom;
+
+    SetVirtualSize(wxSize(
+            (int)(pcbSize.GetX() * mScaleX),
+            (int)(pcbSize.GetY() * mScaleY)
+            ));
+
+    wxGraphicsContext *graphics = wxGraphicsContext::Create(dc);
+    if(graphics)
+    {
+        graphics->PushState();
+        graphics->Scale(mZoom, mZoom);
+
+        auto topToggle = XRCCTRL(*mMainFrame, "pcb_top_toggle", wxToggleButton);
+        if(topToggle->GetValue())
+        {
+            pcb->GetTop()->Draw(graphics);
+        }
+
+        auto opacitySlider = XRCCTRL(*mMainFrame, "pcb_opacity_slider", wxSlider);
+
+        pcb->GetBottom()->SetOpacity(opacitySlider->GetValue() * 0.01);
+        pcb->GetBottom()->Draw(graphics);
+
+
+        auto context = mPCBPanel->GetContext();
+        pcb->DrawComponents(context, graphics);
+
+        graphics->SetPen(*wxRED_PEN);
+        graphics->SetBrush(*wxWHITE_BRUSH);
+        graphics->DrawRectangle(100, 100, 100, 50);
+
+        graphics->PopState();
+        delete graphics;
+    }
+
+    // Reset mapping so double-buffering works correctly
+    dc.SetMapMode(wxMM_TEXT);
 }
 
 void PCBView::OnLeftDown(wxMouseEvent& event)
@@ -242,24 +250,24 @@ void PCBView::OnZoomIn(wxCommandEvent& event)
 
 void PCBView::SetZoom(double newZoom)
 {
-//    auto middle = GetViewCenter();
-//
-//    auto factor = newZoom / mZoom;
-//    mZoom = newZoom;
-//
-//    mScaleX *= factor;
-//    mScaleY *= factor;
-//
-//    auto pcb = mReverser->GetDesign()->GetPCB();
-//    auto pcbSize = pcb->GetSize();
-//    SetVirtualSize(wxSize(
-//            (int)(pcbSize.GetX() * mScaleX),
-//            (int)(pcbSize.GetY() * mScaleY)
-//    ));
-//
-//    SetViewCenter(middle);
-//    SetZoomValue();
-//    Refresh();
+    auto middle = GetViewCenter();
+
+    auto factor = newZoom / mZoom;
+    mZoom = newZoom;
+
+    mScaleX *= factor;
+    mScaleY *= factor;
+
+    auto pcb = mReverser->GetDesign()->GetPCB();
+    auto pcbSize = pcb->GetSize();
+    SetVirtualSize(wxSize(
+            (int)(pcbSize.GetX() * mScaleX),
+            (int)(pcbSize.GetY() * mScaleY)
+    ));
+
+    SetViewCenter(middle);
+    SetZoomValue();
+    Refresh();
 }
 
 /**
@@ -346,7 +354,7 @@ wxPoint2DDouble PCBView::ToVirtualPosition(int x, int y)
  */
 void PCBView::SetZoomValue()
 {
-    auto zoomEdit = XRCCTRL(*mPCBPanel, "pcb_zoom", wxTextCtrl);
+    auto zoomEdit = XRCCTRL(*mMainFrame, "pcb_zoom", wxTextCtrl);
     zoomEdit->SetValue(wxString::Format(L"%4d", (int)(mZoom * 100)));
 }
 

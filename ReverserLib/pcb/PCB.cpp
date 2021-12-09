@@ -5,9 +5,9 @@
 
 #include "PCB.h"
 #include "Layer.h"
-#include "design/Design.h"
-#include "../components/Components.h"
-#include "../components/LayoutComponent.h"
+#include "../design/Design.h"
+//#include "../components/Components.h"
+//#include "../components/LayoutComponent.h"
 
 /**
  * Constructor
@@ -45,23 +45,23 @@ void PCB::SetHeight(double mHeight)
  */
 void PCB::XmlSave(wxXmlNode* node)
 {
-    auto pcbNode = new wxXmlNode(wxXML_ELEMENT_NODE, L"pcb");
-    pcbNode->AddAttribute(L"width", wxString::Format(wxT("%.1f"), mWidth));
-    pcbNode->AddAttribute(L"height", wxString::Format(wxT("%.1f"), mHeight));
-    node->AddChild(pcbNode);
-
-    auto topNode = new wxXmlNode(wxXML_ELEMENT_NODE, L"top");
-    pcbNode->AddChild(topNode);
-    mTop->XmlSave(topNode);
-
-    auto bottomNode = new wxXmlNode(wxXML_ELEMENT_NODE, L"bot");
-    pcbNode->AddChild(bottomNode);
-    mBottom->XmlSave(bottomNode);
-
-    for(auto component: mComponents)
-    {
-        component->XmlSave(pcbNode);
-    }
+//    auto pcbNode = new wxXmlNode(wxXML_ELEMENT_NODE, L"pcb");
+//    pcbNode->AddAttribute(L"width", wxString::Format(wxT("%.1f"), mWidth));
+//    pcbNode->AddAttribute(L"height", wxString::Format(wxT("%.1f"), mHeight));
+//    node->AddChild(pcbNode);
+//
+//    auto topNode = new wxXmlNode(wxXML_ELEMENT_NODE, L"top");
+//    pcbNode->AddChild(topNode);
+//    mTop->XmlSave(topNode);
+//
+//    auto bottomNode = new wxXmlNode(wxXML_ELEMENT_NODE, L"bot");
+//    pcbNode->AddChild(bottomNode);
+//    mBottom->XmlSave(bottomNode);
+//
+//    for(auto component: mComponents)
+//    {
+//        component->XmlSave(pcbNode);
+//    }
 }
 
 /**
@@ -70,29 +70,29 @@ void PCB::XmlSave(wxXmlNode* node)
  */
 void PCB::XmlLoad(wxXmlNode* node)
 {
-    auto width = node->GetAttribute(L"width", L"150.0");
-    width.ToDouble(&mWidth);
-
-    auto height = node->GetAttribute(L"height", L"150.0");
-    height.ToDouble(&mHeight);
-
-    for(auto child = node->GetChildren(); child; child=child->GetNext())
-    {
-        auto name = child->GetName();
-
-        if(name == L"top")
-        {
-            mTop->XmlLoad(child);
-        }
-        else if(name == L"bot")
-        {
-            mBottom->XmlLoad(child);
-        }
-        else if(name == L"component")
-        {
-            XmlLoadComponent(child);
-        }
-    }
+//    auto width = node->GetAttribute(L"width", L"150.0");
+//    width.ToDouble(&mWidth);
+//
+//    auto height = node->GetAttribute(L"height", L"150.0");
+//    height.ToDouble(&mHeight);
+//
+//    for(auto child = node->GetChildren(); child; child=child->GetNext())
+//    {
+//        auto name = child->GetName();
+//
+//        if(name == L"top")
+//        {
+//            mTop->XmlLoad(child);
+//        }
+//        else if(name == L"bot")
+//        {
+//            mBottom->XmlLoad(child);
+//        }
+//        else if(name == L"component")
+//        {
+//            XmlLoadComponent(child);
+//        }
+//    }
 }
 
 void PCB::XmlLoadComponent(wxXmlNode *node)
@@ -116,10 +116,10 @@ void PCB::XmlLoadComponent(wxXmlNode *node)
  */
 void PCB::DrawComponents(PCBContext *context, wxGraphicsContext* graphics)
 {
-    for(auto component : mComponents)
-    {
-        component->Draw(context, graphics);
-    }
+//    for(auto component : mComponents)
+//    {
+//        component->Draw(context, graphics);
+//    }
 }
 
 /**
@@ -128,13 +128,13 @@ void PCB::DrawComponents(PCBContext *context, wxGraphicsContext* graphics)
  */
 bool PCB::Click(PCBContext* context, const wxPoint2DDouble &point)
 {
-    for(auto component : mComponents)
-    {
-        if(component->Click(context, point))
-        {
-            return true;
-        }
-    }
+//    for(auto component : mComponents)
+//    {
+//        if(component->Click(context, point))
+//        {
+//            return true;
+//        }
+//    }
 
     return false;
 }
@@ -146,13 +146,13 @@ bool PCB::Click(PCBContext* context, const wxPoint2DDouble &point)
  */
 void PCB::Delete(std::shared_ptr<Component> component)
 {
-    for(auto c=mComponents.begin(); c!=mComponents.end(); c++)
-    {
-        if((*c)->GetComponent() == component)
-        {
-            mComponents.erase(c);
-            return;
-        }
-    }
+//    for(auto c=mComponents.begin(); c!=mComponents.end(); c++)
+//    {
+//        if((*c)->GetComponent() == component)
+//        {
+//            mComponents.erase(c);
+//            return;
+//        }
+//    }
 }
 

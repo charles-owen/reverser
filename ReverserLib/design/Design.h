@@ -20,7 +20,7 @@ class Board;
 
 class Component;
 class Networks;
-
+class PCB;
 
 /**
  * This is the main class for the model. It retains status of
@@ -41,6 +41,9 @@ private:
     /// The model observers
     std::vector<IModelObserver*> mObservers;
 
+    /// The printed circuit board we are reverse engineering
+    std::shared_ptr<PCB> mPCB;
+
     void SetFilename(wxString path);
 
     /// Path to currently open file
@@ -49,7 +52,7 @@ private:
 public:
     Design(Reverser *reverser);
 
- //   std::shared_ptr<PCB> GetPCB() { return mInstance->GetPCB(); }
+    std::shared_ptr<PCB> GetPCB() { return mPCB; }
 
     void AddObserver(IModelObserver *observer);
 

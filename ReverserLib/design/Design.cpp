@@ -11,6 +11,7 @@
 #include "Design.h"
 #include "../schematic/Schematic.h"
 #include "../board/Board.h"
+#include "../pcb/PCB.h"
 #include "DesignPropertiesDlg.h"
 
 
@@ -20,6 +21,7 @@ Design::Design(Reverser *reverser) : mReverser(reverser)
     // Create empty schematic and board objects
     mSchematic = std::make_shared<Schematic>();
     mBoard = std::make_shared<Board>();
+    mPCB = std::make_shared<PCB>(reverser, this);
 }
 
 void Design::PropertiesDlg(wxWindow *parent)

@@ -6,4 +6,6 @@
 #include <wx/wx.h>
 #endif
 
+#include <wx/graphics.h>
+
 #endif //REVERSER_PCH_H

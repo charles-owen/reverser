@@ -13,15 +13,8 @@ class MainFrame;
 class Reverser;
 class PCBPanel;
 
-class PCBView : public wxScrolled<wxPanel>, public IModelObserver
+class PCBView : public wxScrolled<wxWindow>, public IModelObserver
 {
-public:
-    PCBView(PCBPanel *pcbPanel, Reverser *reverser, wxWindow* parent);
-    ~PCBView();
-
-    void UpdateObserver() override;
-
-    wxPoint2DDouble GetViewCenter();
 
 private:
     void SetZoomValue();
@@ -57,9 +50,19 @@ private:
 
     Reverser *mReverser;
     PCBPanel *mPCBPanel;
+    wxWindow *mMainFrame;
     wxSize mSize;
 
     wxPoint2DDouble mLastMouse;
+
+public:
+    PCBView(PCBPanel *pcbPanel, wxWindow* mainFrame, Reverser *reverser);
+    ~PCBView();
+
+    void UpdateObserver() override;
+
+    wxPoint2DDouble GetViewCenter();
+
 };
 
 #endif //_PCBPANEL_H_

@@ -10,7 +10,7 @@
 #define REVERSER_PCBPANEL_H
 
 #include "PCBContext.h"
-#include "../network/NetworkListBox.h"
+//#include "../network/NetworkListBox.h"
 
 class wxToggleButton;
 
@@ -24,22 +24,6 @@ class PCBView;
  */
 class PCBPanel : public wxPanel
 {
-public:
-    PCBPanel(MainFrame* mainFrame, Reverser *reverser, wxWindow* parent);
-    ~PCBPanel();
-
-    MainFrame *GetMainFrame() {return mMainFrame;}
-    PCBContext *GetContext() {return &mContext;}
-
-    void OnComponentsDelete(wxCommandEvent& event);
-    void OnComponentsDeleteUpdate(wxUpdateUIEvent& event);
-    void OnComponentsEdit(wxCommandEvent& event);
-    void OnComponentsEditUpdate(wxUpdateUIEvent& event);
-
-    void OnNetworksNewNetwork(wxCommandEvent& event);
-
-    PCBView *GetView() {return mPCBView;}
-
 private:
     Reverser *mReverser;
     MainFrame* mMainFrame;
@@ -62,7 +46,28 @@ private:
     PCBContext mContext;
 
     /// The networks list box
-    NetworkListBox mNetworkListBox;
+    // NetworkListBox mNetworkListBox;
+
+    wxBitmap mNetGryBitmap;
+    wxBitmap mNetRedBitmap;
+    wxBitmap mMoveGryBitmap;
+    wxBitmap mMoveRedBitmap;
+
+public:
+    PCBPanel(MainFrame* mainFrame, Reverser *reverser, std::wstring resourcesDir);
+    ~PCBPanel();
+
+    MainFrame *GetMainFrame() {return mMainFrame;}
+    PCBContext *GetContext() {return &mContext;}
+
+    void OnComponentsDelete(wxCommandEvent& event);
+    void OnComponentsDeleteUpdate(wxUpdateUIEvent& event);
+    void OnComponentsEdit(wxCommandEvent& event);
+    void OnComponentsEditUpdate(wxUpdateUIEvent& event);
+
+    void OnNetworksNewNetwork(wxCommandEvent& event);
+
+    PCBView *GetView() {return mPCBView;}
 
 
 };

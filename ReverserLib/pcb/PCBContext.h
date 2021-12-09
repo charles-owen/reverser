@@ -11,10 +11,10 @@
 
 #include <set>
 
-#include "../components/LayoutComponent.h"
+//#include "../components/LayoutComponent.h"
 
 class PCBPanel;
-class Network;
+//class Network;
 
 
 /**
@@ -34,18 +34,18 @@ public:
     EditMode GetMode() {return mEditMode;}
     bool IsMode(EditMode mode) {return mEditMode == mode; }
 
-    void Clicked(LayoutComponent *component, LayoutComponent::Pin *pin);
-    void Clicked(LayoutComponent *component, LayoutComponent::Attribute *attribute);
+//    void Clicked(LayoutComponent *component, LayoutComponent::Pin *pin);
+//    void Clicked(LayoutComponent *component, LayoutComponent::Attribute *attribute);
 
     void ClearSelection();
     void Move(const wxPoint2DDouble& position, const wxPoint2DDouble& delta);
     void Rotate(double angle);
 
-    bool IsSelected(LayoutComponent *component) { return component == mSelectedComponent; }
-    bool IsSelected(LayoutComponent::Pin *pin) {return pin == mSelectedPin; }
-    bool IsSelected(LayoutComponent::Attribute *attribute) {return attribute == mSelectedAttribute; }
+//    bool IsSelected(LayoutComponent *component) { return component == mSelectedComponent; }
+//    bool IsSelected(LayoutComponent::Pin *pin) {return pin == mSelectedPin; }
+//    bool IsSelected(LayoutComponent::Attribute *attribute) {return attribute == mSelectedAttribute; }
 
-    LayoutComponent *GetSelectedComponent() {return mSelectedComponent; }
+//    LayoutComponent *GetSelectedComponent() {return mSelectedComponent; }
 
     bool ShowValues() {return mShowValues;}
 
@@ -56,11 +56,11 @@ private:
 
     bool mShowValues = false;
 
-    LayoutComponent *mSelectedComponent = nullptr;
-    LayoutComponent::Pin *mSelectedPin = nullptr;
-    LayoutComponent::Attribute *mSelectedAttribute = nullptr;
-
-    std::set<Network *> mSelectedNetworks;
+//    LayoutComponent *mSelectedComponent = nullptr;
+//    LayoutComponent::Pin *mSelectedPin = nullptr;
+//    LayoutComponent::Attribute *mSelectedAttribute = nullptr;
+//
+//    std::set<Network *> mSelectedNetworks;
 };
 
 #endif //REVERSER_PCBCONTEXT_H

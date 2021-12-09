@@ -32,6 +32,15 @@ MainFrame::MainFrame()
     mHistory.UseMenu(fileMenu);
     mHistory.AddFilesToMenu();
 
+    auto sizer = new wxBoxSizer(wxHORIZONTAL);
+
+    auto pcbPanel = new PCBPanel(this, &mReverser, resourcesDir);
+    sizer->Add(pcbPanel, 1, wxEXPAND | wxALL);
+
+    SetSizer( sizer );
+    Layout();
+
+
 //    // The tabbed notebook
 //    mNotebook = XRCCTRL(*this, "notebook", wxNotebook);;
 //
