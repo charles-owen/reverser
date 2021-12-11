@@ -3,14 +3,14 @@
  * @author Charles B. Owen
  */
 
-#include "../pch.h"
+#include "pch.h"
 
 #include "Parts.h"
 #include "Part.h"
 
 #include <wx/xml/xml.h>
 
-#include "../ReverserConst.h"
+#include "ReverserConst.h"
 
 /**
  * Constructor

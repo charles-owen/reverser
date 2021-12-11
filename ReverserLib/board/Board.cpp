@@ -16,7 +16,7 @@ bool Board::Load(const std::wstring& path)
     return true;
 }
 
-bool Board::SaveXml(const std::wstring& designPath, wxXmlNode* node)
+bool Board::XmlSave(const std::wstring& designPath, wxXmlNode* node)
 {
     auto newNode = EagleDOM::SaveXml(designPath, node, L"brd");
     if(newNode == nullptr)
@@ -27,7 +27,7 @@ bool Board::SaveXml(const std::wstring& designPath, wxXmlNode* node)
     return true;
 }
 
-bool Board::LoadXml(wxWindow* parent, const std::wstring& designPath, wxXmlNode* root)
+bool Board::XmlLoad(wxWindow* parent, const std::wstring& designPath, wxXmlNode* root)
 {
     auto node = EagleDOM::LoadXml(parent, designPath, root, L"brd");
 

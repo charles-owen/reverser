@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
-#include "components/Component.h"
-#include "components/Components.h"
+#include "save/Component.h"
+#include "save/Components.h"
 
 using namespace std;
 

@@ -17,7 +17,7 @@ class Layer;
 class PCBLayerDlg : public wxDialog
 {
 public:
-    PCBLayerDlg(Layer *layer);
+    PCBLayerDlg(wxWindow* parent, Layer *layer);
 
 private:
     Layer *mLayer;

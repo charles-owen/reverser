@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
-#include "components/Layouts.h"
-#include "components/Layout.h"
+#include "save/Layouts.h"
+#include "save/Layout.h"
 
 TEST(LayoutsTestSuite, Load)
 {

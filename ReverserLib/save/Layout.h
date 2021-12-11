@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 
-#include "../drawing/Drawable.h"
+#include "drawing/Drawable.h"
 
 class wxXmlNode;
 

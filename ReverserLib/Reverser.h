@@ -8,9 +8,9 @@
 
 #include <memory>
 
-#include "components/Parts.h"
-#include "components/Layouts.h"
-#include "components/Symbols.h"
+#include "save/Parts.h"
+#include "save/Layouts.h"
+#include "save/Symbols.h"
 
 class MainFrame;
 class Design;

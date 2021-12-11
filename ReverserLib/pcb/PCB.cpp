@@ -8,6 +8,7 @@
 #include "../design/Design.h"
 //#include "../components/Components.h"
 //#include "../components/LayoutComponent.h"
+#include "../XmlHelper.h"
 
 /**
  * Constructor
@@ -41,23 +42,24 @@ void PCB::SetHeight(double mHeight)
 
 /**
  * Save PCB to an XML node
+ * @param designPath Path to the design file.
  * @param node XML node to save to
  */
-void PCB::XmlSave(wxXmlNode* node)
+void PCB::XmlSave(const std::wstring& designPath, wxXmlNode* node)
 {
-//    auto pcbNode = new wxXmlNode(wxXML_ELEMENT_NODE, L"pcb");
-//    pcbNode->AddAttribute(L"width", wxString::Format(wxT("%.1f"), mWidth));
-//    pcbNode->AddAttribute(L"height", wxString::Format(wxT("%.1f"), mHeight));
-//    node->AddChild(pcbNode);
-//
-//    auto topNode = new wxXmlNode(wxXML_ELEMENT_NODE, L"top");
-//    pcbNode->AddChild(topNode);
-//    mTop->XmlSave(topNode);
-//
-//    auto bottomNode = new wxXmlNode(wxXML_ELEMENT_NODE, L"bot");
-//    pcbNode->AddChild(bottomNode);
-//    mBottom->XmlSave(bottomNode);
-//
+    auto pcbNode = new wxXmlNode(wxXML_ELEMENT_NODE, L"pcb");
+    pcbNode->AddAttribute(L"width", wxString::Format(wxT("%.1f"), mWidth));
+    pcbNode->AddAttribute(L"height", wxString::Format(wxT("%.1f"), mHeight));
+    node->AddChild(pcbNode);
+
+    auto topNode = new wxXmlNode(wxXML_ELEMENT_NODE, L"top");
+    pcbNode->AddChild(topNode);
+    mTop->XmlSave(designPath, topNode);
+
+    auto bottomNode = new wxXmlNode(wxXML_ELEMENT_NODE, L"bot");
+    pcbNode->AddChild(bottomNode);
+    mBottom->XmlSave(designPath, bottomNode);
+
 //    for(auto component: mComponents)
 //    {
 //        component->XmlSave(pcbNode);
@@ -65,34 +67,38 @@ void PCB::XmlSave(wxXmlNode* node)
 }
 
 /**
- * Load PCM from an XML node
- * @param node XML node to load from
+ *  Load PCB from an XML node
+ * @param parent
+ * @param designPath
+ * @param root  XML node to load from
  */
-void PCB::XmlLoad(wxXmlNode* node)
+void PCB::XmlLoad(wxWindow* parent, std::wstring& designPath, wxXmlNode* root)
 {
-//    auto width = node->GetAttribute(L"width", L"150.0");
-//    width.ToDouble(&mWidth);
-//
-//    auto height = node->GetAttribute(L"height", L"150.0");
-//    height.ToDouble(&mHeight);
-//
-//    for(auto child = node->GetChildren(); child; child=child->GetNext())
-//    {
-//        auto name = child->GetName();
-//
-//        if(name == L"top")
-//        {
-//            mTop->XmlLoad(child);
-//        }
-//        else if(name == L"bot")
-//        {
-//            mBottom->XmlLoad(child);
-//        }
+    auto node = XmlHelper::XmlFindChild(root, L"pcb");
+
+    auto width = node->GetAttribute(L"width", L"150.0");
+    width.ToDouble(&mWidth);
+
+    auto height = node->GetAttribute(L"height", L"150.0");
+    height.ToDouble(&mHeight);
+
+    for(auto child = node->GetChildren(); child; child=child->GetNext())
+    {
+        auto name = child->GetName();
+
+        if(name == L"top")
+        {
+            mTop->XmlLoad(parent, designPath, child);
+        }
+        else if(name == L"bot")
+        {
+            mBottom->XmlLoad(parent, designPath, child);
+        }
 //        else if(name == L"component")
 //        {
 //            XmlLoadComponent(child);
 //        }
-//    }
+    }
 }
 
 void PCB::XmlLoadComponent(wxXmlNode *node)

@@ -1,10 +1,10 @@
 
 #include "gtest/gtest.h"
-#include "components/Parts.h"
-#include "components/Part.h"
+#include "save/Parts.h"
+#include "save/Part.h"
 
-#include "components/Layouts.h"
-#include "components/Symbols.h"
+#include "save/Layouts.h"
+#include "save/Symbols.h"
 
 class PartsTestFixture : public testing::Test
 {

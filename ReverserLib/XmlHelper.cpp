@@ -6,6 +6,19 @@
 #include "XmlHelper.h"
 #include <iostream>
 
+wxXmlNode *XmlHelper::XmlFindChild(wxXmlNode* node, const std::wstring& name)
+{
+    auto child = node->GetChildren();
+    for( ; child; child = child->GetNext())
+    {
+        if(child->GetName() == name)
+        {
+            return child;
+        }
+    }
+
+    return nullptr;
+}
 
 double XmlHelper::GetAttributeDouble(wxXmlNode* node, wxString attrName, double defaultVal)
 {

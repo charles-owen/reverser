@@ -26,29 +26,6 @@ class Component;
  */
 class PCB
 {
-public:
-    PCB(Reverser *reverser, Design *model);
-
-    double GetWidth() const;
-    void SetWidth(double mWidth);
-    double GetHeight() const;
-    void SetHeight(double mHeight);
-    wxSize GetSize() {return wxSize(mWidth, mHeight); }
-
-    Design *GetModel() { return mModel; }
-
-    void XmlSave(wxXmlNode *node);
-    void XmlLoad(wxXmlNode* node);
-
-    std::shared_ptr<Layer> GetTop() {return mTop;}
-    std::shared_ptr<Layer> GetBottom() {return mBottom;}
-
-    void Add(std::shared_ptr<LayoutComponent> component) {mComponents.push_back(component);}
-    void Delete(std::shared_ptr<Component> component);
-
-    void DrawComponents(PCBContext *context, wxGraphicsContext *graphics);
-    bool Click(PCBContext *context, const wxPoint2DDouble &point);
-
 private:
     void XmlLoadComponent(wxXmlNode *node);
 
@@ -70,6 +47,28 @@ private:
     /// The layout components
     std::vector<std::shared_ptr<LayoutComponent>> mComponents;
 
+public:
+    PCB(Reverser *reverser, Design *model);
+
+    double GetWidth() const;
+    void SetWidth(double mWidth);
+    double GetHeight() const;
+    void SetHeight(double mHeight);
+    wxSize GetSize() {return wxSize(mWidth, mHeight); }
+
+    Design *GetModel() { return mModel; }
+
+    void XmlSave(const std::wstring& designPath, wxXmlNode *node);
+    void XmlLoad(wxWindow* parent, std::wstring& designPath, wxXmlNode* root);
+
+    std::shared_ptr<Layer> GetTop() {return mTop;}
+    std::shared_ptr<Layer> GetBottom() {return mBottom;}
+
+    void Add(std::shared_ptr<LayoutComponent> component) {mComponents.push_back(component);}
+    void Delete(std::shared_ptr<Component> component);
+
+    void DrawComponents(PCBContext *context, wxGraphicsContext *graphics);
+    bool Click(PCBContext *context, const wxPoint2DDouble &point);
 };
 
 #endif //REVERSER_PCB_H

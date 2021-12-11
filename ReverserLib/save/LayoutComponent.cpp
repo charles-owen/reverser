@@ -3,12 +3,12 @@
  * @author Charles B. Owen
  */
 
-#include "../pch.h"
+#include "pch.h"
 
 #include <wx/graphics.h>
 
 #include "LayoutComponent.h"
-#include "../pcb/PCBContext.h"
+#include "pcb/PCBContext.h"
 
 #include "Component.h"
 #include "Layout.h"

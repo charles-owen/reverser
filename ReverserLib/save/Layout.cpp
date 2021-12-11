@@ -3,13 +3,13 @@
  * @author Charles B. Owen
  */
 
-#include "../pch.h"
+#include "pch.h"
 
 #include <wx/graphics.h>
 
 #include "Layout.h"
-#include "../ReverserConst.h"
-#include "../XmlHelper.h"
+#include "ReverserConst.h"
+#include "XmlHelper.h"
 
 /**
  * Load the layout.

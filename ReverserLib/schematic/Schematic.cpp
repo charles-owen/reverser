@@ -17,7 +17,7 @@ bool Schematic::Load(const std::wstring& path)
     return true;
 }
 
-bool Schematic::SaveXml(const std::wstring& designPath, wxXmlNode* node)
+bool Schematic::XmlSave(const std::wstring& designPath, wxXmlNode* node)
 {
     auto newNode = EagleDOM::SaveXml(designPath, node, L"sch");
     if(newNode == nullptr)
@@ -28,9 +28,9 @@ bool Schematic::SaveXml(const std::wstring& designPath, wxXmlNode* node)
     return true;
 }
 
-bool Schematic::LoadXml(wxWindow* parent, const std::wstring& designPath, wxXmlNode* root)
+bool Schematic::XmlLoad(wxWindow* parent, const std::wstring& designPath, wxXmlNode* node)
 {
-    auto node = EagleDOM::LoadXml(parent, designPath, root, L"sch");
+    EagleDOM::LoadXml(parent, designPath, node, L"sch");
 
     return true;
 }

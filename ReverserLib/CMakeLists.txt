@@ -14,15 +14,18 @@ set(SOURCE_FILES
         pcb/Layer.cpp pcb/Layer.h
         pcb/PCBView.cpp pcb/PCBView.h
         IModelObserver.h
+        dlg/PCBPropertiesDlg.cpp dlg/PCBPropertiesDlg.h
+        dlg/PCBLayerDlg.cpp dlg/PCBLayerDlg.h
+        XmlHelper.cpp XmlHelper.h
 
         #        schematic/SchematicPanel.cpp schematic/SchematicPanel.h
-#        dlg/PCBPropertiesDlg.cpp dlg/PCBPropertiesDlg.h
-#        dlg/PCBLayerDlg.cpp dlg/PCBLayerDlg.h
+#
+#
 
 #        components/Parts.cpp components/Parts.h
 #        components/Layouts.cpp
 #        components/Layouts.h components/Layout.cpp components/Layout.h
-#        XmlHelper.cpp XmlHelper.h ReverserConst.h
+#        ReverserConst.h
 #        components/Part.cpp components/Part.h
 #        components/Symbols.cpp components/Symbols.h
 #        dlg/PartAddDlg.cpp dlg/PartAddDlg.h
@@ -37,7 +40,8 @@ set(SOURCE_FILES
 #        network/Network.cpp network/Network.h
 #        dlg/NetworkPropertiesDlg.cpp dlg/NetworkPropertiesDlg.h
 #        network/NetworkListBox.cpp network/NetworkListBox.h
-        schematic/Schematic.cpp schematic/Schematic.h design/DesignPropertiesDlg.cpp design/DesignPropertiesDlg.h EagleDOM.cpp EagleDOM.h board/Board.cpp board/Board.h)
+        schematic/Schematic.cpp schematic/Schematic.h
+        design/DesignPropertiesDlg.cpp design/DesignPropertiesDlg.h EagleDOM.cpp EagleDOM.h board/Board.cpp board/Board.h PathHelper.cpp PathHelper.h)
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
 

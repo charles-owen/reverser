@@ -13,12 +13,13 @@
 #include "Layer.h"
 #include "PCBView.h"
 #include "../MainFrame.h"
+#include "../dlg/PCBPropertiesDlg.h"
 
 //#include "../components/Component.h"
 //#include "../components/Components.h"
 //#include "../components/LayoutComponent.h"
 //#include "../components/Part.h"
-//#include "../dlg/PCBPropertiesDlg.h"
+
 //#include "../dlg/PartAddDlg.h"
 //#include "../dlg/ComponentPropertiesDlg.h"
 //#include "../dlg/NetworkPropertiesDlg.h"
@@ -39,12 +40,12 @@ PCBPanel::PCBPanel(MainFrame* mainFrame, Reverser* reverser, std::wstring resour
     mCompEditSelect = XRCCTRL(*mainFrame, "pcb_comp_edit", wxButton);
     mNetEditSelect = XRCCTRL(*mainFrame, "pcb_net_edit", wxButton);
 
-//    mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &PCBPanel::OnPCBProperties, this, XRCID("pcb_properties"));
-//    mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &PCBPanel::OnPCBTop, this, XRCID("pcb_top"));
-//    mainFrame->Bind(wxEVT_UPDATE_UI, &PCBPanel::OnPCBTopUpdate, this, XRCID("pcb_top"));
-//    mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &PCBPanel::OnPCBBot, this, XRCID("pcb_bottom"));
-//    mainFrame->Bind(wxEVT_UPDATE_UI, &PCBPanel::OnPCBBotUpdate, this, XRCID("pcb_bottom"));
-//
+    mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &PCBPanel::OnPCBProperties, this, XRCID("pcb_properties"));
+    mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &PCBPanel::OnPCBTop, this, XRCID("pcb_top"));
+    mainFrame->Bind(wxEVT_UPDATE_UI, &PCBPanel::OnPCBTopUpdate, this, XRCID("pcb_top"));
+    mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &PCBPanel::OnPCBBot, this, XRCID("pcb_bottom"));
+    mainFrame->Bind(wxEVT_UPDATE_UI, &PCBPanel::OnPCBBotUpdate, this, XRCID("pcb_bottom"));
+
 //    Bind(wxEVT_BUTTON, &PCBPanel::OnPCBAddPart, this, XRCID("pcb_add_part"));
 
     mainFrame->Bind(wxEVT_BUTTON, &PCBPanel::OnCompEditToggle, this, XRCID("pcb_comp_edit"));
@@ -100,38 +101,40 @@ void PCBPanel::UpdateUI()
     }
 }
 
-//void PCBPanel::OnPCBTop(wxCommandEvent &event)
-//{
-//    auto pcb = mReverser->GetDesign()->GetPCB();
-//    pcb->GetTop()->Properties();
-//}
-//
-//void PCBPanel::OnPCBTopUpdate(wxUpdateUIEvent& event)
-//{
-//    auto path = mReverser->GetDesign()->GetFilePath();
-//    event.Enable(path != L"");
-//}
-//
-//
-//void PCBPanel::OnPCBBot(wxCommandEvent &event)
-//{
-//    auto pcb = mReverser->GetDesign()->GetPCB();
-//    pcb->GetBottom()->Properties();
-//}
-//
-//void PCBPanel::OnPCBBotUpdate(wxUpdateUIEvent& event)
-//{
-//    auto path = mReverser->GetDesign()->GetFilePath();
-//    event.Enable(path != L"");
-//}
-//
-//void PCBPanel::OnPCBProperties(wxCommandEvent &event)
-//{
-//    auto pcb = mReverser->GetDesign()->GetPCB();
-//    PCBPropertiesDlg dlg(pcb);
-//    dlg.ShowModal();
-//}
-//
+
+void PCBPanel::OnPCBProperties(wxCommandEvent &event)
+{
+    auto pcb = mReverser->GetDesign()->GetPCB();
+    PCBPropertiesDlg dlg(mMainFrame, pcb);
+    dlg.ShowModal();
+}
+
+void PCBPanel::OnPCBTop(wxCommandEvent &event)
+{
+    auto pcb = mReverser->GetDesign()->GetPCB();
+    pcb->GetTop()->Properties(mMainFrame);
+}
+
+void PCBPanel::OnPCBTopUpdate(wxUpdateUIEvent& event)
+{
+    auto path = mReverser->GetDesign()->GetFilePath();
+    event.Enable(path != L"");
+}
+
+
+void PCBPanel::OnPCBBot(wxCommandEvent &event)
+{
+    auto pcb = mReverser->GetDesign()->GetPCB();
+    pcb->GetBottom()->Properties(mMainFrame);
+}
+
+void PCBPanel::OnPCBBotUpdate(wxUpdateUIEvent& event)
+{
+    auto path = mReverser->GetDesign()->GetFilePath();
+    event.Enable(path != L"");
+}
+
+
 ///**
 // * Add part toolbar item
 // * @param event Comment event

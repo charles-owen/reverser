@@ -12,10 +12,10 @@
 #include "PCBLayerDlg.h"
 #include "../pcb/Layer.h"
 #include "../pcb/PCB.h"
-#include "design/Design.h"
+#include "../design/Design.h"
 
 
-PCBLayerDlg::PCBLayerDlg(Layer *layer) : mLayer(layer)
+PCBLayerDlg::PCBLayerDlg(wxWindow* parent, Layer *layer) : mLayer(layer)
 {
     mX = layer->GetX();
     mY = layer->GetY();
@@ -24,7 +24,7 @@ PCBLayerDlg::PCBLayerDlg(Layer *layer) : mLayer(layer)
     mFilename = layer->GetFilename();
     mImage = layer->GetImage();
 
-    wxXmlResource::Get()->LoadDialog(this, nullptr, "PCBLayerDlg");
+    wxXmlResource::Get()->LoadDialog(this, parent, "PCBLayerDlg");
 
     auto xCtrl = XRCCTRL(*this, "pcb_layer_x", wxTextCtrl);
     wxFloatingPointValidator<double> xValidator(1, &mX);

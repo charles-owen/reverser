@@ -18,7 +18,7 @@ class PCB;
 class PCBPropertiesDlg : public wxDialog
 {
 public:
-    PCBPropertiesDlg(std::shared_ptr<PCB> pcb);
+    PCBPropertiesDlg(wxWindow* parent, std::shared_ptr<PCB> pcb);
 
 private:
     std::shared_ptr<PCB> mPCB;

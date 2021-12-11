@@ -10,15 +10,15 @@
 
 #include "PCBPropertiesDlg.h"
 #include "../pcb/PCB.h"
-#include "design/Design.h"
+#include "../design/Design.h"
 
 
-PCBPropertiesDlg::PCBPropertiesDlg(std::shared_ptr<PCB> pcb) : mPCB(pcb)
+PCBPropertiesDlg::PCBPropertiesDlg(wxWindow* parent, std::shared_ptr<PCB> pcb) : mPCB(pcb)
 {
     mWidth = pcb->GetWidth();
     mHeight = pcb->GetHeight();
 
-    wxXmlResource::Get()->LoadDialog(this, nullptr, "PCBPropertiesDlg");
+    wxXmlResource::Get()->LoadDialog(this, parent, "PCBPropertiesDlg");
 
     auto widthCtrl = XRCCTRL(*this, "pcb_width", wxTextCtrl);
     wxFloatingPointValidator<double> widthValidator(1, &mWidth);

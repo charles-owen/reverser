@@ -3,15 +3,15 @@
  * @author Charles B. Owen
  */
 
-#include "../pch.h"
+#include "pch.h"
 
 #include <wx/xrc/xmlres.h>
 #include <wx/valnum.h>
 
 #include "NetworkPropertiesDlg.h"
 
-#include "../network/Networks.h"
-#include "../network/Network.h"
+#include "network/Networks.h"
+#include "network/Network.h"
 
 using namespace std;
 

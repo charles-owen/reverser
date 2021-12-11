@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "components/Component.h"
+#include "save/Component.h"
 
 using namespace std;
 

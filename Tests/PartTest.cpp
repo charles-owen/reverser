@@ -1,9 +1,9 @@
 
 #include "gtest/gtest.h"
-#include "components/Part.h"
+#include "save/Part.h"
 
-#include "components/Layouts.h"
-#include "components/Symbols.h"
+#include "save/Layouts.h"
+#include "save/Symbols.h"
 
 class PartTestFixture : public testing::Test
 {

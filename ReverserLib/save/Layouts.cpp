@@ -3,11 +3,11 @@
  * @author Charles B. Owen
  */
 
-#include "../pch.h"
+#include "pch.h"
 
 #include "Layouts.h"
 #include "Layout.h"
-#include "../ReverserConst.h"
+#include "ReverserConst.h"
 
 #include <wx/xml/xml.h>
 

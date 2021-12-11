@@ -9,7 +9,7 @@
 #ifndef REVERSER_LAYOUTCOMPONENT_H
 #define REVERSER_LAYOUTCOMPONENT_H
 
-#include "../Placement.h"
+#include "Placement.h"
 
 #include "Layout.h"
 

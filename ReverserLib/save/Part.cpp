@@ -3,12 +3,12 @@
  * @author Charles B. Owen
  */
 
-#include "../pch.h"
+#include "pch.h"
 
 #include "Part.h"
 #include "Layouts.h"
-#include "../ReverserConst.h"
-#include "../XmlHelper.h"
+#include "ReverserConst.h"
+#include "XmlHelper.h"
 
 /**
  * Load a part from an XML file.

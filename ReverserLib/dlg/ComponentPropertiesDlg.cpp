@@ -10,10 +10,10 @@
 
 #include "ComponentPropertiesDlg.h"
 
-#include "../components/Component.h"
-#include "../components/Components.h"
-#include "../components/Attribute.h"
-#include "../components/Part.h"
+#include "save/Component.h"
+#include "save/Components.h"
+#include "save/Attribute.h"
+#include "save/Part.h"
 
 using namespace std;
 

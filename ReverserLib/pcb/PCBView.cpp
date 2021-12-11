@@ -10,7 +10,7 @@
 #include "../MainFrame.h"
 #include "Layer.h"
 #include "PCBPanel.h"
-#include "../components/Components.h"
+#include "../save/Components.h"
 
 #include <wx/notebook.h>
 #include <wx/dcbuffer.h>
@@ -41,9 +41,9 @@ PCBView::PCBView(PCBPanel *pcbPanel, wxWindow* mainFrame, Reverser* reverser) :
 
     reverser->GetDesign()->AddObserver(this);
 
-//    auto topToggle = XRCCTRL(*mPCBPanel, "pcb_top_toggle", wxToggleButton);
+//    auto topToggle = XRCCTRL(*mMainFrame, "pcb_top_toggle", wxToggleButton);
 //    topToggle->SetBitmap(wxBitmap("rc/icons/pcb-top-grn.png", wxBITMAP_TYPE_ANY));
-//    auto botToggle = XRCCTRL(*mPCBPanel, "pcb_bot_toggle", wxToggleButton);
+//    auto botToggle = XRCCTRL(*mMainFrame, "pcb_bot_toggle", wxToggleButton);
 //    botToggle->SetBitmap(wxBitmap("rc/icons/pcb-bot-grn.png", wxBITMAP_TYPE_ANY));
 //
 //
@@ -55,12 +55,12 @@ PCBView::PCBView(PCBPanel *pcbPanel, wxWindow* mainFrame, Reverser* reverser) :
 
     mainFrame->Bind(wxEVT_BUTTON, &PCBView::OnZoomOut, this, XRCID("pcb_zoom_out"));
     mainFrame->Bind(wxEVT_BUTTON, &PCBView::OnZoomIn, this, XRCID("pcb_zoom_in"));
-//    pcbPanel->Bind(wxEVT_BUTTON, &PCBView::OnRotCCW, this, XRCID("pcb_rot_ccw"));
-//    pcbPanel->Bind(wxEVT_BUTTON, &PCBView::OnRotCW, this, XRCID("pcb_rot_cw"));
-//
-//    pcbPanel->Bind(wxEVT_TOGGLEBUTTON, &PCBView::OnTopToggle, this, XRCID("pcb_top_toggle"));
-//    pcbPanel->Bind(wxEVT_TOGGLEBUTTON, &PCBView::OnBotToggle, this, XRCID("pcb_bot_toggle"));
-//    pcbPanel->Bind(wxEVT_SLIDER, &PCBView::OnOpacityScroll, this, XRCID("pcb_opacity_slider"));
+//    mainFrame->Bind(wxEVT_BUTTON, &PCBView::OnRotCCW, this, XRCID("pcb_rot_ccw"));
+//    mainFrame->Bind(wxEVT_BUTTON, &PCBView::OnRotCW, this, XRCID("pcb_rot_cw"));
+
+    mainFrame->Bind(wxEVT_TOGGLEBUTTON, &PCBView::OnTopToggle, this, XRCID("pcb_top_toggle"));
+    mainFrame->Bind(wxEVT_TOGGLEBUTTON, &PCBView::OnBotToggle, this, XRCID("pcb_bot_toggle"));
+    mainFrame->Bind(wxEVT_SLIDER, &PCBView::OnOpacityScroll, this, XRCID("pcb_opacity_slider"));
 
     SetZoomValue();
 }
@@ -121,9 +121,9 @@ void PCBView::PaintEvent(wxPaintEvent& evt)
         auto context = mPCBPanel->GetContext();
         pcb->DrawComponents(context, graphics);
 
-        graphics->SetPen(*wxRED_PEN);
-        graphics->SetBrush(*wxWHITE_BRUSH);
-        graphics->DrawRectangle(100, 100, 100, 50);
+//        graphics->SetPen(*wxRED_PEN);
+//        graphics->SetBrush(*wxWHITE_BRUSH);
+//        graphics->DrawRectangle(100, 100, 100, 50);
 
         graphics->PopState();
         delete graphics;
@@ -376,8 +376,8 @@ void PCBView::Crosshair(wxGraphicsContext *graphics, double x, double y, double 
 
 void PCBView::OnOpacityScroll(wxCommandEvent &event)
 {
-    auto ctrl = XRCCTRL(*mPCBPanel, "pcb_bot_toggle", wxToggleButton);
-    auto opacitySlider = XRCCTRL(*mPCBPanel, "pcb_opacity_slider", wxSlider);
+    auto ctrl = XRCCTRL(*mMainFrame, "pcb_bot_toggle", wxToggleButton);
+    auto opacitySlider = XRCCTRL(*mMainFrame, "pcb_opacity_slider", wxSlider);
     ctrl->SetValue(opacitySlider->GetValue() > 0);
     Refresh();
 }
@@ -391,8 +391,8 @@ void PCBView::OnTopToggle(wxCommandEvent& event)
 
 void PCBView::OnBotToggle(wxCommandEvent& event)
 {
-    auto ctrl = XRCCTRL(*mPCBPanel, "pcb_bot_toggle", wxToggleButton);
-    auto opacitySlider = XRCCTRL(*mPCBPanel, "pcb_opacity_slider", wxSlider);
+    auto ctrl = XRCCTRL(*mMainFrame, "pcb_bot_toggle", wxToggleButton);
+    auto opacitySlider = XRCCTRL(*mMainFrame, "pcb_opacity_slider", wxSlider);
 
     if(ctrl->GetValue())
     {

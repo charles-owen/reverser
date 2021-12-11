@@ -51,8 +51,11 @@ void Design::Save(wxWindow* mainFrame, wxString path)
     auto root = new wxXmlNode(wxXML_ELEMENT_NODE, L"reverser");
     xmlDoc.SetRoot(root);
 
-    mSchematic->SaveXml(path.ToStdWstring(), root);
-    mBoard->SaveXml(path.ToStdWstring(), root);
+    auto wpath = path.ToStdWstring();
+
+    mSchematic->XmlSave(wpath, root);
+    mBoard->XmlSave(wpath, root);
+    mPCB->XmlSave(wpath, root);
 
     if(!xmlDoc.Save(path, wxXML_NO_INDENTATION))
     {
@@ -77,8 +80,9 @@ bool Design::Load(wxWindow* mainFrame, wxString path)
     auto root = xmlDoc.GetRoot();
 
     SetFilename(path);
-    mSchematic->LoadXml(mainFrame, wpath, root);
-    mBoard->LoadXml(mainFrame, wpath, root);
+    mSchematic->XmlLoad(mainFrame, wpath, root);
+    mBoard->XmlLoad(mainFrame, wpath, root);
+    mPCB->XmlLoad(mainFrame, wpath, root);
 
     UpdateObservers();
     return true;

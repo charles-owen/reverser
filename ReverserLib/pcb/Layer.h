@@ -23,13 +23,13 @@ class Layer
 public:
     Layer(PCB *pcb) : mPCB(pcb) {}
 
-    void Properties();
+    void Properties(wxWindow* mainFrame);
 
     double GetWidth() const { return mWidth; }
     double GetHeight() const { return mHeight; }
     double GetX() const { return mX; }
     double GetY() const { return mY; }
-    const wxString& GetFilename() const { return mFilename; }
+    std::wstring GetFilename() const { return mFilename; }
     void SetDimensions(double x, double y, double width, double height);
 
     const std::shared_ptr<wxImage>& GetImage() const { return mImage; }
@@ -39,8 +39,8 @@ public:
 
     void Draw(wxGraphicsContext *graphics);
 
-    void XmlSave(wxXmlNode *node);
-    void XmlLoad(wxXmlNode* node);
+    void XmlSave(const std::wstring& designPath, wxXmlNode *node);
+    void XmlLoad(wxWindow* parent, const std::wstring& designPath, wxXmlNode* node);
 
     void SetOpacity(double opacity);
 
@@ -53,7 +53,7 @@ private:
     double mHeight = 150;   // Image height in millimeters
     double mX = 0;          // X location of top left corner of the layer on the board
     double mY = 0;          // Y location of top left corner of the layer on the board
-    wxString mFilename;     // Filename for the image (relative to project file path)
+    std::wstring mFilename;     // Filename for the image (relative to project file path)
     double mOpacity = 0;    // Current bitmap opacity
 
     std::shared_ptr<wxImage> mImage;    // The raw layer image

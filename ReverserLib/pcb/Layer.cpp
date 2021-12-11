@@ -12,13 +12,14 @@
 #include "Layer.h"
 #include "PCB.h"
 #include "../design/Design.h"
-//#include "../dlg/PCBLayerDlg.h"
+#include "../dlg/PCBLayerDlg.h"
+#include "../PathHelper.h"
 
 
-void Layer::Properties()
+void Layer::Properties(wxWindow* mainFrame)
 {
-//    PCBLayerDlg dlg(this);
-//    dlg.ShowModal();
+    PCBLayerDlg dlg(mainFrame,this);
+    dlg.ShowModal();
 }
 
 void Layer::SetDimensions(double x, double y, double width, double height)
@@ -45,13 +46,17 @@ void Layer::Draw(wxGraphicsContext *graphics)
  * Save layer to an XML node
  * @param node XML node to save to
  */
-void Layer::XmlSave(wxXmlNode* node)
+void Layer::XmlSave(const std::wstring& designPath, wxXmlNode* node)
 {
     node->AddAttribute(L"x", wxString::Format(wxT("%.1f"), mX));
     node->AddAttribute(L"y", wxString::Format(wxT("%.1f"), mY));
     node->AddAttribute(L"width", wxString::Format(wxT("%.1f"), mWidth));
     node->AddAttribute(L"height", wxString::Format(wxT("%.1f"), mHeight));
-    node->AddAttribute(L"image", mFilename);
+    if(!mFilename.empty())
+    {
+        node->AddAttribute(L"image", PathHelper::GetRelativePath(designPath, mFilename));
+    }
+
 }
 
 
@@ -59,10 +64,10 @@ void Layer::XmlSave(wxXmlNode* node)
  * Load Layer from an XML node
  * @param node XML node to load from
  */
-void Layer::XmlLoad(wxXmlNode* node)
+void Layer::XmlLoad(wxWindow* parent, const std::wstring& designPath, wxXmlNode* node)
 {
-    auto model = GetPCB()->GetModel();
-    auto mainFilePath = model->GetFileDir();
+//    auto model = GetPCB()->GetModel();
+//    auto mainFilePath = model->GetFileDir();
 
     auto value = node->GetAttribute(L"width", L"150.0");
     value.ToDouble(&mWidth);
@@ -81,11 +86,16 @@ void Layer::XmlLoad(wxXmlNode* node)
     {
         // Try to load the image
         wxLogNull go_away;
-        wxFileName imageFileName(mainFilePath, relativeFilename);
-        auto img = std::make_shared<wxImage>(imageFileName.GetFullPath(), wxBITMAP_TYPE_ANY);
+
+        wxFileName dp(designPath);
+        auto dirPath = dp.GetPath();
+
+        auto path = dirPath + L"/" + relativeFilename;
+        auto img = std::make_shared<wxImage>(path, wxBITMAP_TYPE_ANY);
         if(!img->IsOk())
         {
-            wxMessageBox(wxString::Format(L"Unable to open image file %s", relativeFilename));
+            wxMessageBox(wxString::Format(L"Unable to open image file %s", relativeFilename),
+                    L"Failure to Open", wxOK, parent);
             return;
         }
 
@@ -123,6 +133,7 @@ void Layer::AddAlpha()
         unsigned char *alpha = (unsigned char *)malloc(numPixels);
         mImage->SetAlpha(alpha);
     }
+    bool ha = mImage->HasAlpha();
 
     auto alpha = mImage->GetAlpha();
     for(int i=0; i<numPixels; i++)

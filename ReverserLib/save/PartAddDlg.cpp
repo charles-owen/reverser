@@ -3,13 +3,13 @@
  * @author Charles B. Owen
  */
 
-#include "../pch.h"
+#include "pch.h"
 
 #include <wx/xrc/xmlres.h>
 
 #include "PartAddDlg.h"
-#include "../components/Parts.h"
-#include "../components/Part.h"
+#include "Parts.h"
+#include "Part.h"
 
 PartAddDlg::PartAddDlg(Parts* parts)
 {

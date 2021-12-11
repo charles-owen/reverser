@@ -22,7 +22,7 @@ public:
     static bool GetAttributeBool(wxXmlNode *node, wxString attrName, bool defaultVal);
 
     static void SetAttributeDouble(wxXmlNode *node, wxString attrName, double attrValue);
-
+    static wxXmlNode* XmlFindChild(wxXmlNode* node, const std::wstring& name);
 };
 
 #endif //REVERSER_XMLHELPER_H
