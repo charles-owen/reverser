@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<part name="transistor-npn-to204" prefix="Q">
-    <desc>NPN Transistor TO-204 case</desc>
-    <layout name="to-204"/>
-</part>

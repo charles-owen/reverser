@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<layout name="pad-4">
-    <desc>4mm pad only.</desc>
-    <pins pad="4">
-        <pin n="1" x="0" y="0"/>
-    </pins>
-</layout>

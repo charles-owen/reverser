@@ -31,7 +31,6 @@
 
 PCBPanel::PCBPanel(MainFrame* mainFrame, Reverser* reverser, std::wstring resourcesDir) : wxPanel(mainFrame, wxID_ANY),
        mMainFrame(mainFrame), mReverser(reverser), mContext(this)
-//       mNetworkListBox(reverser, &mContext)
 {
     auto sizer = new wxBoxSizer(wxHORIZONTAL);
     mPCBView= new PCBView(this, mainFrame, reverser);

@@ -4,7 +4,7 @@
 TEST(ReverserTestSuite, Version)
 {
     Reverser reverser(nullptr);
-    EXPECT_EQ(reverser.Version(), wxString(L"0.01"));
+    EXPECT_EQ(reverser.Version(), wxString(L"2.01"));
 }
 
 

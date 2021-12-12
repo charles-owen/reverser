@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<part name="scr-to-66" prefix="D">
-    <desc>SCR in TO-66 case</desc>
-    <layout name="to-66"/>
-</part>

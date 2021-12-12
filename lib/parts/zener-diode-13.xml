@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<part name="zener-diode-13" prefix="D">
-    <desc>Zener diode with 13mm pin spacing</desc>
-    <layout name="diode-13"/>
-</part>
