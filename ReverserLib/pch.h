@@ -7,5 +7,6 @@
 #endif
 
 #include <wx/graphics.h>
+#include <wx/xml/xml.h>
 
 #endif //REVERSER_PCH_H

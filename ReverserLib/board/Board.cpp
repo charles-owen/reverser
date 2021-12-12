@@ -6,9 +6,9 @@
 #include "../pch.h"
 #include "Board.h"
 
-bool Board::Load(const std::wstring& path)
+bool Board::EagleLoad(const std::wstring& path)
 {
-    if(!EagleDOM::Load(path))
+    if(!EagleDOM::EagleLoad(path))
     {
         return false;
     }
@@ -18,7 +18,7 @@ bool Board::Load(const std::wstring& path)
 
 bool Board::XmlSave(const std::wstring& designPath, wxXmlNode* node)
 {
-    auto newNode = EagleDOM::SaveXml(designPath, node, L"brd");
+    auto newNode = EagleDOM::XmlSave(designPath, node, L"brd");
     if(newNode == nullptr)
     {
         return true;
@@ -29,7 +29,12 @@ bool Board::XmlSave(const std::wstring& designPath, wxXmlNode* node)
 
 bool Board::XmlLoad(wxWindow* parent, const std::wstring& designPath, wxXmlNode* root)
 {
-    auto node = EagleDOM::LoadXml(parent, designPath, root, L"brd");
-
+    auto node = EagleDOM::XmlLoad(parent, designPath, root, L"brd");
     return true;
+}
+
+void Board::XmlParse(wxXmlNode* root)
+{
+    mPackages.XmlLoad(root);
+    mElements.XmlLoad(root, &mPackages);
 }

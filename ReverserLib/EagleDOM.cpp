@@ -9,7 +9,7 @@
 #include "EagleDOM.h"
 
 
-bool EagleDOM::Load(const std::wstring& path)
+bool EagleDOM::EagleLoad(const std::wstring& path)
 {
     if(!mDOM.Load(path))
     {
@@ -17,10 +17,12 @@ bool EagleDOM::Load(const std::wstring& path)
     }
 
     mPath = path;
+
+    XmlParse(mDOM.GetRoot());
     return true;
 }
 
-wxXmlNode* EagleDOM::SaveXml(const std::wstring& designPath, wxXmlNode* node, const std::wstring& name)
+wxXmlNode* EagleDOM::XmlSave(const std::wstring& designPath, wxXmlNode* node, const std::wstring& name)
 {
     if(mPath == L"")
     {
@@ -38,7 +40,7 @@ wxXmlNode* EagleDOM::SaveXml(const std::wstring& designPath, wxXmlNode* node, co
 }
 
 
-wxXmlNode* EagleDOM::LoadXml(wxWindow* parent, const std::wstring& designPath, wxXmlNode* root, const std::wstring& name)
+wxXmlNode* EagleDOM::XmlLoad(wxWindow* parent, const std::wstring& designPath, wxXmlNode* root, const std::wstring& name)
 {
     auto node = XmlFindChild(root, name);
     if(node == nullptr)
@@ -59,7 +61,7 @@ wxXmlNode* EagleDOM::LoadXml(wxWindow* parent, const std::wstring& designPath, w
 
     auto path = dirPath + L"/" + relativePath;
 
-    if(!Load(path.ToStdWstring()))
+    if(!EagleLoad(path.ToStdWstring()))
     {
         wxMessageBox(L"Unable to open " + relativePath);
         return nullptr;

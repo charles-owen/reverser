@@ -86,12 +86,12 @@
 				<size>24,24</size>
 				<label></label>
 				<markup>0</markup>
-				<bitmap>icons/pcb-bot-grn.png</bitmap>
+				<bitmap>icons/pcb-top-grn.png</bitmap>
 				<checked>1</checked>
 			</object>
 			<object class="wxSlider" name="pcb_opacity_slider">
 				<style>wxSL_HORIZONTAL</style>
-				<value>50</value>
+				<value>0</value>
 				<min>0</min>
 				<max>100</max>
 			</object>
@@ -99,7 +99,7 @@
 				<size>24,24</size>
 				<label></label>
 				<markup>0</markup>
-				<bitmap>icons/pcb-top-grn.png</bitmap>
+				<bitmap>icons/pcb-bot-grn.png</bitmap>
 				<checked>1</checked>
 			</object>
 			<object class="separator" />

@@ -9,7 +9,7 @@
 #ifndef REVERSER_XMLHELPER_H
 #define REVERSER_XMLHELPER_H
 
-#include <wx/xml/xml.h>
+#include <vector>
 
 /**
  * Helper functions that make using wxXmlNode easier
@@ -22,7 +22,8 @@ public:
     static bool GetAttributeBool(wxXmlNode *node, wxString attrName, bool defaultVal);
 
     static void SetAttributeDouble(wxXmlNode *node, wxString attrName, double attrValue);
-    static wxXmlNode* XmlFindChild(wxXmlNode* node, const std::wstring& name);
+
+    static wxXmlNode* Find(wxXmlNode* node, const std::wstring& nodePath);
 };
 
 #endif //REVERSER_XMLHELPER_H

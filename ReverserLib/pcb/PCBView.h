@@ -44,7 +44,7 @@ private:
 
     void Crosshair(wxGraphicsContext *graphics, double x, double y, double size=20);
 
-    double mZoom = 1.0;     // Current zoom amount
+    double mZoom = 2.0;     // Current zoom amount
     double mScaleX = 1.0;   // X Scale we are actually displaying at
     double mScaleY = 1.0;   // Y Scale we are actually displaying at
 

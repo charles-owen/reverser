@@ -54,7 +54,6 @@ public:
     void SetWidth(double mWidth);
     double GetHeight() const;
     void SetHeight(double mHeight);
-    wxSize GetSize() {return wxSize(mWidth, mHeight); }
 
     Design *GetModel() { return mModel; }
 
@@ -67,7 +66,6 @@ public:
     void Add(std::shared_ptr<LayoutComponent> component) {mComponents.push_back(component);}
     void Delete(std::shared_ptr<Component> component);
 
-    void DrawComponents(PCBContext *context, wxGraphicsContext *graphics);
     bool Click(PCBContext *context, const wxPoint2DDouble &point);
 };
 

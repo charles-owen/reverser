@@ -20,7 +20,7 @@ private:
 public:
 
 
-    bool Load(const std::wstring& path);
+    bool EagleLoad(const std::wstring& path);
     bool XmlSave(const std::wstring& designPath, wxXmlNode* node);
 
     bool XmlLoad(wxWindow* parent, const std::wstring& designPath, wxXmlNode* node);

@@ -7,9 +7,9 @@
 #include "Schematic.h"
 
 
-bool Schematic::Load(const std::wstring& path)
+bool Schematic::EagleLoad(const std::wstring& path)
 {
-    if(!EagleDOM::Load(path))
+    if(!EagleDOM::EagleLoad(path))
     {
         return false;
     }
@@ -19,7 +19,7 @@ bool Schematic::Load(const std::wstring& path)
 
 bool Schematic::XmlSave(const std::wstring& designPath, wxXmlNode* node)
 {
-    auto newNode = EagleDOM::SaveXml(designPath, node, L"sch");
+    auto newNode = EagleDOM::XmlSave(designPath, node, L"sch");
     if(newNode == nullptr)
     {
         return true;
@@ -30,7 +30,7 @@ bool Schematic::XmlSave(const std::wstring& designPath, wxXmlNode* node)
 
 bool Schematic::XmlLoad(wxWindow* parent, const std::wstring& designPath, wxXmlNode* node)
 {
-    EagleDOM::LoadXml(parent, designPath, node, L"sch");
+    EagleDOM::XmlLoad(parent, designPath, node, L"sch");
 
     return true;
 }

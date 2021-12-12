@@ -340,7 +340,7 @@
                     <property name="aui_row"></property>
                     <property name="best_size"></property>
                     <property name="bg"></property>
-                    <property name="bitmap">Load From File; icons/pcb-bot-grn.png</property>
+                    <property name="bitmap">Load From File; icons/pcb-top-grn.png</property>
                     <property name="caption"></property>
                     <property name="caption_visible">1</property>
                     <property name="center_pane">0</property>
@@ -450,7 +450,7 @@
                     <property name="validator_style">wxFILTER_NONE</property>
                     <property name="validator_type">wxDefaultValidator</property>
                     <property name="validator_variable"></property>
-                    <property name="value">50</property>
+                    <property name="value">0</property>
                     <property name="window_extra_style"></property>
                     <property name="window_name"></property>
                     <property name="window_style"></property>
@@ -466,7 +466,7 @@
                     <property name="aui_row"></property>
                     <property name="best_size"></property>
                     <property name="bg"></property>
-                    <property name="bitmap">Load From File; icons/pcb-top-grn.png</property>
+                    <property name="bitmap">Load From File; icons/pcb-bot-grn.png</property>
                     <property name="caption"></property>
                     <property name="caption_visible">1</property>
                     <property name="center_pane">0</property>
@@ -941,7 +941,7 @@
                     <property name="auth_needed">0</property>
                     <property name="best_size"></property>
                     <property name="bg"></property>
-                    <property name="bitmap">Load From File;icons/rot_cw.png</property>
+                    <property name="bitmap">EagleLoad From File;icons/rot_cw.png</property>
                     <property name="caption"></property>
                     <property name="caption_visible">1</property>
                     <property name="center_pane">0</property>

@@ -24,10 +24,12 @@ private:
     wxXmlDocument mDOM;
 
 protected:
-    bool Load(const std::wstring& path);
-    wxXmlNode* SaveXml(const std::wstring& designPath, wxXmlNode* node, const std::wstring& name);
+    virtual bool EagleLoad(const std::wstring& path);
+    wxXmlNode* XmlSave(const std::wstring& designPath, wxXmlNode* node, const std::wstring& name);
     wxXmlNode *XmlFindChild(wxXmlNode* node, const std::wstring& name);
-    wxXmlNode* LoadXml(wxWindow* parent, const std::wstring& designPath, wxXmlNode* root, const std::wstring& name);
+    wxXmlNode* XmlLoad(wxWindow* parent, const std::wstring& designPath, wxXmlNode* root, const std::wstring& name);
+
+    virtual void XmlParse(wxXmlNode* root) {}
 
 public:
     auto GetPath() {return mPath;}

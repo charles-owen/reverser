@@ -122,3 +122,8 @@ void Design::Delete(std::shared_ptr<Component> component)
 {
  //   mInstance->Delete(component);
 }
+
+Elements* Design::GetElements()
+{
+    return mBoard->GetElements();
+}

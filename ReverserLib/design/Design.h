@@ -19,8 +19,8 @@ class Schematic;
 class Board;
 
 class Component;
-class Networks;
 class PCB;
+class Elements;
 
 /**
  * This is the main class for the model. It retains status of
@@ -88,6 +88,8 @@ public:
     void SetBoard(std::shared_ptr<Board> board) {mBoard = board;}
 
     void PropertiesDlg(wxWindow* parent);
+
+    Elements* GetElements();
 };
 
 #endif //REVERSER_DESIGN_H

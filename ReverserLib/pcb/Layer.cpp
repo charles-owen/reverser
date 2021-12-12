@@ -61,7 +61,7 @@ void Layer::XmlSave(const std::wstring& designPath, wxXmlNode* node)
 
 
 /**
- * Load Layer from an XML node
+ * EagleLoad Layer from an XML node
  * @param node XML node to load from
  */
 void Layer::XmlLoad(wxWindow* parent, const std::wstring& designPath, wxXmlNode* node)

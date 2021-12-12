@@ -67,14 +67,14 @@ void PCB::XmlSave(const std::wstring& designPath, wxXmlNode* node)
 }
 
 /**
- *  Load PCB from an XML node
+ *  EagleLoad PCB from an XML node
  * @param parent
  * @param designPath
  * @param root  XML node to load from
  */
 void PCB::XmlLoad(wxWindow* parent, std::wstring& designPath, wxXmlNode* root)
 {
-    auto node = XmlHelper::XmlFindChild(root, L"pcb");
+    auto node = XmlHelper::Find(root, L"pcb");
 
     auto width = node->GetAttribute(L"width", L"150.0");
     width.ToDouble(&mWidth);
@@ -116,17 +116,7 @@ void PCB::XmlLoadComponent(wxXmlNode *node)
 //    }
 }
 
-/**
- * Draw the components over the printed circuit board.
- * @param graphics Graphics context to draw on
- */
-void PCB::DrawComponents(PCBContext *context, wxGraphicsContext* graphics)
-{
-//    for(auto component : mComponents)
-//    {
-//        component->Draw(context, graphics);
-//    }
-}
+
 
 /**
  * Handle mouse clicks (mouse down)

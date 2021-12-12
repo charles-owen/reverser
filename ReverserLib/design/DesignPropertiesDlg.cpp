@@ -57,7 +57,7 @@ void DesignPropertiesDlg::OnSchematicFile(wxCommandEvent& event)
 
     auto path = openFileDialog.GetPath();
     auto schematic = std::make_shared<Schematic>();
-    if(schematic->Load(path.ToStdWstring()))
+    if(schematic->EagleLoad(path.ToStdWstring()))
     {
         mSchematic = schematic;
         auto schematicFilenameCtrl = XRCCTRL(*this, "schematic_file_name", wxTextCtrl);
@@ -65,7 +65,7 @@ void DesignPropertiesDlg::OnSchematicFile(wxCommandEvent& event)
     }
     else
     {
-        wxMessageBox(L"Unable to load schematic file", "Schematic Load Failure", wxCENTRE, this);
+        wxMessageBox(L"Unable to load schematic file", "Schematic EagleLoad Failure", wxCENTRE, this);
     }
 }
 
@@ -81,7 +81,7 @@ void DesignPropertiesDlg::OnBoardFile(wxCommandEvent& event)
 
     auto path = openFileDialog.GetPath();
     auto board = std::make_shared<Board>();
-    if(board->Load(path.ToStdWstring()))
+    if(board->EagleLoad(path.ToStdWstring()))
     {
         mBoard = board;
         auto schematicFilenameCtrl = XRCCTRL(*this, "board_file_name", wxTextCtrl);
@@ -89,6 +89,6 @@ void DesignPropertiesDlg::OnBoardFile(wxCommandEvent& event)
     }
     else
     {
-        wxMessageBox(L"Unable to load board file", "Board Load Failure", wxCENTRE, this);
+        wxMessageBox(L"Unable to load board file", "Board EagleLoad Failure", wxCENTRE, this);
     }
 }

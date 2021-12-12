@@ -10,9 +10,8 @@
 #include "../MainFrame.h"
 #include "Layer.h"
 #include "PCBPanel.h"
-#include "../save/Components.h"
+#include "../parts/Elements.h"
 
-#include <wx/notebook.h>
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
 #include <wx/xrc/xmlres.h>
@@ -73,9 +72,10 @@ PCBView::~PCBView()
 
 void PCBView::PaintEvent(wxPaintEvent& evt)
 {
-    auto model = mReverser->GetDesign();
-    auto pcb = model->GetPCB();
-    auto pcbSize = pcb->GetSize();
+    auto design = mReverser->GetDesign();
+    auto pcb = design->GetPCB();
+    auto pcbWidth = pcb->GetWidth();
+    auto pcbHeight = pcb->GetHeight();
 
     wxBufferedPaintDC dc(this);
 
@@ -96,8 +96,8 @@ void PCBView::PaintEvent(wxPaintEvent& evt)
     mScaleY *= mZoom;
 
     SetVirtualSize(wxSize(
-            (int)(pcbSize.GetX() * mScaleX),
-            (int)(pcbSize.GetY() * mScaleY)
+            (int)(pcbWidth * mScaleX),
+            (int)(pcbHeight * mScaleY)
             ));
 
     wxGraphicsContext *graphics = wxGraphicsContext::Create(dc);
@@ -119,7 +119,9 @@ void PCBView::PaintEvent(wxPaintEvent& evt)
 
 
         auto context = mPCBPanel->GetContext();
-        pcb->DrawComponents(context, graphics);
+
+        auto elements = design->GetElements();
+        elements->Draw(graphics, pcb->GetWidth(), pcb->GetHeight());
 
 //        graphics->SetPen(*wxRED_PEN);
 //        graphics->SetBrush(*wxWHITE_BRUSH);
@@ -259,10 +261,11 @@ void PCBView::SetZoom(double newZoom)
     mScaleY *= factor;
 
     auto pcb = mReverser->GetDesign()->GetPCB();
-    auto pcbSize = pcb->GetSize();
+    auto pcbWidth = pcb->GetWidth();
+    auto pcbHeight = pcb->GetHeight();
     SetVirtualSize(wxSize(
-            (int)(pcbSize.GetX() * mScaleX),
-            (int)(pcbSize.GetY() * mScaleY)
+            (int)(pcbWidth * mScaleX),
+            (int)(pcbHeight * mScaleY)
     ));
 
     SetViewCenter(middle);

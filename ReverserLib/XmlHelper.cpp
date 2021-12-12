@@ -5,20 +5,49 @@
 
 #include "XmlHelper.h"
 #include <iostream>
+#include <sstream>
 
-wxXmlNode *XmlHelper::XmlFindChild(wxXmlNode* node, const std::wstring& name)
+/**
+ * Find a decendant node based on a path.
+ * Paths are of the form "node/node/node"
+ * @param node Parent node we are searching
+ * @param nodePath Path to the desired node
+ * @return wxXmlNode or nullptr if not found
+ */
+wxXmlNode *XmlHelper::Find(wxXmlNode* node, const std::wstring& nodePath)
 {
-    auto child = node->GetChildren();
-    for( ; child; child = child->GetNext())
+    std::vector<std::wstring> nodeNames;
+    std::wstringstream wss(nodePath);
+    std::wstring part;
+    while(std::getline(wss, part, L'/')) {
+        nodeNames.push_back(part);
+    }
+
+    for(auto &nodeName : nodeNames)
     {
-        if(child->GetName() == name)
+        bool found = false;
+        auto child = node->GetChildren();
+        for( ; child; child = child->GetNext())
         {
-            return child;
+            if(child->GetName() == nodeName)
+            {
+                found = true;
+                node = child;
+            }
+        }
+
+        if(!found)
+        {
+            return nullptr;
         }
     }
 
-    return nullptr;
+    return node;
 }
+
+
+
+
 
 double XmlHelper::GetAttributeDouble(wxXmlNode* node, wxString attrName, double defaultVal)
 {
@@ -63,4 +92,6 @@ bool XmlHelper::GetAttributeBool(wxXmlNode* node, wxString attrName, bool defaul
 
     return value == L"true";
 }
+
+
 

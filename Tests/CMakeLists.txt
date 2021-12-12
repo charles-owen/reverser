@@ -8,7 +8,7 @@ set(TEST_FILES
 #    LayoutTest.cpp PartTest.cpp PartsTest.cpp ComponentsTest.cpp ComponentTest.cpp
 #    NetworkTest.cpp
 #    NetworksTest.cpp
-    gtest_main.cpp)
+    gtest_main.cpp BoardTest.cpp XmlHelperTest.cpp PackagesTest.cpp ElementsTest.cpp)
 
 # Get Google Tests
 include(FetchContent)
@@ -35,3 +35,5 @@ target_link_libraries(Tests_run ${APPLICATION_LIBRARY} ${wxWidgets_LIBRARIES} )
 target_link_libraries(Tests_run gtest)
 
 target_precompile_headers(Tests_run PRIVATE ../${APPLICATION_LIBRARY}/pch.h)
+
+file(COPY test-data/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/test-data)
