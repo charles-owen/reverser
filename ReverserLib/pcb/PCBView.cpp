@@ -117,15 +117,22 @@ void PCBView::PaintEvent(wxPaintEvent& evt)
         pcb->GetBottom()->SetOpacity(opacitySlider->GetValue() * 0.01);
         pcb->GetBottom()->Draw(graphics);
 
+        auto matrix = graphics->CreateMatrix();
+        matrix.Set(1, 0, 0, -1, 0, pcbHeight);
+        graphics->PushState();
+        graphics->ConcatTransform(matrix);
 
         auto context = mPCBPanel->GetContext();
 
         auto elements = design->GetElements();
-        elements->Draw(graphics, pcb->GetWidth(), pcb->GetHeight());
+        elements->Draw(graphics, pcbWidth, pcbHeight);
+
 
 //        graphics->SetPen(*wxRED_PEN);
-//        graphics->SetBrush(*wxWHITE_BRUSH);
-//        graphics->DrawRectangle(100, 100, 100, 50);
+//        graphics->SetBrush(*wxTRANSPARENT_BRUSH);
+//        graphics->DrawRectangle(10, 10, 100, 50);
+
+        graphics->PopState();
 
         graphics->PopState();
         delete graphics;

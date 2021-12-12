@@ -11,6 +11,7 @@
 #include "Attribute.h"
 
 #include "../XmlHelper.h"
+#include "../GraphicsHelper.h"
 
 //
 //                 <element name="J1" library="owen-library"
@@ -52,8 +53,10 @@ Element::Element(wxXmlNode* node, Packages* packages) : mNode(node)
 
 void Element::Draw(wxGraphicsContext* graphics, int pcbWidth, int pcbHeight)
 {
+    GraphicsHelper gh(graphics);
+
     auto x = mX;
-    auto y = pcbHeight - mY;
+    auto y = mY;
 
     wxFont font(wxSize(0, 5),
             wxFONTFAMILY_SWISS,
@@ -61,5 +64,12 @@ void Element::Draw(wxGraphicsContext* graphics, int pcbWidth, int pcbHeight)
             wxFONTWEIGHT_NORMAL);
     graphics->SetFont(font, *wxWHITE);
 
-    graphics->DrawText(mName, x, y);
+    gh.DrawCartesianText(mName, x, y);
+
+    gh.Place(x, y, mRot);
+    if(mPackage != nullptr)
+    {
+        mPackage->Draw(graphics);
+    }
+    gh.UnPlace();
 }

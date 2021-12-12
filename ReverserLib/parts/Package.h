@@ -27,9 +27,9 @@ private:
     /// The primitives we draw, in order
     std::vector<std::shared_ptr<Primitive>> mPrimitives;
 
-
 public:
     Package(wxXmlNode* node, const std::wstring& libraryName);
+    void Draw(wxGraphicsContext* graphics);
 
     auto GetLibrary() {return mLibrary;}
     auto GetName() {return mName;}

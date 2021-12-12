@@ -21,11 +21,15 @@ private:
     double mDrill;
     double mDiameter;
     std::wstring mShape;
-    std::wstring mRotation;
+    std::wstring mRot;
 
+    // Path shape for long
+    wxGraphicsPath mPathLong;
 
 public:
     Pad(wxXmlNode* node);
+
+    void Draw(wxGraphicsContext* graphics) override;
 
 };
 

@@ -87,7 +87,7 @@
 				<label></label>
 				<markup>0</markup>
 				<bitmap>icons/pcb-top-grn.png</bitmap>
-				<checked>1</checked>
+				<checked>0</checked>
 			</object>
 			<object class="wxSlider" name="pcb_opacity_slider">
 				<style>wxSL_HORIZONTAL</style>
@@ -143,7 +143,7 @@
 				<auth_needed>0</auth_needed>
 			</object>
 			<object class="wxBitmapButton" name="pcb_rot_cw">
-				<bitmap>icons/rot_cw.png</bitmap>
+				<bitmap />
 				<default>0</default>
 				<auth_needed>0</auth_needed>
 			</object>

@@ -6,7 +6,7 @@
 #include "../pch.h"
 #include "Package.h"
 #include "../parts/Pad.h"
-
+#include "../GraphicsHelper.h"
 
 Package::Package(wxXmlNode* node, const std::wstring& libraryName) : mLibrary(libraryName)
 {
@@ -41,4 +41,17 @@ Package::Package(wxXmlNode* node, const std::wstring& libraryName) : mLibrary(li
             mPrimitives.push_back(primitive);
         }
     }
+}
+
+void Package::Draw(wxGraphicsContext* graphics)
+{
+    GraphicsHelper gh(graphics);
+
+  //  gh.CrossHair(0, 0);
+
+    for(auto primitive: mPrimitives)
+    {
+        primitive->Draw(graphics);
+    }
+
 }

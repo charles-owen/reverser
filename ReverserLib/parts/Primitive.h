@@ -16,6 +16,8 @@ private:
 
 public:
     virtual ~Primitive() = default;
+
+    virtual void Draw(wxGraphicsContext* graphics) {}
 };
 
 #endif //REVERSER_PRIMITIVE_H
