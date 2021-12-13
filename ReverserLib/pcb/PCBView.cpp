@@ -106,16 +106,16 @@ void PCBView::PaintEvent(wxPaintEvent& evt)
         graphics->PushState();
         graphics->Scale(mZoom, mZoom);
 
-        auto topToggle = XRCCTRL(*mMainFrame, "pcb_top_toggle", wxToggleButton);
-        if(topToggle->GetValue())
+        auto botToggle = XRCCTRL(*mMainFrame, "pcb_bot_toggle", wxToggleButton);
+        if(botToggle->GetValue())
         {
-            pcb->GetTop()->Draw(graphics);
+            pcb->GetBottom()->Draw(graphics);
         }
 
         auto opacitySlider = XRCCTRL(*mMainFrame, "pcb_opacity_slider", wxSlider);
 
-        pcb->GetBottom()->SetOpacity(opacitySlider->GetValue() * 0.01);
-        pcb->GetBottom()->Draw(graphics);
+        pcb->GetTop()->SetOpacity(1 - opacitySlider->GetValue() * 0.01);
+        pcb->GetTop()->Draw(graphics);
 
         auto matrix = graphics->CreateMatrix();
         matrix.Set(1, 0, 0, -1, 0, pcbHeight);
@@ -386,7 +386,7 @@ void PCBView::Crosshair(wxGraphicsContext *graphics, double x, double y, double 
 
 void PCBView::OnOpacityScroll(wxCommandEvent &event)
 {
-    auto ctrl = XRCCTRL(*mMainFrame, "pcb_bot_toggle", wxToggleButton);
+    auto ctrl = XRCCTRL(*mMainFrame, "pcb_top_toggle", wxToggleButton);
     auto opacitySlider = XRCCTRL(*mMainFrame, "pcb_opacity_slider", wxSlider);
     ctrl->SetValue(opacitySlider->GetValue() > 0);
     Refresh();
@@ -396,24 +396,24 @@ void PCBView::OnOpacityScroll(wxCommandEvent &event)
 
 void PCBView::OnTopToggle(wxCommandEvent& event)
 {
-    Refresh();
-}
-
-void PCBView::OnBotToggle(wxCommandEvent& event)
-{
-    auto ctrl = XRCCTRL(*mMainFrame, "pcb_bot_toggle", wxToggleButton);
+    auto ctrl = XRCCTRL(*mMainFrame, "pcb_top_toggle", wxToggleButton);
     auto opacitySlider = XRCCTRL(*mMainFrame, "pcb_opacity_slider", wxSlider);
 
     if(ctrl->GetValue())
     {
         // Was off, is now on
-        opacitySlider->SetValue(100);
+        opacitySlider->SetValue(0);
     }
     else
     {
         // Was on, now off
-        opacitySlider->SetValue(0);
+        opacitySlider->SetValue(100);
     }
 
+    Refresh();
+}
+
+void PCBView::OnBotToggle(wxCommandEvent& event)
+{
     Refresh();
 }

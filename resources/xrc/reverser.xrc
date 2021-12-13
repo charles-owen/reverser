@@ -82,12 +82,12 @@
 			<margins></margins>
 			<packing>1</packing>
 			<separation>5</separation>
-			<object class="wxToggleButton" name="pcb_bot_toggle">
+			<object class="wxToggleButton" name="pcb_top_toggle">
 				<size>24,24</size>
 				<label></label>
 				<markup>0</markup>
 				<bitmap>icons/pcb-top-grn.png</bitmap>
-				<checked>0</checked>
+				<checked>1</checked>
 			</object>
 			<object class="wxSlider" name="pcb_opacity_slider">
 				<style>wxSL_HORIZONTAL</style>
@@ -95,7 +95,7 @@
 				<min>0</min>
 				<max>100</max>
 			</object>
-			<object class="wxToggleButton" name="pcb_top_toggle">
+			<object class="wxToggleButton" name="pcb_bot_toggle">
 				<size>24,24</size>
 				<label></label>
 				<markup>0</markup>
