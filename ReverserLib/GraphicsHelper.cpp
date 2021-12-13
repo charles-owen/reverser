@@ -9,11 +9,50 @@
 
 
 
-void GraphicsHelper::DrawCartesianText(const wxString& text, wxDouble x, wxDouble y)
+void GraphicsHelper::DrawCartesianText(const wxString& text, wxDouble x, wxDouble y,
+        Horizontal alignHorizontal, Vertical alignVertical, bool invert)
 {
     mGraphics->PushState();
     mGraphics->Scale(1, -1);
-    mGraphics->DrawText(text, x, -y);
+
+    double wid, hit;
+    mGraphics->GetTextExtent(text, &wid, &hit);
+
+    switch(alignHorizontal)
+    {
+    case Horizontal::LEFT:
+        break;
+
+    case Horizontal::CENTER:
+        x -= wid/2;
+        break;
+
+    case Horizontal::RIGHT:
+        x -= wid;
+        break;
+    }
+
+    switch(alignVertical)
+    {
+    case Vertical::TOP:
+        break;
+
+    case Vertical::BOTTOM:
+        y += hit;
+        break;
+    }
+
+    mGraphics->Translate(x, -y);
+    if(invert)
+    {
+        mGraphics->Rotate(M_PI);
+        mGraphics->DrawText(text, -wid, -hit);
+    }
+    else
+    {
+        mGraphics->DrawText(text, 0, 0);
+    }
+
     mGraphics->PopState();
 }
 

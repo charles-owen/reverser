@@ -136,6 +136,11 @@ void MainFrame::OnFileOpen(wxCommandEvent& event)
     UpdateTitle();
 }
 
+void MainFrame::FileOpen(const std::wstring& path)
+{
+    mReverser.FileOpen(this, path);
+}
+
 void MainFrame::UpdateTitle()
 {
     SetLabel(mReverser.GetDesign()->GetFilename() + L" - Reverser");

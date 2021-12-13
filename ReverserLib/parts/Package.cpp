@@ -6,6 +6,8 @@
 #include "../pch.h"
 #include "Package.h"
 #include "../parts/Pad.h"
+#include "../parts/Wire.h"
+#include "../parts/Text.h"
 #include "../GraphicsHelper.h"
 
 Package::Package(wxXmlNode* node, const std::wstring& libraryName) : mLibrary(libraryName)
@@ -24,16 +26,15 @@ Package::Package(wxXmlNode* node, const std::wstring& libraryName) : mLibrary(li
         }
         else if(nodeName == L"wire")
         {
-
+            primitive = std::make_shared<Wire>(child);
         }
         else if(nodeName == L"pad")
         {
-            auto pad = std::make_shared<Pad>(child);
-            primitive = pad;
+            primitive = std::make_shared<Pad>(child);
         }
         else if(nodeName == L"text")
         {
-
+            primitive = std::make_shared<Text>(child);
         }
 
         if(primitive != nullptr)

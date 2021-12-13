@@ -4,6 +4,8 @@
 #include "MainFrame.h"
 
 #include "wx/xrc/xmlres.h"          // XRC XML resources
+#include "wx/cmdline.h"
+
 #include <wx/stdpaths.h>
 
 bool ReverserApp::OnInit()
@@ -26,6 +28,30 @@ bool ReverserApp::OnInit()
 
     auto frame = new MainFrame();
     frame->Show(true);
+    auto cwd = wxGetCwd();
+
+    if(!mFileToOpen.empty())
+    {
+        frame->FileOpen(mFileToOpen);
+    }
 
     return true;
+}
+
+void ReverserApp::OnInitCmdLine(wxCmdLineParser& parser)
+{
+    parser.AddParam(L"filename", wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL);
+    wxAppBase::OnInitCmdLine(parser);
+}
+
+bool ReverserApp::OnCmdLineParsed(wxCmdLineParser& parser)
+{
+    if(parser.GetParamCount() > 0)
+    {
+        wxFileName fileToOpen(parser.GetParam(0));
+        fileToOpen.MakeAbsolute();
+        mFileToOpen = fileToOpen.GetFullPath().ToStdWstring();
+    }
+
+    return wxAppBase::OnCmdLineParsed(parser);
 }

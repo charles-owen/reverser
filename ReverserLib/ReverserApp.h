@@ -7,8 +7,15 @@
 
 class ReverserApp : public wxApp
 {
- public:
-  virtual bool OnInit();
+private:
+    std::wstring mFileToOpen;
+
+public:
+    bool OnInit() override;
+
+    void OnInitCmdLine(wxCmdLineParser& parser) override;
+
+    bool OnCmdLineParsed(wxCmdLineParser& parser) override;
 };
 
 

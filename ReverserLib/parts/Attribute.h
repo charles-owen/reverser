@@ -8,6 +8,8 @@
 #ifndef REVERSER_ATTRIBUTE_H
 #define REVERSER_ATTRIBUTE_H
 
+class Element;
+
 /**
  * Attributes attached to an element.
  */
@@ -23,9 +25,12 @@ private:
     int mLayer;
     std::wstring mRot;
     std::wstring mAlign;
+    bool mDisplay = true;
 
 public:
     Attribute(wxXmlNode* node);
+
+    void Draw(wxGraphicsContext* graphics, Element* element);
 
 };
 

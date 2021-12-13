@@ -58,13 +58,13 @@ void Element::Draw(wxGraphicsContext* graphics, int pcbWidth, int pcbHeight)
     auto x = mX;
     auto y = mY;
 
-    wxFont font(wxSize(0, 5),
-            wxFONTFAMILY_SWISS,
-            wxFONTSTYLE_NORMAL,
-            wxFONTWEIGHT_NORMAL);
-    graphics->SetFont(font, *wxWHITE);
-
-    gh.DrawCartesianText(mName, x, y);
+//    wxFont font(wxSize(0, 5),
+//            wxFONTFAMILY_SWISS,
+//            wxFONTSTYLE_NORMAL,
+//            wxFONTWEIGHT_NORMAL);
+//    graphics->SetFont(font, *wxWHITE);
+//
+//    gh.DrawCartesianText(mName, x, y);
 
     gh.Place(x, y, mRot);
     if(mPackage != nullptr)
@@ -72,4 +72,11 @@ void Element::Draw(wxGraphicsContext* graphics, int pcbWidth, int pcbHeight)
         mPackage->Draw(graphics);
     }
     gh.UnPlace();
+
+    for(auto attribute: mAttributes)
+    {
+        attribute->Draw(graphics, this);
+    }
+
+
 }

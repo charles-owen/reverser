@@ -61,7 +61,7 @@ public:
 
     Reverser *GetReverser() {return &mReverser; }
 
-
+    void FileOpen(const std::wstring& path);
 };
 
 #endif //_MAINFRAME_H_

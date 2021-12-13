@@ -15,6 +15,16 @@ class GraphicsHelper {
 private:
     wxGraphicsContext *mGraphics;
 public:
+    enum class Horizontal
+    {
+        LEFT, CENTER, RIGHT
+    };
+
+    enum class Vertical
+    {
+        TOP, BOTTOM
+    };
+
     /// Increased resolution to use when drawing lines and other fine detail
     static constexpr double ResolutionFactor = 10;
 
@@ -29,7 +39,8 @@ public:
     /// Assignment operator
     void operator=(const GraphicsHelper &) = delete;
 
-    void DrawCartesianText(const wxString& text, wxDouble x, wxDouble y);
+    void DrawCartesianText(const wxString& text, wxDouble x, wxDouble y, Horizontal alignHorizontal=Horizontal::LEFT,
+            Vertical alignVertical=Vertical::BOTTOM, bool invert=false);
     void CrossHair(wxDouble x, wxDouble y, wxDouble size=10, wxColour color=*wxWHITE, wxDouble width=0.1);
 
     void Place(wxDouble x, wxDouble y, const std::wstring& rot);

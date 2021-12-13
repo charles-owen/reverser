@@ -6,6 +6,8 @@
 #include "../pch.h"
 #include "Attribute.h"
 #include "../XmlHelper.h"
+#include "../GraphicsHelper.h"
+#include "Element.h"
 
 //
 //                 <element name="J1" library="owen-library"
@@ -26,4 +28,67 @@ Attribute::Attribute(wxXmlNode* node) : mNode(node)
     mY = XmlHelper::GetAttributeDouble(node, L"y", 0);
     mSize = XmlHelper::GetAttributeDouble(node, L"size", 1);
     mLayer = XmlHelper::GetAttributeInt(node, L"layer", 0);
+
+    auto display = node->GetAttribute(L"display", L"on");
+    mDisplay = display == L"on";
+}
+
+void Attribute::Draw(wxGraphicsContext* graphics, Element* element)
+{
+    if(!mDisplay)
+    {
+        return;
+    }
+
+    GraphicsHelper gh(graphics);
+    gh.Place(mX, mY, mRot);
+    gh.CrossHair(0,0, 2, *wxGREEN);
+    graphics->Scale(0.1, 0.1);
+
+    bool invert = mRot == L"R180" || mRot == L"R270";
+
+    wxFont font(wxSize(0, (int)(mSize * 20)),
+            wxFONTFAMILY_SWISS,
+            wxFONTSTYLE_NORMAL,
+            wxFONTWEIGHT_NORMAL);
+    graphics->SetFont(font, *wxRED);
+
+    std::wstring text;
+
+    if(mName == L"NAME")
+    {
+        text = element->GetName();
+    }
+    else if(mName == L"VALUE")
+    {
+        text = element->GetValue();
+    }
+
+    // Align values:
+    // align="bottom-center"
+    // align="top-center"
+    if(!text.empty())
+    {
+        if(mAlign == L"bottom-center")
+        {
+            gh.DrawCartesianText(text, 0, 0, GraphicsHelper::Horizontal::CENTER,
+                    GraphicsHelper::Vertical::BOTTOM, invert);
+        }
+        else if(mAlign == L"top-center")
+        {
+            gh.DrawCartesianText(text, 0, 0, GraphicsHelper::Horizontal::CENTER,
+                    GraphicsHelper::Vertical::TOP, invert);
+        }
+        else
+        {
+            gh.DrawCartesianText(text, 0, 0, GraphicsHelper::Horizontal::LEFT,
+                    GraphicsHelper::Vertical::BOTTOM, invert);
+        }
+    }
+
+
+
+
+
+    gh.UnPlace();
 }

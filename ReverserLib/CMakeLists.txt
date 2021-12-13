@@ -41,7 +41,7 @@ set(SOURCE_FILES
 #        dlg/NetworkPropertiesDlg.cpp dlg/NetworkPropertiesDlg.h
 #        network/NetworkListBox.cpp network/NetworkListBox.h
         schematic/Schematic.cpp schematic/Schematic.h
-        design/DesignPropertiesDlg.cpp design/DesignPropertiesDlg.h EagleDOM.cpp EagleDOM.h board/Board.cpp board/Board.h PathHelper.cpp PathHelper.h parts/Package.cpp parts/Package.h parts/Primitive.cpp parts/Primitive.h parts/Pad.cpp parts/Pad.h parts/Packages.cpp parts/Packages.h parts/Elements.cpp parts/Elements.h parts/Element.cpp parts/Element.h parts/Attribute.cpp parts/Attribute.h GraphicsHelper.cpp GraphicsHelper.h)
+        design/DesignPropertiesDlg.cpp design/DesignPropertiesDlg.h EagleDOM.cpp EagleDOM.h board/Board.cpp board/Board.h PathHelper.cpp PathHelper.h parts/Package.cpp parts/Package.h parts/Primitive.cpp parts/Primitive.h parts/Pad.cpp parts/Pad.h parts/Packages.cpp parts/Packages.h parts/Elements.cpp parts/Elements.h parts/Element.cpp parts/Element.h parts/Attribute.cpp parts/Attribute.h GraphicsHelper.cpp GraphicsHelper.h parts/Wire.cpp parts/Wire.h parts/Text.cpp parts/Text.h)
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
 

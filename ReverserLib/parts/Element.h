@@ -39,6 +39,7 @@ public:
     void Draw(wxGraphicsContext* graphics, int pcbWidth, int pcbHeight);
 
     auto GetName() {return mName;}
+    auto GetValue() {return mValue;}
 };
 
 #endif //REVERSER_ELEMENT_H
