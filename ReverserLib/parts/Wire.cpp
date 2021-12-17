@@ -23,11 +23,11 @@ Wire::Wire(wxXmlNode* node)
 }
 
 
-void Wire::Draw(wxGraphicsContext* graphics)
+void Wire::Draw(wxGraphicsContext* graphics, PCBContext* context, Element* element)
 {
     graphics->Scale(0.1, 0.1);
 
-    wxPen pen(*wxWHITE, (int)(mWidth * 10));
+    wxPen pen(*wxWHITE, (int)(mWidth * 20));
     graphics->SetPen(pen);
     graphics->StrokeLine(mX1*10, mY1*10, mX2*10, mY2*10);
 

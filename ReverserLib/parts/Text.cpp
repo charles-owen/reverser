@@ -25,20 +25,3 @@ Text::Text(wxXmlNode* node)
     mText = text.ToStdWstring();
 }
 
-void Text::Draw(wxGraphicsContext* graphics)
-{
-//    GraphicsHelper gh(graphics);
-//    gh.Place(mX, mY, mRot);
-//    graphics->Scale(0.1, 0.1);
-//
-//    wxFont font(wxSize(0, (int)(mSize * 10)),
-//            wxFONTFAMILY_SWISS,
-//            wxFONTSTYLE_NORMAL,
-//            wxFONTWEIGHT_NORMAL);
-//    graphics->SetFont(font, *wxRED);
-//
-//    gh.DrawCartesianText(mText, 0, 0);
-//
-//    gh.UnPlace();
-}
-

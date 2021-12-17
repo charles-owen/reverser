@@ -12,6 +12,7 @@
 
 #include "../XmlHelper.h"
 #include "../GraphicsHelper.h"
+#include "../pcb/PCBContext.h"
 
 //
 //                 <element name="J1" library="owen-library"
@@ -51,7 +52,7 @@ Element::Element(wxXmlNode* node, Packages* packages) : mNode(node)
     }
 }
 
-void Element::Draw(wxGraphicsContext* graphics, int pcbWidth, int pcbHeight)
+void Element::Draw(wxGraphicsContext* graphics,  PCBContext* context, int pcbWidth, int pcbHeight)
 {
     GraphicsHelper gh(graphics);
 
@@ -69,7 +70,7 @@ void Element::Draw(wxGraphicsContext* graphics, int pcbWidth, int pcbHeight)
     gh.Place(x, y, mRot);
     if(mPackage != nullptr)
     {
-        mPackage->Draw(graphics);
+        mPackage->Draw(graphics, context, this);
     }
     gh.UnPlace();
 
@@ -77,6 +78,35 @@ void Element::Draw(wxGraphicsContext* graphics, int pcbWidth, int pcbHeight)
     {
         attribute->Draw(graphics, this);
     }
+}
 
 
+/**
+ * Handle mouse clicks (mouse down)
+ * @param context PCB editor context.
+ */
+bool Element::Click(PCBContext* context, const wxPoint2DDouble &point)
+{
+    // Convert coordinates to package local coordinates
+    auto point1 = GraphicsHelper::InversePlace(point, mX, mY, mRot);
+    if(mPackage != nullptr)
+    {
+        return mPackage->Click(this, context, point1);
+    }
+
+    return false;
+}
+
+void Element::Move(const wxPoint2DDouble &delta)
+{
+    mX += delta.m_x;
+    mY += delta.m_y;
+
+    XmlHelper::SetAttributeDouble(mNode, L"x", mX);
+    XmlHelper::SetAttributeDouble(mNode, L"y", mY);
+
+    for(auto attribute: mAttributes)
+    {
+        attribute->Move(delta);
+    }
 }

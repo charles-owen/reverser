@@ -59,11 +59,6 @@ void PCB::XmlSave(const std::wstring& designPath, wxXmlNode* node)
     auto bottomNode = new wxXmlNode(wxXML_ELEMENT_NODE, L"bot");
     pcbNode->AddChild(bottomNode);
     mBottom->XmlSave(designPath, bottomNode);
-
-//    for(auto component: mComponents)
-//    {
-//        component->XmlSave(pcbNode);
-//    }
 }
 
 /**
@@ -94,61 +89,8 @@ void PCB::XmlLoad(wxWindow* parent, std::wstring& designPath, wxXmlNode* root)
         {
             mBottom->XmlLoad(parent, designPath, child);
         }
-//        else if(name == L"component")
-//        {
-//            XmlLoadComponent(child);
-//        }
+
     }
 }
 
-void PCB::XmlLoadComponent(wxXmlNode *node)
-{
-//    auto number = node->GetAttribute(L"number");
-//    auto component = mModel->GetComponents()->Get(number.ToStdWstring());
-//
-//    if(component != nullptr)
-//    {
-//        auto layoutComponent = std::make_shared<LayoutComponent>();
-//        layoutComponent->SetComponent(component);
-//        layoutComponent->XmlLoad(node);
-//
-//        mComponents.push_back(layoutComponent);
-//    }
-}
-
-
-
-/**
- * Handle mouse clicks (mouse down)
- * @param context PCB editor context.
- */
-bool PCB::Click(PCBContext* context, const wxPoint2DDouble &point)
-{
-//    for(auto component : mComponents)
-//    {
-//        if(component->Click(context, point))
-//        {
-//            return true;
-//        }
-//    }
-
-    return false;
-}
-
-
-/**
- * Delete a component
- * @param component Component to delete.
- */
-void PCB::Delete(std::shared_ptr<Component> component)
-{
-//    for(auto c=mComponents.begin(); c!=mComponents.end(); c++)
-//    {
-//        if((*c)->GetComponent() == component)
-//        {
-//            mComponents.erase(c);
-//            return;
-//        }
-//    }
-}
 

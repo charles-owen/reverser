@@ -92,3 +92,12 @@ void Attribute::Draw(wxGraphicsContext* graphics, Element* element)
 
     gh.UnPlace();
 }
+
+void Attribute::Move(const wxPoint2DDouble& delta)
+{
+    mX += delta.m_x;
+    mY += delta.m_y;
+
+    XmlHelper::SetAttributeDouble(mNode, L"x", mX);
+    XmlHelper::SetAttributeDouble(mNode, L"y", mY);
+}

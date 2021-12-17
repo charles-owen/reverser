@@ -24,6 +24,8 @@ public:
     static void SetAttributeDouble(wxXmlNode *node, wxString attrName, double attrValue);
 
     static wxXmlNode* Find(wxXmlNode* node, const std::wstring& nodePath);
+
+    static wxXmlAttribute* FindAttribute(wxXmlNode* node, wxString attrName);
 };
 
 #endif //REVERSER_XMLHELPER_H

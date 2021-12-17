@@ -25,7 +25,7 @@ private:
 public:
     Wire(wxXmlNode* node);
 
-    void Draw(wxGraphicsContext* graphics) override;
+    void Draw(wxGraphicsContext* graphics, PCBContext* context, Element* element) override;
 };
 
 #endif //REVERSER_WIRE_H

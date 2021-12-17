@@ -9,6 +9,8 @@
 #define REVERSER_PACKAGE_H
 
 class Primitive;
+class Element;
+class PCBContext;
 
 /**
  * A package is a layout symbol.
@@ -29,10 +31,12 @@ private:
 
 public:
     Package(wxXmlNode* node, const std::wstring& libraryName);
-    void Draw(wxGraphicsContext* graphics);
+    void Draw(wxGraphicsContext* graphics, PCBContext* context, Element* element);
 
     auto GetLibrary() {return mLibrary;}
     auto GetName() {return mName;}
+
+    bool Click(Element* element, PCBContext* context, const wxPoint2DDouble& point);
 };
 
 #endif //REVERSER_PACKAGE_H

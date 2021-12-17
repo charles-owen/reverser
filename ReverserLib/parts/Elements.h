@@ -11,6 +11,7 @@
 
 class Packages;
 class Element;
+class PCBContext;
 
 /**
  * Collection of elements. An element is a board part such
@@ -23,10 +24,11 @@ private:
 
 public:
     bool XmlLoad(wxXmlNode* root, Packages* packages);
-    void Draw(wxGraphicsContext* graphics, int pcbWidth, int pcbHeight);
+    void Draw(wxGraphicsContext* graphics,  PCBContext* context, int pcbWidth, int pcbHeight);
 
     std::shared_ptr<Element> Find(const std::wstring& name);
 
+    bool Click(PCBContext* context, const wxPoint2DDouble& point);
 };
 
 #endif //REVERSER_ELEMENTS_H

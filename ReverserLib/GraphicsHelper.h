@@ -45,6 +45,8 @@ public:
 
     void Place(wxDouble x, wxDouble y, const std::wstring& rot);
     void UnPlace() {mGraphics->PopState();}
+
+    static wxPoint2DDouble InversePlace(const wxPoint2DDouble& point, wxDouble x, wxDouble y, const std::wstring& rot);
 };
 
 #endif //REVERSER_GRAPHICSHELPER_H

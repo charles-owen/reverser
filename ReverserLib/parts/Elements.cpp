@@ -7,6 +7,7 @@
 #include "Elements.h"
 #include "Element.h"
 #include "../XmlHelper.h"
+#include "../pcb/PCBContext.h"
 
 bool Elements::XmlLoad(wxXmlNode* root, Packages* packages)
 {
@@ -43,10 +44,30 @@ std::shared_ptr<Element> Elements::Find(const std::wstring& name)
     return nullptr;
 }
 
-void Elements::Draw(wxGraphicsContext* graphics, int pcbWidth, int pcbHeight)
+void Elements::Draw(wxGraphicsContext* graphics, PCBContext* context, int pcbWidth, int pcbHeight)
 {
     for(auto element: mElements)
     {
-        element->Draw(graphics, pcbWidth, pcbHeight);
+        element->Draw(graphics, context, pcbWidth, pcbHeight);
     }
 }
+
+
+
+/**
+ * Handle mouse clicks (mouse down)
+ * @param context PCB editor context.
+ */
+bool Elements::Click(PCBContext* context, const wxPoint2DDouble &point)
+{
+    for(auto element: mElements)
+    {
+        if(element->Click(context, point))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+

@@ -65,7 +65,6 @@ PCBPanel::PCBPanel(MainFrame* mainFrame, Reverser* reverser, std::wstring resour
 
 PCBPanel::~PCBPanel()
 {
-//    mMainFrame->Unbind(wxEVT_COMMAND_MENU_SELECTED, &PCBPanel::OnPCBProperties, this);
 }
 
 

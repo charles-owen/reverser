@@ -47,9 +47,9 @@ PCBView::PCBView(PCBPanel *pcbPanel, wxWindow* mainFrame, Reverser* reverser) :
 //
 //
     Bind(wxEVT_PAINT, &PCBView::PaintEvent, this);
-//    Bind(wxEVT_LEFT_DOWN, &PCBView::OnLeftDown, this);
-//    Bind(wxEVT_LEFT_UP, &PCBView::OnLeftUp, this);
-//    Bind(wxEVT_MOTION, &PCBView::OnMouseMove, this);
+    Bind(wxEVT_LEFT_DOWN, &PCBView::OnLeftDown, this);
+    Bind(wxEVT_LEFT_UP, &PCBView::OnLeftUp, this);
+    Bind(wxEVT_MOTION, &PCBView::OnMouseMove, this);
     Bind(wxEVT_ERASE_BACKGROUND, &PCBView::EraseBackground, this);
 
     mainFrame->Bind(wxEVT_BUTTON, &PCBView::OnZoomOut, this, XRCID("pcb_zoom_out"));
@@ -125,7 +125,7 @@ void PCBView::PaintEvent(wxPaintEvent& evt)
         auto context = mPCBPanel->GetContext();
 
         auto elements = design->GetElements();
-        elements->Draw(graphics, pcbWidth, pcbHeight);
+        elements->Draw(graphics, context, pcbWidth, pcbHeight);
 
 
 //        graphics->SetPen(*wxRED_PEN);
@@ -144,25 +144,30 @@ void PCBView::PaintEvent(wxPaintEvent& evt)
 
 void PCBView::OnLeftDown(wxMouseEvent& event)
 {
-//    auto focus = FindFocus();
-//
-//    auto pcb = mReverser->GetDesign()->GetPCB();
-//
-//    auto position = ToVirtualPosition(event.GetX(), event.GetY());
-//    mLastMouse = position;
-//
-//    auto context = mPCBPanel->GetContext();
-//    if(!pcb->Click(context, position))
-//    {
-//        // If we did not click on anything clear the selection
-//        context->ClearSelection();
-//    }
-//
-//   // mCrosshair = ToVirtualPosition(event.GetX(), event.GetY());
-//   // SetViewCenter(mCrosshair);
-//
-//  //  mCrosshair = GetViewCenter();
-//    Refresh();
+    auto design = mReverser->GetDesign();
+    auto focus = FindFocus();
+
+    auto pcb = mReverser->GetDesign()->GetPCB();
+    auto pcbHeight = pcb->GetHeight();
+
+    auto position = ToVirtualPosition(event.GetX(), event.GetY());
+    position = wxPoint2DDouble(position.m_x, pcbHeight - position.m_y);
+    mLastMouse = position;
+
+    auto context = mPCBPanel->GetContext();
+    auto elements = design->GetElements();
+
+    if(!elements->Click(context, position))
+    {
+        // If we did not click on anything clear the selection
+        context->ClearSelection();
+    }
+
+   // mCrosshair = ToVirtualPosition(event.GetX(), event.GetY());
+   // SetViewCenter(mCrosshair);
+
+  //  mCrosshair = GetViewCenter();
+    Refresh();
 }
 
 
@@ -174,7 +179,11 @@ void PCBView::OnLeftUp(wxMouseEvent& event)
 
 void PCBView::OnMouseMove(wxMouseEvent& event)
 {
+    auto pcb = mReverser->GetDesign()->GetPCB();
+    auto pcbHeight = pcb->GetHeight();
+
     auto position = ToVirtualPosition(event.GetX(), event.GetY());
+    position = wxPoint2DDouble(position.m_x, pcbHeight - position.m_y);
     auto delta = position - mLastMouse;
     mLastMouse = position;
 
@@ -298,51 +307,52 @@ wxPoint2DDouble PCBView::GetViewCenter()
  */
 void PCBView::SetViewCenter(wxPoint2DDouble center)
 {
-//    int vx, vy;
-//    GetViewStart(&vx, &vy);
-//
-//    // Target to logical coordinates
-//    int tx = (int)(center.m_x * mScaleX);
-//    int ty = (int)(center.m_y * mScaleY);
-//
-//    // Window size in logical coordinates
-//    int cx, cy;
-//    GetClientSize(&cx, &cy);
-//
-//    // Get the computed virtual size based on the current scale
-//    auto pcb = mReverser->GetDesign()->GetPCB();
-//    auto pcbSize = pcb->GetSize();
-//    int sx = (int)(pcbSize.x * mScaleX);
-//    int sy = (int)(pcbSize.y * mScaleY);
-//
-//    // Get pixels per scroll unit
-//    int ppuX, ppuY;
-//    GetScrollPixelsPerUnit(&ppuX, &ppuY);
-//
-//    // Make target and widow size be scroll coordinates
-//    tx /= ppuX;
-//    ty /= ppuY;
-//    cx /= ppuX;
-//    cy /= ppuY;
-//    sx /= ppuX;
-//    sy /= ppuY;
-//
-//    // The scroll position
-//    auto scrollX = tx - cx/2;
-//    auto scrollY = ty - cy/2;
-//    if(scrollX > (sx - cx))
-//    {
-//        scrollX = sx - cx;
-//    }
-//    if(scrollY > (sy - cy))
-//    {
-//        scrollY = sy - cy;
-//    }
-//    scrollX = max(scrollX, 0);
-//    scrollY = max(scrollY, 0);
-//
-//    Scroll(scrollX, scrollY);
-//    Refresh();
+    int vx, vy;
+    GetViewStart(&vx, &vy);
+
+    // Target to logical coordinates
+    int tx = (int)(center.m_x * mScaleX);
+    int ty = (int)(center.m_y * mScaleY);
+
+    // Window size in logical coordinates
+    int cx, cy;
+    GetClientSize(&cx, &cy);
+
+    // Get the computed virtual size based on the current scale
+    auto pcb = mReverser->GetDesign()->GetPCB();
+    auto pcbWidth = pcb->GetWidth();
+    auto pcbHeight = pcb->GetHeight();
+    int sx = (int)(pcbWidth * mScaleX);
+    int sy = (int)(pcbHeight * mScaleY);
+
+    // Get pixels per scroll unit
+    int ppuX, ppuY;
+    GetScrollPixelsPerUnit(&ppuX, &ppuY);
+
+    // Make target and widow size be scroll coordinates
+    tx /= ppuX;
+    ty /= ppuY;
+    cx /= ppuX;
+    cy /= ppuY;
+    sx /= ppuX;
+    sy /= ppuY;
+
+    // The scroll position
+    auto scrollX = tx - cx/2;
+    auto scrollY = ty - cy/2;
+    if(scrollX > (sx - cx))
+    {
+        scrollX = sx - cx;
+    }
+    if(scrollY > (sy - cy))
+    {
+        scrollY = sy - cy;
+    }
+    scrollX = max(scrollX, 0);
+    scrollY = max(scrollY, 0);
+
+    Scroll(scrollX, scrollY);
+    Refresh();
 }
 
 /**

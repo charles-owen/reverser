@@ -29,12 +29,22 @@ wxXmlNode* EagleDOM::XmlSave(const std::wstring& designPath, wxXmlNode* node, co
         return nullptr;
     }
 
+    //
+    // Save the board XML
+    //
+    mDOM.Save(mPath);
+
+    //
+    // Save element to the .rvsr file XML
+    //
     auto path1 = GetRelativePath(designPath);
 
     auto newNode = new wxXmlNode(wxXML_ELEMENT_NODE, name);
     node->AddChild(newNode);
 
     newNode->AddAttribute(L"path", path1);
+
+
 
     return newNode;
 }

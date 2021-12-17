@@ -78,7 +78,17 @@ void XmlHelper::SetAttributeDouble(wxXmlNode* node, wxString attrName, double at
 {
     wxString str;
     str << attrValue;
-    node->AddAttribute(attrName, str);
+
+    // Does the attribute already exist?
+    auto attribute = FindAttribute(node, attrName);
+    if(attribute != nullptr)
+    {
+        attribute->SetValue(str);
+    }
+    else
+    {
+        node->AddAttribute(attrName, str);
+    }
 }
 
 
@@ -93,5 +103,18 @@ bool XmlHelper::GetAttributeBool(wxXmlNode* node, wxString attrName, bool defaul
     return value == L"true";
 }
 
+wxXmlAttribute* XmlHelper::FindAttribute(wxXmlNode* node, wxString attrName)
+{
+    auto attribute = node->GetAttributes();
+    for( ; attribute != nullptr; attribute = attribute->GetNext())
+    {
+        if(attribute->GetName() == attrName)
+        {
+            return attribute;
+        }
+    }
+
+    return nullptr;
+}
 
 

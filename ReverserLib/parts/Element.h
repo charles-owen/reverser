@@ -9,10 +9,13 @@
 #ifndef REVERSER_ELEMENT_H
 #define REVERSER_ELEMENT_H
 
+#include "../pcb/PCBContext.h"
+
 class Packages;
 class Package;
 class Elements;
 class Attribute;
+class PCBContext;
 
 /**
  * An element is a circuit component such as an integrated circuit
@@ -36,10 +39,15 @@ private:
 
 public:
     Element(wxXmlNode* node, Packages* packages);
-    void Draw(wxGraphicsContext* graphics, int pcbWidth, int pcbHeight);
+    void Draw(wxGraphicsContext* graphics,  PCBContext* context, int pcbWidth, int pcbHeight);
 
     auto GetName() {return mName;}
     auto GetValue() {return mValue;}
+
+    bool Click(PCBContext* context, const wxPoint2DDouble& point);
+
+    void Move(const wxPoint2DDouble &delta);
+
 };
 
 #endif //REVERSER_ELEMENT_H

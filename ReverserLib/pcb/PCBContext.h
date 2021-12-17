@@ -14,7 +14,8 @@
 //#include "../components/LayoutComponent.h"
 
 class PCBPanel;
-//class Network;
+class Element;
+class Pad;
 
 
 /**
@@ -23,23 +24,41 @@ class PCBPanel;
 class PCBContext
 {
 public:
-    PCBContext(PCBPanel *panel) : mPCBPanel(panel) {}
-
     enum class EditMode {
         Components,
         Networks
     };
 
+private:
+    PCBPanel *mPCBPanel;
+
+    EditMode mEditMode = EditMode::Components;
+
+    bool mShowValues = false;
+
+    Element* mSelectedElement = nullptr;
+    Pad* mSelectedPad = nullptr;
+//    LayoutComponent::Attribute *mSelectedAttribute = nullptr;
+//
+//    std::set<Network *> mSelectedNetworks;
+
+public:
+    PCBContext(PCBPanel *panel) : mPCBPanel(panel) {}
+
+
     void SetMode(EditMode mode);
     EditMode GetMode() {return mEditMode;}
     bool IsMode(EditMode mode) {return mEditMode == mode; }
 
-//    void Clicked(LayoutComponent *component, LayoutComponent::Pin *pin);
+    void Clicked(Element *element, Pad *pad);
 //    void Clicked(LayoutComponent *component, LayoutComponent::Attribute *attribute);
 
     void ClearSelection();
     void Move(const wxPoint2DDouble& position, const wxPoint2DDouble& delta);
     void Rotate(double angle);
+
+    auto IsSelected(Element* element) const { return element == mSelectedElement; }
+    auto IsSelected(Pad* pad) const {return pad == mSelectedPad;}
 
 //    bool IsSelected(LayoutComponent *component) { return component == mSelectedComponent; }
 //    bool IsSelected(LayoutComponent::Pin *pin) {return pin == mSelectedPin; }
@@ -49,18 +68,7 @@ public:
 
     bool ShowValues() {return mShowValues;}
 
-private:
-    PCBPanel *mPCBPanel;
 
-    EditMode mEditMode = EditMode::Components;
-
-    bool mShowValues = false;
-
-//    LayoutComponent *mSelectedComponent = nullptr;
-//    LayoutComponent::Pin *mSelectedPin = nullptr;
-//    LayoutComponent::Attribute *mSelectedAttribute = nullptr;
-//
-//    std::set<Network *> mSelectedNetworks;
 };
 
 #endif //REVERSER_PCBCONTEXT_H

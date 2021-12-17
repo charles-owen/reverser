@@ -16,19 +16,16 @@ class wxXmlNode;
 class Reverser;
 class Design;
 class Layer;
-class LayoutComponent;
 class wxGraphicsContext;
 class PCBContext;
 class Component;
 
 /**
- * Represent a printed circuit board we are reverse engineering
+ * Represent a printed circuit board image we are reverse engineering
  */
 class PCB
 {
 private:
-    void XmlLoadComponent(wxXmlNode *node);
-
     /// Board width in millimeters
     double mWidth = 150;
 
@@ -43,9 +40,6 @@ private:
 
     Reverser *mReverser;
     Design *mModel;
-
-    /// The layout components
-    std::vector<std::shared_ptr<LayoutComponent>> mComponents;
 
 public:
     PCB(Reverser *reverser, Design *model);
@@ -62,11 +56,6 @@ public:
 
     std::shared_ptr<Layer> GetTop() {return mTop;}
     std::shared_ptr<Layer> GetBottom() {return mBottom;}
-
-    void Add(std::shared_ptr<LayoutComponent> component) {mComponents.push_back(component);}
-    void Delete(std::shared_ptr<Component> component);
-
-    bool Click(PCBContext *context, const wxPoint2DDouble &point);
 };
 
 #endif //REVERSER_PCB_H

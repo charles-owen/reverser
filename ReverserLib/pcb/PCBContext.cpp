@@ -8,24 +8,26 @@
 #include <wx/graphics.h>
 
 #include "PCBContext.h"
+#include "../parts/Element.h"
+#include "../parts/Pad.h"
 
-//
-///**
-// * A component and pin have been clicked on.
-// * @param component Clicked on component
-// * @param pin Pin on the component
-// */
-//void PCBContext::Clicked(LayoutComponent* component, LayoutComponent::Pin* pin)
-//{
-//    ClearSelection();
-//
-//    if(IsMode(EditMode::Components))
-//    {
-//        mSelectedComponent = component;
-//        mSelectedPin = pin;
-//    }
-//}
-//
+
+/**
+ * An element and pad have been clicked on.
+ * @param elmeent Clicked on element
+ * @param pad Pad on the component
+ */
+void PCBContext::Clicked(Element* element, Pad* pad)
+{
+    ClearSelection();
+
+    if(IsMode(EditMode::Components))
+    {
+        mSelectedElement = element;
+        mSelectedPad = pad;
+    }
+}
+
 //void PCBContext::Clicked(LayoutComponent *component, LayoutComponent::Attribute *attribute)
 //{
 //    ClearSelection();
@@ -41,26 +43,21 @@
 
 void PCBContext::ClearSelection()
 {
-//    mSelectedComponent = nullptr;
-//    mSelectedPin = nullptr;
-//    mSelectedAttribute = nullptr;
+    mSelectedElement = nullptr;
+    mSelectedPad = nullptr;
 }
 
 
 void PCBContext::Move(const wxPoint2DDouble &position, const wxPoint2DDouble &delta)
 {
-//    if(IsMode(EditMode::Components))
-//    {
-//        if(mSelectedAttribute != nullptr)
-//        {
-//            mSelectedAttribute->Move(delta);
-//        }
-//        else if(mSelectedComponent != nullptr)
-//        {
-//            mSelectedComponent->Move(delta);
-//        }
-//    }
-//
+    if(IsMode(EditMode::Components))
+    {
+        if(mSelectedElement != nullptr)
+        {
+            mSelectedElement->Move(delta);
+        }
+    }
+
 }
 
 

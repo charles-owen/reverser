@@ -24,8 +24,6 @@ private:
 
 public:
     Text(wxXmlNode* node);
-
-    void Draw(wxGraphicsContext* graphics) override;
 };
 
 #endif //REVERSER_TEXT_H

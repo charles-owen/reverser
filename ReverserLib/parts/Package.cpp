@@ -44,7 +44,14 @@ Package::Package(wxXmlNode* node, const std::wstring& libraryName) : mLibrary(li
     }
 }
 
-void Package::Draw(wxGraphicsContext* graphics)
+
+/**
+ * Draw this package
+ * @param graphics Graphics device to render onto
+ * @param context PCB context currently
+ * @param element Element we are member of
+ */
+void Package::Draw(wxGraphicsContext* graphics, PCBContext* context, Element* element)
 {
     GraphicsHelper gh(graphics);
 
@@ -52,7 +59,32 @@ void Package::Draw(wxGraphicsContext* graphics)
 
     for(auto primitive: mPrimitives)
     {
-        primitive->Draw(graphics);
+        primitive->Draw(graphics, context, element);
+    }
+}
+
+
+/**
+ * Handle mouse clicks (mouse down)
+ * @param context PCB editor context.
+ */
+
+/**
+ * Handle mouse clicks (mouse down)
+ * @param element The element this package is being used for
+ * @param context A PCB context that indicates what to do with the click if it happens
+ * @param point Point clicks on in package coordinates
+ * @return True if clicked on
+ */
+bool Package::Click(Element* element, PCBContext* context, const wxPoint2DDouble &point)
+{
+    for(const auto& primitive: mPrimitives)
+    {
+        if(primitive->Click(element, context, point))
+        {
+            return true;
+        }
     }
 
+    return false;
 }

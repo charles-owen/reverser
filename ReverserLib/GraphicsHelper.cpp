@@ -84,3 +84,17 @@ void GraphicsHelper::Place(wxDouble x, wxDouble y, const std::wstring& rot)
     }
 }
 
+wxPoint2DDouble GraphicsHelper::InversePlace(const wxPoint2DDouble &point, wxDouble x, wxDouble y, const std::wstring& rot)
+{
+    auto point1 = point - wxPoint2DDouble(x, y);
+    if(!rot.empty() && rot[0] == L'R')
+    {
+        double angle = wxAtof(rot.c_str() + 1) / 180.0 * M_PI;
+        double cs = cos(angle);
+        double sn = sin(angle);
+
+        return wxPoint2DDouble(point1.m_x * cs + point1.m_y * sn, -point1.m_x * sn + point1.m_y * cs);
+    }
+
+    return point1;
+}

@@ -31,7 +31,7 @@ public:
     Attribute(wxXmlNode* node);
 
     void Draw(wxGraphicsContext* graphics, Element* element);
-
+    void Move(const wxPoint2DDouble &delta);
 };
 
 #endif //REVERSER_ATTRIBUTE_H

@@ -26,10 +26,14 @@ private:
     // Path shape for long
     wxGraphicsPath mPathLong;
 
+    wxPoint2DDouble mClicked;
+
 public:
     Pad(wxXmlNode* node);
 
-    void Draw(wxGraphicsContext* graphics) override;
+    void Draw(wxGraphicsContext* graphics, PCBContext* context, Element* element) override;
+
+    bool Click(Element* element, PCBContext* context, const wxPoint2DDouble& point) override;
 
 };
 
