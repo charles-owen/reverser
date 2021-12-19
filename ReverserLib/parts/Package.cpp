@@ -10,10 +10,8 @@
 #include "../parts/Text.h"
 #include "../GraphicsHelper.h"
 
-Package::Package(wxXmlNode* node, const std::wstring& libraryName) : mLibrary(libraryName)
+Package::Package(wxXmlNode* node, const std::wstring& libraryName) : LibraryItem(node, libraryName)
 {
-    mName = node->GetAttribute(L"name", L"").ToStdWstring();
-
     auto child = node->GetChildren();
     for( ; child; child = child->GetNext())
     {

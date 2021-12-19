@@ -7,7 +7,7 @@ set(TEST_FILES
         BoardTest.cpp
         XmlHelperTest.cpp
         PackagesTest.cpp
-        ElementsTest.cpp)
+        ElementsTest.cpp SymbolsTest.cpp DeviceSetsTest.cpp)
 
 # Get Google Tests
 include(FetchContent)

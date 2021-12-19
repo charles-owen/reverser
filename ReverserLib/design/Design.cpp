@@ -27,7 +27,10 @@ Design::Design(Reverser *reverser) : mReverser(reverser)
 void Design::PropertiesDlg(wxWindow *parent)
 {
     DesignPropertiesDlg dialog(parent, this);
-    dialog.ShowModal();
+    if(dialog.ShowModal() == wxID_OK)
+    {
+        UpdateObservers();
+    }
 }
 
 void Design::AddObserver(IModelObserver *observer)

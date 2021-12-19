@@ -8,6 +8,8 @@
 #ifndef REVERSER_PACKAGE_H
 #define REVERSER_PACKAGE_H
 
+#include "LibraryItem.h"
+
 class Primitive;
 class Element;
 class PCBContext;
@@ -15,14 +17,8 @@ class PCBContext;
 /**
  * A package is a layout symbol.
  */
-class Package {
+class Package : public LibraryItem {
 private:
-    /// Parts are members of libraries
-    std::wstring mLibrary;
-
-    /// Parts have a name (unique only to the library)
-    std::wstring mName;
-
     /// Part description
     std::wstring mDescription;
 
@@ -32,9 +28,6 @@ private:
 public:
     Package(wxXmlNode* node, const std::wstring& libraryName);
     void Draw(wxGraphicsContext* graphics, PCBContext* context, Element* element);
-
-    auto GetLibrary() {return mLibrary;}
-    auto GetName() {return mName;}
 
     bool Click(Element* element, PCBContext* context, const wxPoint2DDouble& point);
 };

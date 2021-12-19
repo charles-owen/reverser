@@ -34,3 +34,8 @@ bool Schematic::XmlLoad(wxWindow* parent, const std::wstring& designPath, wxXmlN
 
     return true;
 }
+
+void Schematic::XmlParse(wxXmlNode* root)
+{
+    mSymbols.XmlLoad(root);
+}
