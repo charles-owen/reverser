@@ -13,7 +13,7 @@ Symbol::Symbol(wxXmlNode* node, const std::wstring& libraryName) : LibraryItem(n
     auto child = node->GetChildren();
     for( ; child; child = child->GetNext())
     {
-        if(child->GetName() == L"symbol")
+        if(child->GetName() == L"pin")
         {
             mPins.push_back(std::make_shared<Pin>(child));
         }

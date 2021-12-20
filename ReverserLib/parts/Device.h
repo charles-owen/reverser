@@ -28,9 +28,12 @@ public:
 
         auto GetPadName() const {return mPadName;}
         auto GetGate() {return mGate;}
+        auto GetPin() {return mPin;}
     };
 
 private:
+    void XmlConnects(wxXmlNode* node);
+
     DeviceSet* mDeviceSet;
     std::wstring mName;
     std::wstring mPackageName;
@@ -42,12 +45,14 @@ public:
     Device(wxXmlNode* node, DeviceSet* deviceSet);
 
     auto GetDeviceSet() {return mDeviceSet;}
-
     auto GetName() const {return mName;}
+    auto GetPackageName() const {return mPackageName;}
 
-    void XmlConnects(wxXmlNode* node);
 
     std::shared_ptr<Gate> GateForPad(const std::wstring& padName);
+    std::shared_ptr<Connect> ConnectForPad(const std::wstring& padName);
+    std::shared_ptr<Pin> PinForPad(const std::wstring& padName);
+
 };
 
 #endif //REVERSER_DEVICE_H

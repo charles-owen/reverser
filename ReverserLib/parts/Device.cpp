@@ -51,6 +51,32 @@ std::shared_ptr<Gate> Device::GateForPad(const std::wstring& padName)
     return nullptr;
 }
 
+std::shared_ptr<Pin> Device::PinForPad(const std::wstring& padName)
+{
+    for(auto connect: mConnects)
+    {
+        if(connect->GetPadName() == padName)
+        {
+            return connect->GetPin();
+        }
+    }
+
+    return nullptr;
+}
+
+std::shared_ptr<Device::Connect> Device::ConnectForPad(const std::wstring& padName)
+{
+    for(auto connect: mConnects)
+    {
+        if(connect->GetPadName() == padName)
+        {
+            return connect;
+        }
+    }
+
+    return nullptr;
+}
+
 Device::Connect::Connect(wxXmlNode* node, Device* device) : mDevice(device)
 {
     auto deviceSet = device->GetDeviceSet();

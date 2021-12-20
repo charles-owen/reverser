@@ -10,6 +10,8 @@
 
 #include "../EagleDOM.h"
 #include "../parts/Symbols.h"
+#include "../parts/DeviceSets.h"
+#include "../parts/Parts.h"
 
 /**
  * Represents the board schematic and the loaded .sch file (if any)
@@ -17,6 +19,8 @@
 class Schematic : public EagleDOM {
 private:
     Symbols mSymbols;
+    DeviceSets mDeviceSets;
+    Parts mParts;
 
 protected:
     void XmlParse(wxXmlNode* root) override;
