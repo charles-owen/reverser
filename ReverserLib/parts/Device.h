@@ -52,7 +52,8 @@ public:
     std::shared_ptr<Gate> GateForPad(const std::wstring& padName);
     std::shared_ptr<Connect> ConnectForPad(const std::wstring& padName);
     std::shared_ptr<Pin> PinForPad(const std::wstring& padName);
-
+    std::shared_ptr<Pin> GetPin(const std::wstring& pinName);
+    std::wstring PadForPin(const std::wstring& pinName);
 };
 
 #endif //REVERSER_DEVICE_H

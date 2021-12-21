@@ -3,15 +3,15 @@
  * @author Charles B. Owen
  */
 
-#include "../pch.h"
+#include "pch.h"
 
 #include <wx/xrc/xmlres.h>
 #include <algorithm>
 
-#include "../Reverser.h"
+#include "Reverser.h"
 #include "design/Design.h"
-#include "../network/Networks.h"
-#include "../network/Network.h"
+#include "Networks.h"
+#include "Network.h"
 
 #include "NetworkListBox.h"
 

@@ -8,6 +8,7 @@
 #include "DeviceSets.h"
 #include "DeviceSet.h"
 #include "Instance.h"
+#include "Gate.h"
 
 // <part name="U2" library="owen-library"
 // library_urn="urn:adsk.wipprod:fs.file:vf.frPKTRgnS7OtKRM0piDRaQ"
@@ -54,4 +55,17 @@ std::pair<std::shared_ptr<Instance>, std::shared_ptr<Pin>> Part::FindInstanceFor
     }
 
     return std::pair<std::shared_ptr<Instance>, std::shared_ptr<Pin>>();
+}
+
+std::shared_ptr<Instance> Part::FindInstanceForGate(const std::wstring& gateName)
+{
+    for(auto instance: mInstances)
+    {
+        if(instance->GetGate()->GetName() == gateName)
+        {
+            return instance;
+        }
+    }
+
+    return nullptr;
 }

@@ -10,7 +10,7 @@
 #ifndef REVERSER_NETWORKLISTBOX_H
 #define REVERSER_NETWORKLISTBOX_H
 
-#include "../IModelObserver.h"
+#include "IModelObserver.h"
 
 class Reverser;
 class PCBContext;

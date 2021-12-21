@@ -40,4 +40,5 @@ void Schematic::XmlParse(wxXmlNode* root)
     mSymbols.XmlLoad(root);
     mDeviceSets.XmlLoad(root, &mSymbols);
     mParts.XmlLoad(root, &mDeviceSets);
+    mNets.XmlLoad(root, &mParts);
 }

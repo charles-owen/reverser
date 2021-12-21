@@ -39,6 +39,7 @@ public:
 
     std::pair<std::shared_ptr<Instance>, std::shared_ptr<Pin>> FindInstanceForPad(const std::wstring& name);
 
+    std::shared_ptr<Instance> FindInstanceForGate(const std::wstring& gateName);
 };
 
 #endif //REVERSER_PART_H

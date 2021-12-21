@@ -20,7 +20,7 @@ private:
     std::vector<std::shared_ptr<Part>> mParts;
 
 public:
-    bool XmlLoad(wxXmlNode* node, DeviceSets* deviceSets);
+    bool XmlLoad(wxXmlNode* root, DeviceSets* deviceSets);
 
     std::shared_ptr<Part> Find(const std::wstring& name);
 

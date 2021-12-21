@@ -8,7 +8,7 @@
 #include "DeviceSet.h"
 #include "Gate.h"
 #include "Symbol.h"
-
+#include "Pin.h"
 
 Device::Device(wxXmlNode* node, DeviceSet* deviceSet) : mDeviceSet(deviceSet)
 {
@@ -75,6 +75,34 @@ std::shared_ptr<Device::Connect> Device::ConnectForPad(const std::wstring& padNa
     }
 
     return nullptr;
+}
+
+std::shared_ptr<Pin> Device::GetPin(const std::wstring& pinName)
+{
+    for(auto connect: mConnects)
+    {
+        auto pin = connect->GetPin();
+        if(pin != nullptr && pin->GetName() == pinName)
+        {
+            return pin;
+        }
+    }
+
+    return nullptr;
+}
+
+std::wstring Device::PadForPin(const std::wstring& pinName)
+{
+    for(auto connect: mConnects)
+    {
+        auto pin = connect->GetPin();
+        if(pin != nullptr && pin->GetName() == pinName)
+        {
+            return connect->GetPadName();
+        }
+    }
+
+    return L"";
 }
 
 Device::Connect::Connect(wxXmlNode* node, Device* device) : mDevice(device)

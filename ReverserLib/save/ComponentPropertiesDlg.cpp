@@ -3,7 +3,7 @@
  * @author Charles B. Owen
  */
 
-#include "../pch.h"
+#include "pch.h"
 
 #include <wx/xrc/xmlres.h>
 #include <wx/valnum.h>
