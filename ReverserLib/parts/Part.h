@@ -40,6 +40,18 @@ public:
     std::pair<std::shared_ptr<Instance>, std::shared_ptr<Pin>> FindInstanceForPad(const std::wstring& name);
 
     std::shared_ptr<Instance> FindInstanceForGate(const std::wstring& gateName);
+
+    /**
+     * Get an iterator for the beginning of the collection of instances
+     * @return Iter object at position 0
+     */
+    auto begin() { return mInstances.begin(); }
+
+    /**
+     * Get an iterator for the end of the collection of instances
+     * @return Iter object at position past the end
+     */
+    auto end() { return mInstances.end(); }
 };
 
 #endif //REVERSER_PART_H

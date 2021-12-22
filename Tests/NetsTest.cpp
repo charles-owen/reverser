@@ -32,6 +32,12 @@ TEST(NetsTest, XmlLoad)
     auto bad = nets.Find(L"*bad*");
     ASSERT_EQ(nullptr, bad);
 
+    bad = nets.Find(L"ZZZZZZ");
+    ASSERT_EQ(nullptr, bad);
+
+    auto n13 = nets.Find(L"N$13");
+    ASSERT_EQ(L"N$13", n13->GetName());
+
     auto n1 = nets.Find(L"N$1");
     ASSERT_EQ(L"N$1", n1->GetName());
 
@@ -41,5 +47,10 @@ TEST(NetsTest, XmlLoad)
     auto p1 = pinRefs[0];
     auto p1pad = p1->GetPadName();
     ASSERT_EQ(L"9", p1pad);
+
+    for(auto net: nets)
+    {
+        std::cout << net->GetName() << std::endl;
+    }
 }
 

@@ -57,7 +57,7 @@ void GraphicsHelper::DrawCartesianText(const wxString& text, wxDouble x, wxDoubl
 }
 
 
-void GraphicsHelper::CrossHair(wxDouble x, wxDouble y, wxDouble size, wxColour color, wxDouble width)
+void GraphicsHelper::CrossHair(wxDouble x, wxDouble y, wxDouble size, wxColour color, wxDouble width, bool diagonal)
 {
     x *= ResolutionFactor;
     y *= ResolutionFactor;
@@ -68,8 +68,17 @@ void GraphicsHelper::CrossHair(wxDouble x, wxDouble y, wxDouble size, wxColour c
     mGraphics->Scale(1.0/ResolutionFactor, 1.0/ResolutionFactor);
     wxPen pen(color, (int)width);
     mGraphics->SetPen(pen);
-    mGraphics->StrokeLine(x-size/2, y, x+size/2, y);
-    mGraphics->StrokeLine(x, y-size/2, x, y+size/2);
+    if(diagonal)
+    {
+        mGraphics->StrokeLine(x-size/2, y-size/2, x+size/2, y+size/2);
+        mGraphics->StrokeLine(x+size/2, y-size/2, x-size/2, y+size/2);
+    }
+    else
+    {
+        mGraphics->StrokeLine(x-size/2, y, x+size/2, y);
+        mGraphics->StrokeLine(x, y-size/2, x, y+size/2);
+    }
+
     mGraphics->PopState();
 }
 
@@ -97,4 +106,24 @@ wxPoint2DDouble GraphicsHelper::InversePlace(const wxPoint2DDouble &point, wxDou
     }
 
     return point1;
+}
+
+/**
+ * Rotate a point based on Eagle file format rotation strings
+ * @param point Point to rotate
+ * @param rot Rotation as specified in Eagle file format (Rangle)
+ * @return Rotated point
+ */
+wxPoint2DDouble GraphicsHelper::Rotate(const wxPoint2DDouble& point, const std::wstring& rot)
+{
+    if(!rot.empty() && rot[0] == L'R')
+    {
+        double angle = wxAtof(rot.c_str() + 1) / 180.0 * M_PI;
+        double cs = cos(angle);
+        double sn = sin(angle);
+
+        return {point.m_x * cs - point.m_y * sn, point.m_x * sn + point.m_y * cs};
+    }
+
+    return point;
 }

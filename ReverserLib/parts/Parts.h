@@ -25,6 +25,18 @@ public:
     std::shared_ptr<Part> Find(const std::wstring& name);
 
     void XmlSheet(wxXmlNode* node);
+
+    /**
+     * Get an iterator for the beginning of the collection
+     * @return Iter object at position 0
+     */
+    std::vector<std::shared_ptr<Part>>::iterator begin() { return mParts.begin(); }
+
+    /**
+     * Get an iterator for the end of the collection
+     * @return Iter object at position past the end
+     */
+    std::vector<std::shared_ptr<Part>>::iterator end() { return mParts.end(); }
 };
 
 #endif //REVERSER_PARTS_H

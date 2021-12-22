@@ -3,7 +3,7 @@
  * @author Charles Owen
  *
  * A device is a single schematic item such as a gate or other symbol.
- * A package can have multiple devices
+ * A package/part can have multiple devices
  */
 
 #ifndef REVERSER_DEVICE_H
@@ -13,23 +13,15 @@ class Package;
 class DeviceSet;
 class Gate;
 class Pin;
+class DeviceConnect;
 
+/**
+ * A device is a single schematic item such as a gate or other symbol.
+ * A package/part can have multiple devices
+ */
 class Device {
 public:
-    class Connect {
-    private:
-        Device* mDevice;
-        std::wstring mPadName;
-        std::shared_ptr<Gate> mGate;
-        std::shared_ptr<Pin> mPin;
 
-    public:
-        Connect(wxXmlNode* node, Device* device);
-
-        auto GetPadName() const {return mPadName;}
-        auto GetGate() {return mGate;}
-        auto GetPin() {return mPin;}
-    };
 
 private:
     void XmlConnects(wxXmlNode* node);
@@ -39,7 +31,7 @@ private:
     std::wstring mPackageName;
     std::shared_ptr<Package> mPackage;
 
-    std::vector<std::shared_ptr<Connect>> mConnects;
+    std::vector<std::shared_ptr<DeviceConnect>> mConnects;
 
 public:
     Device(wxXmlNode* node, DeviceSet* deviceSet);
@@ -50,7 +42,7 @@ public:
 
 
     std::shared_ptr<Gate> GateForPad(const std::wstring& padName);
-    std::shared_ptr<Connect> ConnectForPad(const std::wstring& padName);
+    std::shared_ptr<DeviceConnect> ConnectForPad(const std::wstring& padName);
     std::shared_ptr<Pin> PinForPad(const std::wstring& padName);
     std::shared_ptr<Pin> GetPin(const std::wstring& pinName);
     std::wstring PadForPin(const std::wstring& pinName);

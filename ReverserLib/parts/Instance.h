@@ -31,6 +31,10 @@ public:
     std::shared_ptr<Pin> FindPinForPad(const std::wstring& name);
 
     auto GetGate() {return mGate;}
+
+    auto GetX() const {return mX;}
+    auto GetY() const {return mY;}
+    auto GetRot() const {return mRot;}
 };
 
 #endif //REVERSER_INSTANCE_H

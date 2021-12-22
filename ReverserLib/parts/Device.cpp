@@ -5,6 +5,7 @@
 
 #include "../pch.h"
 #include "Device.h"
+#include "DeviceConnect.h"
 #include "DeviceSet.h"
 #include "Gate.h"
 #include "Symbol.h"
@@ -32,7 +33,7 @@ void Device::XmlConnects(wxXmlNode* node)
     {
         if(child->GetName() == L"connect")
         {
-            auto connect = std::make_shared<Connect>(child, this);
+            auto connect = std::make_shared<DeviceConnect>(child, this);
             mConnects.push_back(connect);
         }
     }
@@ -64,7 +65,7 @@ std::shared_ptr<Pin> Device::PinForPad(const std::wstring& padName)
     return nullptr;
 }
 
-std::shared_ptr<Device::Connect> Device::ConnectForPad(const std::wstring& padName)
+std::shared_ptr<DeviceConnect> Device::ConnectForPad(const std::wstring& padName)
 {
     for(auto connect: mConnects)
     {
@@ -105,18 +106,3 @@ std::wstring Device::PadForPin(const std::wstring& pinName)
     return L"";
 }
 
-Device::Connect::Connect(wxXmlNode* node, Device* device) : mDevice(device)
-{
-    auto deviceSet = device->GetDeviceSet();
-
-    auto gate = node->GetAttribute(L"gate");
-    auto pin = node->GetAttribute(L"pin");
-    mPadName = node->GetAttribute(L"pad");
-
-    mGate = deviceSet->FindGate(gate.ToStdWstring());
-    auto symbol = mGate->GetSymbol();
-    if(symbol != nullptr)
-    {
-        mPin = symbol->FindPin(pin.ToStdWstring());
-    }
-}

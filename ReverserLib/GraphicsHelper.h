@@ -41,12 +41,13 @@ public:
 
     void DrawCartesianText(const wxString& text, wxDouble x, wxDouble y, Horizontal alignHorizontal=Horizontal::LEFT,
             Vertical alignVertical=Vertical::BOTTOM, bool invert=false);
-    void CrossHair(wxDouble x, wxDouble y, wxDouble size=10, wxColour color=*wxWHITE, wxDouble width=0.1);
+    void CrossHair(wxDouble x, wxDouble y, wxDouble size=10, wxColour color=*wxWHITE, wxDouble width=0.1, bool diagonal=false);
 
     void Place(wxDouble x, wxDouble y, const std::wstring& rot);
     void UnPlace() {mGraphics->PopState();}
 
     static wxPoint2DDouble InversePlace(const wxPoint2DDouble& point, wxDouble x, wxDouble y, const std::wstring& rot);
+    static wxPoint2DDouble Rotate(const wxPoint2DDouble& point, const std::wstring& rot);
 };
 
 #endif //REVERSER_GRAPHICSHELPER_H

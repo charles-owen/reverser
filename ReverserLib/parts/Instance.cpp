@@ -8,6 +8,7 @@
 #include "DeviceSet.h"
 #include "Part.h"
 #include "Device.h"
+#include "DeviceConnect.h"
 #include "../XmlHelper.h"
 
 Instance::Instance(wxXmlNode* node, Part* part, std::shared_ptr<DeviceSet>  deviceSet) :

@@ -42,7 +42,7 @@ set(SOURCE_FILES
         parts/Pin.cpp parts/Pin.h
         parts/Parts.cpp parts/Parts.h
         parts/Part.cpp parts/Part.h
-        parts/Instance.cpp parts/Instance.h network/Nets.cpp network/Nets.h network/Net.cpp network/Net.h network/Segment.cpp network/Segment.h parts/Junction.cpp parts/Junction.h network/PinRef.cpp network/PinRef.h)
+        parts/Instance.cpp parts/Instance.h network/Nets.cpp network/Nets.h network/Net.cpp network/Net.h network/Segment.cpp network/Segment.h parts/Junction.cpp parts/Junction.h network/PinRef.cpp network/PinRef.h parts/DeviceConnect.cpp parts/DeviceConnect.h)
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
 

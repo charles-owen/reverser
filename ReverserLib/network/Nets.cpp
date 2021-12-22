@@ -22,6 +22,7 @@ bool Nets::XmlLoad(wxXmlNode* root, Parts* parts)
         }
     }
 
+    Sort();
     return true;
 }
 
@@ -41,11 +42,27 @@ void Nets::XmlSheet(wxXmlNode* node, Parts* parts)
     }
 }
 
+/**
+ * Find a network by name.
+ * @param name Name of the network to find
+ * @return Pointer to found network or empty pointer if not found
+ */
 std::shared_ptr<Net> Nets::Find(const std::wstring& name)
 {
-    auto i = std::find_if(mNets.begin(), mNets.end(),
-            [&name](const std::shared_ptr<Net>& x) { return x->GetName() == name;});
+    auto lb = std::lower_bound(mNets.begin(), mNets.end(), name,
+            [](const std::shared_ptr<Net>& a, const std::wstring& name)
+            {
+                return a->GetName().compare(name) < 0;
+            });
 
-    return i != mNets.end() ? *i : nullptr;
+    return (lb != mNets.end() && (*lb)->GetName() == name) ? *lb : nullptr;
 }
 
+void Nets::Sort()
+{
+    std::sort(mNets.begin(), mNets.end(),
+            [](const std::shared_ptr<Net>& a, const std::shared_ptr<Net>& b)
+            {
+                return a->GetName().compare(b->GetName()) < 0;
+            });
+}

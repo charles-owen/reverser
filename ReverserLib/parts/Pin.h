@@ -21,6 +21,9 @@ public:
     explicit Pin(wxXmlNode* node);
 
     auto GetName() const {return mName;}
+
+    auto GetX() const {return mX;}
+    auto GetY() const {return mY;}
 };
 
 #endif //REVERSER_PIN_H
